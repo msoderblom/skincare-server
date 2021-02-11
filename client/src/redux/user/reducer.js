@@ -5,6 +5,7 @@ const initState = {
   loading: false,
   signUpData: null,
   signUpError: null,
+  signInError: null,
 };
 
 const userReducer = (state = initState, action) => {
@@ -29,6 +30,29 @@ const userReducer = (state = initState, action) => {
         ...state,
         loading: false,
         signUpError: action.error,
+      };
+    case actionTypes.SIGN_IN_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        signInError: null,
+      };
+    case actionTypes.SIGN_IN_SUCCESS:
+      console.log("Payload in reducer", action.payload);
+
+      // TODO: save token (and maybe user) in localStorage
+      return {
+        ...state,
+        loading: false,
+        user: action?.payload.user,
+      };
+    case actionTypes.SIGN_IN_FAILURE:
+      console.log("error from reducer: ", action.error);
+      return {
+        ...state,
+        loading: false,
+        signInError: action.error,
+        user: {},
       };
     default:
       return state;
