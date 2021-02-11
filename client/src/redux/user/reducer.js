@@ -40,7 +40,7 @@ const userReducer = (state = initState, action) => {
     case actionTypes.SIGN_IN_SUCCESS:
       console.log("Payload in reducer", action.payload);
 
-      // TODO: save token (and maybe user) in localStorage
+      localStorage.setItem("profile", JSON.stringify({ ...action?.payload }));
       return {
         ...state,
         loading: false,
