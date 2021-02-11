@@ -30,13 +30,46 @@ export const signUp = async (req, res, next) => {
 };
 
 // login
-export const signIn = async (req, res) => {
-  res.send("Sign in route");
+export const signIn = async (req, res, next) => {
+  const { email, password } = req.body;
 
-  /*   // Check if email and password is provided
-   if (!email || !password) {
-    return next(new ErrorResponse("Please provide an email and password", 400));
-  } */
+  // Check if email and password is provided
+  if (!email || !password) {
+    return next(new ErrorResponse("Please provide email and password", 400));
+  }
+  try {
+    const user = await User.findOne({ email }).select("+password");
+
+    // Check if the user exists
+    if (!user) {
+      // 404 means the user can't be found in the db
+      return next(
+        new ErrorResponse("Invalid credentials. This user doesn't exist. ", 404)
+      );
+    }
+
+    // Check if the correct password is provided
+    const isPasswordMatch = await user.matchPasswords(password);
+
+    // If passwords do not match, throw error
+    if (!isPasswordMatch) {
+      return next(new ErrorResponse("Invalid password.", 404));
+    }
+
+    const userResponse = {
+      username: user.username,
+      email: user.email,
+      _id: user._id,
+    };
+
+    res.status(200).json({
+      success: true,
+      user: userResponse,
+      token: "fgndifgndf",
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
 // forgotPassword
