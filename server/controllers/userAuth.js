@@ -62,10 +62,12 @@ export const signIn = async (req, res, next) => {
       _id: user._id,
     };
 
+    const token = user.getSignedToken();
+
     res.status(200).json({
       success: true,
       user: userResponse,
-      token: "fgndifgndf",
+      token,
     });
   } catch (error) {
     next(error);
