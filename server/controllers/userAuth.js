@@ -1,11 +1,22 @@
 import User from "../models/User.js";
 import ErrorResponse from "../utils/errorResponse.js";
-// register
 
 export const signUp = async (req, res, next) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, confirmPassword } = req.body;
 
   try {
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      return next(
+        new ErrorResponse("There's already a user with that email", 400)
+      );
+    }
+
+    if (password !== confirmPassword) {
+      return next(new ErrorResponse("Passwords don't match", 400));
+    }
+
     // creating a new user
     const user = await User.create({ username, email, password });
 
@@ -15,11 +26,6 @@ export const signUp = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
-
-    /* res.status(500).json({
-      success: false,
-      error: error.message,
-    }); */
   }
 };
 
@@ -32,5 +38,6 @@ export const signIn = async (req, res) => {
     return next(new ErrorResponse("Please provide an email and password", 400));
   } */
 };
+
 // forgotPassword
 // resetPassword
