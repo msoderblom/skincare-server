@@ -5,14 +5,14 @@ import decode from "jwt-decode";
 
 const Header = () => {
   const location = useLocation();
-  const { user: userData, token } = JSON.parse(localStorage.getItem("profile"));
+  const profile = JSON.parse(localStorage.getItem("profile"));
+
   // console.log(profile);
-  const [user, setUser] = useState(userData);
-  console.log(user);
+  const [user, setUser] = useState(profile?.user || null);
 
   useEffect(() => {
     //JWT ...
-
+    const token = profile?.token;
     if (token) {
       // const decodedToken = decode(token);
       // Check if the users token has expired, if true then logout will
@@ -21,13 +21,13 @@ const Header = () => {
       } */
     }
 
-    setUser(JSON.parse(localStorage.getItem("profile")).user);
-  }, [location, token]);
+    setUser(JSON.parse(localStorage.getItem("profile"))?.user);
+  }, [location, profile?.token]);
 
   return (
     <S.Container>
       <p>Header</p>
-      <p>User: {user.username}</p>
+      {user && <p>User: {user.username}</p>}
     </S.Container>
   );
 };
