@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import userRoutes from "./routes/users.js";
+import forumRoutes from "./routes/forum.js";
 import connectDB from "./config/db.js";
 import errorHandler from "./middleware/error.js";
 
@@ -24,6 +25,7 @@ app.use(express.json()); // gör så att man kan parse:a json
 
 // Routes
 app.use("/api/users", userRoutes);
+app.use("/api/forum", forumRoutes);
 
 // Error Handler
 app.use(errorHandler);
