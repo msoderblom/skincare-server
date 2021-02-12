@@ -4,15 +4,15 @@ const ThreadSchema = mongoose.Schema(
   {
     user_id: {
       type: mongoose.ObjectId,
-      required: true,
+      required: [true, "Please provide a user id"],
     },
     title: {
       type: String,
-      required: true,
+      required: [true, "Please provide a title"],
     },
     body: {
       type: String,
-      required: true,
+      required: [true, "Please provide a body"],
     },
     likes: {
       type: [String],
