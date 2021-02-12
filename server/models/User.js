@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+// TODO: add trim: true to username, and maybe email. And maybe add timestamps
+
 const UserSchema = mongoose.Schema({
   username: {
     type: String,
