@@ -1,6 +1,7 @@
 import { Switch, Route } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
 import CreateThreadPage from "./pages/forum/CreateThreadPage";
+import ForumFeedPage from "./pages/forum/ForumFeedPage";
 import Header from "./components/Header";
 
 const App = () => {
@@ -9,11 +10,14 @@ const App = () => {
       <Header />
       React App
       <Switch>
-        <Route path="/auth" component={AuthPage} />
-        <Route path="/forum/create-thread" component={CreateThreadPage} />
+        <Route exact path="/auth" component={AuthPage} />
+        <Route exact path="/forum" component={ForumFeedPage} />
+        <Route exact path="/forum/create-thread" component={CreateThreadPage} />
       </Switch>
     </div>
   );
 };
 
 export default App;
+
+// TODO: Create protected (check login) route for /forum/create-thread

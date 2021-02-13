@@ -2,6 +2,7 @@ import * as actionTypes from "./types";
 
 const initState = {
   threads: [],
+  totalPages: 1,
   loading: false,
   createdThread: null,
   createThreadError: null,
@@ -30,6 +31,30 @@ const threadsReducer = (state = initState, action) => {
         ...state,
         loading: false,
         createThreadError: action.error,
+      };
+
+    // GET THREADS
+    case actionTypes.GET_THREADS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        getThreadsError: null,
+      };
+    case actionTypes.GET_THREADS_SUCCESS:
+      console.log("Payload in reducer", action.payload);
+
+      return {
+        ...state,
+        loading: false,
+        threads: action.payload.threads,
+        totalPages: action.payload.totalPages,
+      };
+    case actionTypes.GET_THREADS_FAILURE:
+      console.log("error from reducer: ", action.error);
+      return {
+        ...state,
+        loading: false,
+        getThreadsError: action.error,
       };
 
     default:
