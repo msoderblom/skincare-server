@@ -1,9 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { TextareaAutosize, TextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Input from "../../../components/Input";
+import { threadActions } from "../../../redux/forum/threads";
 import createThreadSchema from "../../../validation/createThreadSchema";
 import * as S from "./styled";
 
@@ -13,11 +14,14 @@ const CreateThreadPage = () => {
   });
   const dispatch = useDispatch();
 
+  const { createdThread, createThreadError, loading } = useSelector(
+    (state) => state.forum.threads
+  );
   const handleCreateThread = (data) => {
     console.log("In handleSignIn");
     console.log(data);
 
-    // dispatch(userActions.signIn(data));
+    dispatch(threadActions.createThread(data));
   };
 
   return (
@@ -47,7 +51,8 @@ const CreateThreadPage = () => {
         />
 
         <button type="submit">Create Thread</button>
-        {/* {signInError && <span>{signInError}</span>} */}
+        {createThreadError && <span>{createThreadError}</span>}
+        {createdThread && <span>{createdThread.title}</span>}
       </form>
     </S.Container>
   );
