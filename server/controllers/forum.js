@@ -54,7 +54,7 @@ export const getAllThreads = async (req, res, next) => {
       count: result.length,
       page,
       pages,
-      data: result,
+      threads: result,
     });
   } catch (error) {
     next(error);
