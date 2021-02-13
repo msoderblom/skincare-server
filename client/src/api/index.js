@@ -21,4 +21,6 @@ export const signUp = (formData) => API.post("/users/signup", formData);
 export const signIn = (formData) => API.post("/users/signin", formData);
 
 // Forum threads
+export const getThreads = (queryParams) =>
+  API.get(`/forum/threads${queryParams}`);
 export const createThread = (formData) => API.post("/forum/threads", formData);
