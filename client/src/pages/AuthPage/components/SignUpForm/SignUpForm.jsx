@@ -8,14 +8,12 @@ import { userActions } from "../../../../redux/user";
 import * as S from "./styled";
 
 const SignUpForm = () => {
-  const { register, handleSubmit, errors, setError, reset } = useForm({
+  const { register, handleSubmit, errors, setError } = useForm({
     resolver: yupResolver(signupSchema),
   });
 
   const dispatch = useDispatch();
-  const { signUpData, signUpError, loading } = useSelector(
-    (state) => state.user
-  );
+  const { signUpError } = useSelector((state) => state.user);
 
   const handleSignUp = (data) => {
     console.log("In handleSignUp");

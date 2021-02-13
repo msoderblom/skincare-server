@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import * as S from "./styled";
-import decode from "jwt-decode";
+// import decode from "jwt-decode";
 
 const Header = () => {
   const location = useLocation();

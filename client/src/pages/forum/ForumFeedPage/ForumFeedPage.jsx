@@ -20,8 +20,8 @@ const ForumFeedPage = (props) => {
   );
 
   useEffect(() => {
-    dispatch(threadActions.getThreads(`?page=${page}`));
-  }, [page]);
+    dispatch(threadActions.getThreads(`?page=${page}&limit=2`));
+  }, [page, dispatch]);
 
   const handlePageChange = (event, value) => {
     setPage(value);

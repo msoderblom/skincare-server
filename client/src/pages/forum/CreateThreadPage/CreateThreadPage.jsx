@@ -9,12 +9,12 @@ import createThreadSchema from "../../../validation/createThreadSchema";
 import * as S from "./styled";
 
 const CreateThreadPage = () => {
-  const { register, handleSubmit, errors, setError, reset } = useForm({
+  const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(createThreadSchema),
   });
   const dispatch = useDispatch();
 
-  const { createdThread, createThreadError, loading } = useSelector(
+  const { createdThread, createThreadError } = useSelector(
     (state) => state.forum.threads
   );
   const handleCreateThread = (data) => {
