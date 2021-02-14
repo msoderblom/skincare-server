@@ -1,4 +1,6 @@
+import mongoose from "mongoose";
 import Thread from "../models/Thread.js";
+import Comment from "../models/Comment.js";
 import ErrorResponse from "../utils/errorResponse.js";
 
 export const createThread = async (req, res, next) => {
@@ -55,6 +57,34 @@ export const getAllThreads = async (req, res, next) => {
       page,
       pages,
       threads: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const createComment = async (req, res, next) => {
+  const { id: threadID } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(threadID)) {
+    return next(new ErrorResponse("No thread with that id", 404));
+  }
+
+  const { content } = req.body;
+  if (!content) {
+    return next(new ErrorResponse("Please provide content", 400));
+  }
+
+  try {
+    const comment = await Comment.create({
+      thread: threadID,
+      content,
+      author: req.user._id,
+    });
+
+    res.status(201).json({
+      success: true,
+      comment,
     });
   } catch (error) {
     next(error);
