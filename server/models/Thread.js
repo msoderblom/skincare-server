@@ -2,8 +2,9 @@ import mongoose from "mongoose";
 
 const ThreadSchema = mongoose.Schema(
   {
-    user_id: {
-      type: mongoose.ObjectId,
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: [true, "Please provide a user id"],
     },
     title: {

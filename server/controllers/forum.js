@@ -11,7 +11,7 @@ export const createThread = async (req, res, next) => {
     const thread = await Thread.create({
       title,
       body,
-      user_id: req.user._id,
+      author: req.user._id,
     });
 
     res.status(201).json({
@@ -47,7 +47,7 @@ export const getAllThreads = async (req, res, next) => {
       return next(new ErrorResponse("No page found", 404));
     }
 
-    const result = await query;
+    const result = await query.populate("author");
 
     res.status(200).json({
       success: true,
