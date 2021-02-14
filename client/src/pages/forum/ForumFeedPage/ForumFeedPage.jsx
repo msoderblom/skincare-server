@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { threadActions } from "../../../redux/forum/threads";
 import Pagination from "@material-ui/lab/Pagination";
 import * as S from "./styled";
-import { useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 
 const ForumFeedPage = (props) => {
   const dispatch = useDispatch();
@@ -44,7 +44,9 @@ const ForumFeedPage = (props) => {
         <div>
           {threads.map((thread) => (
             <div key={thread._id}>
-              <h3>{thread.title}</h3>
+              <Link to={`/forum/thread/${thread._id}`}>
+                <h3>{thread.title}</h3>
+              </Link>
               <span>Posted by: {thread.author?.username}</span>
               <p>{thread.body}</p>
             </div>
