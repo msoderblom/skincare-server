@@ -20,7 +20,7 @@ const ForumFeedPage = (props) => {
   );
 
   useEffect(() => {
-    dispatch(threadActions.getThreads(`?page=${page}&limit=2`));
+    dispatch(threadActions.getThreads(`?page=${page}`));
   }, [page, dispatch]);
 
   const handlePageChange = (event, value) => {
@@ -43,7 +43,11 @@ const ForumFeedPage = (props) => {
       {threads.length > 0 && !loading && (
         <div>
           {threads.map((thread) => (
-            <p key={thread._id}>{thread.title}</p>
+            <div key={thread._id}>
+              <h3>{thread.title}</h3>
+              <span>Posted by: {thread.author?.username}</span>
+              <p>{thread.body}</p>
+            </div>
           ))}
         </div>
       )}
