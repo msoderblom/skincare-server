@@ -5,8 +5,10 @@ const initState = {
   totalPages: 1,
   loading: false,
   createdThread: null,
+  viewedThread: null,
   createThreadError: null,
   getThreadsError: null,
+  getOneThreadError: null,
 };
 
 const threadsReducer = (state = initState, action) => {
@@ -55,6 +57,29 @@ const threadsReducer = (state = initState, action) => {
         ...state,
         loading: false,
         getThreadsError: action.error,
+      };
+
+    // GET ONE THREAD
+    case actionTypes.GET_ONE_THREAD_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        getOneThreadError: null,
+      };
+    case actionTypes.GET_ONE_THREAD_SUCCESS:
+      console.log("Payload in reducer", action.payload);
+
+      return {
+        ...state,
+        loading: false,
+        viewedThread: action.payload,
+      };
+    case actionTypes.GET_ONE_THREAD_FAILURE:
+      console.log("error from reducer: ", action.error);
+      return {
+        ...state,
+        loading: false,
+        getOneThreadError: action.error,
       };
 
     default:

@@ -24,6 +24,27 @@ export const createThread = async (req, res, next) => {
     next(error);
   }
 };
+export const getThread = async (req, res, next) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return next(new ErrorResponse("Please provide a valid id", 404));
+  }
+  try {
+    const thread = await Thread.findById(id).populate("author");
+
+    if (!thread) {
+      return next(new ErrorResponse("There's no thread with this id", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      thread,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 export const getAllThreads = async (req, res, next) => {
   try {
     let query = Thread.find(); // returns a promise
@@ -67,7 +88,7 @@ export const createComment = async (req, res, next) => {
   const { id: threadID } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(threadID)) {
-    return next(new ErrorResponse("No thread with that id", 404));
+    return next(new ErrorResponse("Please provide a valid thread id", 404));
   }
 
   const { content } = req.body;
@@ -76,6 +97,12 @@ export const createComment = async (req, res, next) => {
   }
 
   try {
+    const thread = await Thread.findById(threadID);
+
+    if (!thread) {
+      return next(new ErrorResponse("There's no thread with this id", 404));
+    }
+
     const comment = await Comment.create({
       thread: threadID,
       content,

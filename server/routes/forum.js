@@ -3,6 +3,7 @@ import {
   createThread,
   getAllThreads,
   createComment,
+  getThread,
 } from "../controllers/forum.js";
 import userAuth from "../middleware/auth.js";
 
@@ -11,6 +12,7 @@ const router = express.Router();
 
 // Defining routes
 router.get("/threads/", getAllThreads);
+router.get("/threads/:id", getThread);
 router.post("/threads/", userAuth, createThread); // you need to be signed in to create a thread
 router.post("/threads/:id/comments", userAuth, createComment); // you need to be signed in to create a comment
 

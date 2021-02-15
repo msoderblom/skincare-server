@@ -51,3 +51,23 @@ export const getThreads = (queryParams = "", history) => async (dispatch) => {
     console.log(error.response.data.error);
   }
 };
+export const getOneThread = (id, history) => async (dispatch) => {
+  dispatch({ type: actionTypes.GET_ONE_THREAD_REQUEST });
+
+  try {
+    const {
+      data: { thread },
+    } = await api.getOneThread(id);
+
+    const payload = { ...thread };
+
+    dispatch({ type: actionTypes.GET_ONE_THREAD_SUCCESS, payload });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_ONE_THREAD_FAILURE,
+      error: error.response.data?.error || error.message,
+    });
+    console.error(error);
+    console.log(error.response.data.error);
+  }
+};
