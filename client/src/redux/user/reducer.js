@@ -1,7 +1,7 @@
 import * as actionTypes from "./types";
 
 const initState = {
-  user: {},
+  user: null,
   loading: false,
   signUpData: null,
   signUpError: null,
@@ -52,8 +52,20 @@ const userReducer = (state = initState, action) => {
         ...state,
         loading: false,
         signInError: action.error,
-        user: {},
+        user: null,
       };
+    case actionTypes.SIGN_OUT:
+      localStorage.removeItem("profile");
+
+      return {
+        ...state,
+        user: null,
+        loading: false,
+        signUpData: null,
+        signUpError: null,
+        signInError: null,
+      };
+
     default:
       return state;
   }

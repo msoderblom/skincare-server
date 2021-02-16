@@ -26,6 +26,7 @@ const CommentsSection = ({ threadID }) => {
   const { comments, getCommentsError, createCommentError } = useSelector(
     (state) => state.forum.comments
   );
+  const { user } = useSelector((state) => state.user);
 
   const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(createCommentSchema),
