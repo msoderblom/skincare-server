@@ -6,29 +6,33 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { commentActions } from "../../../../../redux/forum/comments";
 import { useForm } from "react-hook-form";
 import * as S from "./styled";
-// import openSocket from "socket.io-client"
 import io from "socket.io-client";
 
 let socket;
 const CommentsSection = ({ threadID }) => {
   const ENDPOINT = "http://localhost:5000";
+  const dispatch = useDispatch();
+  const location = useLocation();
 
-  /* socket.on("new-comments", (comment) => {
-    setComments((prev) => [...prev, comment]);
-  }); */
-  const [comments, setComments] = useState([]);
+  // const [comments, setComments] = useState([]);
+
+  const { comments, getCommentsError, loading } = useSelector(
+    (state) => state.forum.comments
+  );
 
   const { register, handleSubmit, errors, setError, reset } = useForm();
 
   useEffect(() => {
-    getComments();
+    dispatch(commentActions.getComments(threadID));
     socket = io(ENDPOINT, {
       transport: ["websocket", "polling"],
     });
 
-    // const userId = JSON.parse(localStorage.getItem("profile")).user._id;
     socket.emit("join-comments-section", threadID);
 
     return () => {
@@ -37,23 +41,15 @@ const CommentsSection = ({ threadID }) => {
 
       socket.off();
     };
-  }, []);
+  }, [location, threadID, dispatch]);
 
   useEffect(() => {
     console.log("Inside useEffect with socket.on");
     socket.on("new-comment", (comment) => {
-      getComments();
+      dispatch(commentActions.getComments(threadID));
       // setComments((prev) => [...prev, comment]);
     });
   }, []);
-
-  const getComments = () => {
-    fetch(`http://localhost:5000/api/forum/threads/${threadID}/comments`, {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => setComments(data.comments));
-  };
 
   const handleSendComment = (data) => {
     const payload = JSON.stringify(data);
@@ -118,6 +114,8 @@ const CommentsSection = ({ threadID }) => {
           ))}
         </List>
       )}
+
+      {getCommentsError && <span>{getCommentsError}</span>}
     </S.Container>
   );
 };
