@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { threadActions, threadTypes } from "../../../redux/forum/threads";
+import CommentsSection from "./components/CommentsSection/CommentsSection";
 import * as S from "./styled";
 
 const ThreadDetailPage = () => {
@@ -40,6 +41,8 @@ const ThreadDetailPage = () => {
           <p>{thread.body}</p>
         </div>
       )}
+
+      <CommentsSection threadID={id} />
     </S.Container>
   );
 };

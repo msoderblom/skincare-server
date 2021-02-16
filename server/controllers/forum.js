@@ -103,15 +103,43 @@ export const createComment = async (req, res, next) => {
       return next(new ErrorResponse("There's no thread with this id", 404));
     }
 
-    const comment = await Comment.create({
+    let comment = await Comment.create({
       thread: threadID,
       content,
       author: req.user._id,
     });
 
+    comment = await comment.populate("author").execPopulate();
+
     res.status(201).json({
       success: true,
       comment,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+export const getThreadComments = async (req, res, next) => {
+  const { id: threadID } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(threadID)) {
+    return next(new ErrorResponse("Please provide a valid thread id", 404));
+  }
+
+  try {
+    const thread = await Thread.findById(threadID);
+
+    if (!thread) {
+      return next(new ErrorResponse("There's no thread with this id", 404));
+    }
+
+    const comments = await Comment.find({ thread: threadID }).populate(
+      "author"
+    );
+
+    res.status(200).json({
+      success: true,
+      comments,
     });
   } catch (error) {
     next(error);
