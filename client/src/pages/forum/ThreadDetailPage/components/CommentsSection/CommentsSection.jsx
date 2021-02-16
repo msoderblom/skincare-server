@@ -13,24 +13,23 @@ import {
   commentTypes,
 } from "../../../../../redux/forum/comments";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as S from "./styled";
 import io from "socket.io-client";
+import createCommentSchema from "../../../../../validation/createCommentSchema";
 
 let socket;
 const CommentsSection = ({ threadID }) => {
   const ENDPOINT = "http://localhost:5000";
   const dispatch = useDispatch();
-  const location = useLocation();
 
-  const {
-    comments,
-    getCommentsError,
-    loading,
-    createdComment,
-    createCommentError,
-  } = useSelector((state) => state.forum.comments);
+  const { comments, getCommentsError, createCommentError } = useSelector(
+    (state) => state.forum.comments
+  );
 
-  const { register, handleSubmit, errors, setError, reset } = useForm();
+  const { register, handleSubmit, errors, reset } = useForm({
+    resolver: yupResolver(createCommentSchema),
+  });
 
   useEffect(() => {
     dispatch(commentActions.getComments(threadID));
@@ -59,7 +58,6 @@ const CommentsSection = ({ threadID }) => {
 
   const handleSendComment = (data) => {
     dispatch(commentActions.createComment(data, threadID, socket));
-
     reset();
   };
 
@@ -75,7 +73,6 @@ const CommentsSection = ({ threadID }) => {
           label="Your comment"
           multiline
           variant="outlined"
-          required
           inputRef={register}
           helperText={errors.content?.message}
           errors={errors.content}
