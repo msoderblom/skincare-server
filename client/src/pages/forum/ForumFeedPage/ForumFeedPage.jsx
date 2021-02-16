@@ -21,7 +21,7 @@ const ForumFeedPage = (props) => {
 
   useEffect(() => {
     dispatch(threadActions.getThreads(`?page=${page}`));
-  }, [page, dispatch]);
+  }, [page, dispatch, location]);
 
   const handlePageChange = (event, value) => {
     setPage(value);

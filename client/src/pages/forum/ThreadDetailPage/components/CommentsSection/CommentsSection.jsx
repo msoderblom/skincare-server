@@ -8,7 +8,10 @@ import {
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { commentActions } from "../../../../../redux/forum/comments";
+import {
+  commentActions,
+  commentTypes,
+} from "../../../../../redux/forum/comments";
 import { useForm } from "react-hook-form";
 import * as S from "./styled";
 import io from "socket.io-client";
@@ -19,11 +22,13 @@ const CommentsSection = ({ threadID }) => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  // const [comments, setComments] = useState([]);
-
-  const { comments, getCommentsError, loading } = useSelector(
-    (state) => state.forum.comments
-  );
+  const {
+    comments,
+    getCommentsError,
+    loading,
+    createdComment,
+    createCommentError,
+  } = useSelector((state) => state.forum.comments);
 
   const { register, handleSubmit, errors, setError, reset } = useForm();
 
@@ -37,38 +42,24 @@ const CommentsSection = ({ threadID }) => {
 
     return () => {
       //  turn off socket if user leaves the comments section
-      // socket.emit("leave-comments-section");
-
       socket.off();
     };
-  }, [location, threadID, dispatch]);
+    // eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     console.log("Inside useEffect with socket.on");
+    console.log("listen on new-comment");
     socket.on("new-comment", (comment) => {
       dispatch(commentActions.getComments(threadID));
-      // setComments((prev) => [...prev, comment]);
     });
+    // eslint-disable-next-line
   }, []);
 
   const handleSendComment = (data) => {
-    const payload = JSON.stringify(data);
-
-    const token = JSON.parse(localStorage.getItem("profile")).token;
-    fetch(`http://localhost:5000/api/forum/threads/${threadID}/comments`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: payload,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        socket.emit("new-comment", { comment: data.comment, threadID });
-        reset();
-      })
-      .catch((err) => console.log(err.message));
+    dispatch(commentActions.createComment(data, threadID));
+    socket.emit("new-comment", { comment: createdComment, threadID });
+    reset();
   };
 
   return (
@@ -90,6 +81,7 @@ const CommentsSection = ({ threadID }) => {
         />
 
         <button type="submit">Comment</button>
+        {createCommentError && <span>{createCommentError}</span>}
       </form>
 
       {comments.length > 0 && (

@@ -17,15 +17,6 @@ connectDB();
 // Initialize app // Skapar en express server
 const app = express();
 
-// cors middleware
-/* app.use(
-  cors({
-    origin: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
-    methods: ["GET", "PUT", "POST"],
-  })
-); */
-
 app.use(cors());
 
 // allow us to have acces to the json data sent on our request body
@@ -49,16 +40,13 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  // console.log("User connected");
-  /*   socket.on("leave-comments-section", () => {
-    console.log("User disconnected");
-  }); */
-
   socket.on("join-comments-section", (threadID, callback) => {
+    console.log("User joined comment section", threadID);
     socket.join(threadID);
   });
 
   socket.on("new-comment", ({ comment, threadID }, callback) => {
+    console.log("in new comment");
     // the server emitting an event to the client
     io.in(threadID).emit("new-comment", comment);
   });

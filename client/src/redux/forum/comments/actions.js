@@ -1,20 +1,17 @@
 import * as actionTypes from "./types";
 import * as api from "../../../api";
 
-export const createComment = (formData, history) => async (dispatch) => {
+export const createComment = (formData, threadID, history) => async (
+  dispatch
+) => {
   dispatch({ type: actionTypes.CREATE_COMMENT_REQUEST });
 
   try {
     const {
-      data: { thread },
-    } = await api.createThread(formData);
+      data: { comment },
+    } = await api.createComment(formData, threadID);
 
-    const payload = {
-      title: thread.title,
-      body: thread.body,
-    };
-
-    dispatch({ type: actionTypes.CREATE_COMMENT_SUCCESS, payload });
+    dispatch({ type: actionTypes.CREATE_COMMENT_SUCCESS, payload: comment });
 
     // history.push("/");
   } catch (error) {
