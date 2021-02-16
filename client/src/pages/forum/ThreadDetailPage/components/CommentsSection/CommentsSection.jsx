@@ -51,7 +51,8 @@ const CommentsSection = ({ threadID }) => {
     console.log("Inside useEffect with socket.on");
     console.log("listen on new-comment");
     socket.on("new-comment", (comment) => {
-      dispatch(commentActions.getComments(threadID));
+      // dispatch(commentActions.getComments(threadID));
+      dispatch({ type: commentTypes.UPDATE_COMMENTS, payload: comment });
     });
     // eslint-disable-next-line
   }, []);

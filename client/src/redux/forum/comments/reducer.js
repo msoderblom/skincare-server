@@ -55,7 +55,7 @@ const commentsReducer = (state = initState, action) => {
         getCommentsError: action.error,
       };
     case actionTypes.UPDATE_COMMENTS:
-      console.log("error from reducer: ", action.error);
+      console.log("Payload inside update comments: ", action.payload);
       return {
         ...state,
         comments: [...state.comments, action.payload],
