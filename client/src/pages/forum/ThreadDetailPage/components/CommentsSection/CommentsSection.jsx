@@ -57,8 +57,8 @@ const CommentsSection = ({ threadID }) => {
   }, []);
 
   const handleSendComment = (data) => {
-    dispatch(commentActions.createComment(data, threadID));
-    socket.emit("new-comment", { comment: createdComment, threadID });
+    dispatch(commentActions.createComment(data, threadID, socket));
+
     reset();
   };
 

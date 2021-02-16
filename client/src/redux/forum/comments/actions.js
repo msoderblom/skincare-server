@@ -1,7 +1,7 @@
 import * as actionTypes from "./types";
 import * as api from "../../../api";
 
-export const createComment = (formData, threadID, history) => async (
+export const createComment = (formData, threadID, socket, history) => async (
   dispatch
 ) => {
   dispatch({ type: actionTypes.CREATE_COMMENT_REQUEST });
@@ -12,6 +12,7 @@ export const createComment = (formData, threadID, history) => async (
     } = await api.createComment(formData, threadID);
 
     dispatch({ type: actionTypes.CREATE_COMMENT_SUCCESS, payload: comment });
+    socket.emit("new-comment", { comment, threadID });
 
     // history.push("/");
   } catch (error) {
