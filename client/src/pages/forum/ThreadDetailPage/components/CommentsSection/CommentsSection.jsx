@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   commentActions,
@@ -22,6 +22,7 @@ let socket;
 const CommentsSection = ({ threadID }) => {
   const ENDPOINT = "http://localhost:5000";
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const { comments, getCommentsError, createCommentError } = useSelector(
     (state) => state.forum.comments
@@ -66,22 +67,31 @@ const CommentsSection = ({ threadID }) => {
     <S.Container>
       <p>CommentsSection</p>
 
-      <form onSubmit={handleSubmit(handleSendComment)}>
-        <p>Leave a comment</p>
+      {user ? (
+        <form onSubmit={handleSubmit(handleSendComment)}>
+          <p>Leave a comment</p>
 
-        <TextField
-          name="content"
-          label="Your comment"
-          multiline
-          variant="outlined"
-          inputRef={register}
-          helperText={errors.content?.message}
-          errors={errors.content}
-        />
+          <TextField
+            name="content"
+            label="Your comment"
+            multiline
+            variant="outlined"
+            inputRef={register}
+            helperText={errors.content?.message}
+            errors={errors.content}
+          />
 
-        <button type="submit">Comment</button>
-        {createCommentError && <span>{createCommentError}</span>}
-      </form>
+          <button type="submit">Comment</button>
+          {createCommentError && <span>{createCommentError}</span>}
+        </form>
+      ) : (
+        <div>
+          <span>Sign in to leave a comment</span>
+          <button onClick={() => history.push("/auth")}>
+            Sign In / Sign Up
+          </button>
+        </div>
+      )}
 
       {comments.length > 0 && (
         <List>

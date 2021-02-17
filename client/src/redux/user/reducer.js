@@ -65,6 +65,11 @@ const userReducer = (state = initState, action) => {
         signUpError: null,
         signInError: null,
       };
+    case actionTypes.SET_USER:
+      return {
+        ...state,
+        user: action.payload,
+      };
 
     default:
       return state;

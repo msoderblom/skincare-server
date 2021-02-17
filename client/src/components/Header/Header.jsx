@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import * as S from "./styled";
 import decode from "jwt-decode";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userTypes } from "../../redux/user";
+
 const Header = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const history = useHistory();
-  const profile = JSON.parse(localStorage.getItem("profile"));
 
-  // console.log(profile);
-  const [user, setUser] = useState(profile?.user || null);
-
+  const { user } = useSelector((state) => state.user);
   useEffect(() => {
-    //JWT ...
+    const profile = JSON.parse(localStorage.getItem("profile"));
     const token = profile?.token;
     if (token) {
       const decodedToken = decode(token);
@@ -22,16 +20,20 @@ const Header = () => {
       if (decodedToken.exp * 1000 < new Date().getTime()) {
         signOut();
       }
+
+      if (profile.user) {
+        dispatch({
+          type: userTypes.SET_USER,
+          payload: profile.user,
+        });
+      }
     }
 
-    setUser(JSON.parse(localStorage.getItem("profile"))?.user);
     // eslint-disable-next-line
   }, [location]);
 
   const signOut = () => {
     dispatch({ type: userTypes.SIGN_OUT });
-    // history.push("/");
-    setUser(null);
   };
 
   return (
