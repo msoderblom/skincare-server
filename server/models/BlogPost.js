@@ -3,9 +3,8 @@ import mongoose from "mongoose";
 const BlogPostSchema = mongoose.Schema(
   {
     author: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: [true, "Please provide a user id"],
+      type: String,
+      required: [true, "Please provide an author"],
     },
     published: {
       type: Boolean,
