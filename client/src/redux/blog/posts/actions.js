@@ -25,24 +25,23 @@ export const getPosts = (queryParams = "", history) => async (dispatch) => {
   }
 };
 
-/* export const getOnePost = (id, history) => async (dispatch) => {
-  dispatch({ type: actionTypes.GET_ONE_THREAD_REQUEST });
+export const getOnePost = (id, history) => async (dispatch) => {
+  dispatch({ type: actionTypes.GET_ONE_POST_REQUEST });
 
   try {
     const {
-      data: { thread },
-    } = await api.getOneThread(id);
+      data: { post },
+    } = await api.getOneBlogPost(id);
 
-    const payload = { ...thread };
+    const payload = { ...post };
 
-    dispatch({ type: actionTypes.GET_ONE_THREAD_SUCCESS, payload });
+    dispatch({ type: actionTypes.GET_ONE_POST_SUCCESS, payload });
   } catch (error) {
     dispatch({
-      type: actionTypes.GET_ONE_THREAD_FAILURE,
+      type: actionTypes.GET_ONE_POST_FAILURE,
       error: error.response.data?.error || error.message,
     });
     console.error(error);
     console.log(error.response.data.error);
   }
 };
- */

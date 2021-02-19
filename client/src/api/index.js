@@ -23,6 +23,7 @@ export const signIn = (formData) => API.post("/users/signin", formData);
 // Blog posts
 export const getBlogPosts = (queryParams) =>
   API.get(`/blog/posts${queryParams}`);
+export const getOneBlogPost = (id) => API.get(`/blog/posts/${id}`);
 
 // Forum threads
 export const getThreads = (queryParams) =>

@@ -25,26 +25,27 @@ export const createPost = async (req, res, next) => {
 };
 
 export const getPost = async (req, res, next) => {
-  /* const { id } = req.params;
+  const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return next(new ErrorResponse("Please provide a valid id", 404));
   }
   try {
-    const thread = await Thread.findById(id).populate("author");
+    const blogPost = await BlogPost.findById(id);
 
-    if (!thread) {
-      return next(new ErrorResponse("There's no thread with this id", 404));
+    if (!blogPost) {
+      return next(new ErrorResponse("There's no blog post with this id", 404));
     }
 
     res.status(200).json({
       success: true,
-      thread,
+      post: blogPost,
     });
   } catch (error) {
     next(error);
-  } */
+  }
 };
+
 export const getAllPosts = async (req, res, next) => {
   try {
     let query = BlogPost.find({ published: true }); // returns a promise
