@@ -20,6 +20,10 @@ API.interceptors.request.use((req) => {
 export const signUp = (formData) => API.post("/users/signup", formData);
 export const signIn = (formData) => API.post("/users/signin", formData);
 
+// Blog posts
+export const getBlogPosts = (queryParams) =>
+  API.get(`/blog/posts${queryParams}`);
+
 // Forum threads
 export const getThreads = (queryParams) =>
   API.get(`/forum/threads${queryParams}`);

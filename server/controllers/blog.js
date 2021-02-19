@@ -77,7 +77,7 @@ export const getAllPosts = async (req, res, next) => {
       count: result.length,
       page,
       pages,
-      blogPost: result,
+      blogPosts: result,
     });
   } catch (error) {
     next(error);
