@@ -5,17 +5,22 @@ const ResellerSchema = mongoose.Schema(
     name: {
       type: String,
       required: [true, "Please provide a name"],
-      unique: true,
     },
     description: {
       type: String,
     },
-    url: {
-      type: String,
-      match: [
-        /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/,
-        "Please provide a valid link/url",
-      ],
+    link: {
+      linkName: {
+        type: String,
+      },
+      url: {
+        type: String,
+        required: [true, "Please provide an url"],
+        match: [
+          /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/,
+          "Please provide a valid link/url",
+        ],
+      },
     },
   },
   {

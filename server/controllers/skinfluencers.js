@@ -17,7 +17,9 @@ export const getAllSkinfluencers = async (req, res, next) => {
 export const createSkinfluencer = async (req, res, next) => {
   const data = req.body;
   try {
-    const existingSkinfluencer = await Skinfluencer.find({ name: data.name });
+    const existingSkinfluencer = await Skinfluencer.findOne({
+      name: data.name,
+    });
 
     if (existingSkinfluencer) {
       return next(
@@ -27,7 +29,7 @@ export const createSkinfluencer = async (req, res, next) => {
 
     const skinfluencer = await Skinfluencer.create(data);
 
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       skinfluencer,
     });

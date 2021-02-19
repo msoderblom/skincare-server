@@ -6,6 +6,7 @@ import userRoutes from "./routes/users.js";
 import forumRoutes from "./routes/forum.js";
 import blogRoutes from "./routes/blog.js";
 import skinfluencerRoutes from "./routes/skinfluencers.js";
+import kBeautyRoutes from "./routes/kBeauty.js";
 import connectDB from "./config/db.js";
 import errorHandler from "./middleware/error.js";
 import { Server } from "socket.io";
@@ -30,6 +31,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/forum", forumRoutes);
 app.use("/api/blog", blogRoutes);
 app.use("/api/skinfluencers", skinfluencerRoutes);
+app.use("/api/k-beauty", kBeautyRoutes);
 
 // Error Handler
 app.use(errorHandler);
