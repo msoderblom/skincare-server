@@ -10,6 +10,10 @@ import kBeautyRoutes from "./routes/kBeauty.js";
 import connectDB from "./config/db.js";
 import errorHandler from "./middleware/error.js";
 import { Server } from "socket.io";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // gör så att man kan ha sina evironment variables i .env-filen
 dotenv.config();
@@ -32,6 +36,17 @@ app.use("/api/forum", forumRoutes);
 app.use("/api/blog", blogRoutes);
 app.use("/api/skinfluencers", skinfluencerRoutes);
 app.use("/api/k-beauty", kBeautyRoutes);
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "/admin/build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "admin", "build", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("API running");
+  });
+}
 
 // Error Handler
 app.use(errorHandler);
