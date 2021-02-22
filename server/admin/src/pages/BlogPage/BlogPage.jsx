@@ -10,6 +10,8 @@ import {
   TableHead,
   TableRow,
   TableCell,
+  TableFooter,
+  TablePagination,
   Switch,
 } from "@material-ui/core";
 import { Link, useHistory, useLocation } from "react-router-dom";
@@ -32,15 +34,34 @@ const BlogPage = () => {
 
   const urlParams = new URLSearchParams(location.search);
   const pageNumber = Number(urlParams.get("page")) || 1;
+  const limitNumber = Number(urlParams.get("limit")) || 50;
   const [page, setPage] = useState(pageNumber);
+  const [limit, setLimit] = useState(limitNumber);
 
-  const { posts, getPostsError, totalPages, loading } = useSelector(
+  const { posts, getPostsError, totalPages, loading, totalPosts } = useSelector(
     (state) => state.blog.posts
   );
 
+  const handlePageChange = (event, value) => {
+    setPage(value + 1);
+    history.replace({
+      pathname: "/blog",
+      search: `?page=${value + 1}&limit=${limit}`,
+    });
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setLimit(Number(event.target.value));
+    setPage(1);
+    history.replace({
+      pathname: "/blog",
+      search: `?page=1&limit=${event.target.value}`,
+    });
+  };
+
   useEffect(() => {
-    dispatch(postActions.getPosts(`?page=${page}`));
-  }, [page, dispatch, location]);
+    dispatch(postActions.getPosts(`?page=${page}&limit=${limit}`));
+  }, [page, limit, dispatch, location]);
   return (
     <S.Container>
       <p>BlogPage</p>
@@ -49,7 +70,7 @@ const BlogPage = () => {
       {/* {loading && <CircularProgress />} */}
 
       <TableContainer component={Paper}>
-        <Table aria-label="simple table" style={{ height: 300, width: "100%" }}>
+        <Table stickyHeader aria-label="simple table" style={{ width: "100%" }}>
           <TableHead>
             <TableRow>
               <TableCell>#</TableCell>
@@ -90,6 +111,24 @@ const BlogPage = () => {
                 </TableRow>
               ))}
           </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                rowsPerPageOptions={[1, 5, 10, 25, 50]}
+                colSpan={3}
+                count={totalPosts}
+                rowsPerPage={limit}
+                page={page !== 0 ? page - 1 : page}
+                SelectProps={{
+                  inputProps: { "aria-label": "rows per page" },
+                  native: true,
+                }}
+                onChangePage={handlePageChange}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+                // ActionsComponent={TablePaginationActions}
+              />
+            </TableRow>
+          </TableFooter>
         </Table>
       </TableContainer>
 

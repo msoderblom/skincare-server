@@ -76,6 +76,7 @@ export const getAllPosts = async (req, res, next) => {
     res.status(200).json({
       success: true,
       count: result.length,
+      totalPosts: total,
       page,
       pages,
       blogPosts: result,

@@ -6,12 +6,13 @@ export const getPosts = (queryParams = "", history) => async (dispatch) => {
 
   try {
     const {
-      data: { blogPosts, pages: totalPages },
+      data: { blogPosts, pages: totalPages, totalPosts },
     } = await api.getBlogPosts(queryParams);
 
     const payload = {
       posts: blogPosts,
       totalPages,
+      totalPosts,
     };
 
     dispatch({ type: actionTypes.GET_POSTS_SUCCESS, payload });

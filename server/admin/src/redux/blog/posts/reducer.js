@@ -3,6 +3,7 @@ import * as actionTypes from "./types";
 const initState = {
   posts: [],
   totalPages: 1,
+  totalPosts: 1,
   loading: false,
   viewedPost: null,
   getPostsError: null,
@@ -26,6 +27,7 @@ const postsReducer = (state = initState, action) => {
         loading: false,
         posts: action.payload.posts,
         totalPages: action.payload.totalPages,
+        totalPosts: action.payload.totalPosts,
       };
     case actionTypes.GET_POSTS_FAILURE:
       console.log("error from reducer: ", action.error);
