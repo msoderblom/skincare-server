@@ -17,6 +17,11 @@ export const createPost = async (req, res, next) => {
       author: "Admin",
     });
 
+    if (req.files) {
+      blogPost.images = req.files;
+      await blogPost.save();
+    }
+
     res.status(201).json({
       success: true,
       blogPost,
