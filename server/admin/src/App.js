@@ -6,6 +6,7 @@ import CreatePostPage from "./pages/blog/CreatePostPage";
 import { makeStyles } from "@material-ui/core/styles";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
+import SkinfluencersPage from "./pages/skinfluencers/SkinfluencersPage/SkinfluencersPage";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +28,7 @@ const App = () => {
       <main className={classes.content}>
         <Switch>
           <Route exact path="/users" component={UsersPage} />
+          <Route exact path="/skinfluencers" component={SkinfluencersPage} />
           <Route exact path="/blog" component={BlogPage} />
           <Route exact path="/blog/create-post" component={CreatePostPage} />
         </Switch>
