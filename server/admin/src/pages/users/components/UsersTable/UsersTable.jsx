@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as S from "./styled";
 import { Link, useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { postActions } from "../../../../redux/blog/posts";
+import { userActions } from "../../../../redux/user";
 import {
   CircularProgress,
   TableContainer,
@@ -14,7 +14,6 @@ import {
   TableCell,
   TableFooter,
   TablePagination,
-  Switch,
 } from "@material-ui/core";
 
 const UsersTable = () => {
@@ -22,8 +21,8 @@ const UsersTable = () => {
   const location = useLocation();
   const history = useHistory();
 
-  const { posts, getPostsError, totalPages, loading, totalPosts } = useSelector(
-    (state) => state.blog.posts
+  const { users, errors, totalPages, loading, totalUsers } = useSelector(
+    (state) => state.user
   );
 
   const urlParams = new URLSearchParams(location.search);
@@ -33,13 +32,13 @@ const UsersTable = () => {
   const [limit, setLimit] = useState(limitNumber);
 
   useEffect(() => {
-    dispatch(postActions.getPosts(`?page=${page}&limit=${limit}`));
+    dispatch(userActions.getAllUsers(`?page=${page}&limit=${limit}`));
   }, [page, limit, dispatch, location]);
 
   const handlePageChange = (event, value) => {
     setPage(value + 1);
     history.replace({
-      pathname: "/blog",
+      pathname: "/users",
       search: `?page=${value + 1}&limit=${limit}`,
     });
   };
@@ -47,17 +46,17 @@ const UsersTable = () => {
     setLimit(Number(event.target.value));
     setPage(1);
     history.replace({
-      pathname: "/blog",
+      pathname: "/users",
       search: `?page=1&limit=${event.target.value}`,
     });
   };
   return (
     <S.Container>
-      <p>BlogPostTable</p>
+      <p>UsersTable</p>
       {loading && <CircularProgress />}
 
       <TableContainer component={Paper}>
-        {posts && posts.length > 0 && (
+        {users && users.length > 0 && (
           <Table
             stickyHeader
             aria-label="simple table"
@@ -67,47 +66,36 @@ const UsersTable = () => {
               <TableRow>
                 <TableCell>#</TableCell>
                 <TableCell>ID</TableCell>
-                <TableCell align="left">Author</TableCell>
-                <TableCell align="left">Title</TableCell>
-                <TableCell align="left">Body</TableCell>
-                <TableCell align="left">Published</TableCell>
-                <TableCell align="left"></TableCell>
+                <TableCell align="left">Username</TableCell>
+                <TableCell align="left">Email</TableCell>
+                <TableCell align="left">Created</TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
-              {posts.map((post, index) => (
-                <TableRow key={post._id}>
+              {users.map((user, index) => (
+                <TableRow key={user._id}>
                   <TableCell component="th" scope="row">
                     {index + 1}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    {post._id}
+                    {user._id}
                   </TableCell>
-                  <TableCell align="left">{post.author}</TableCell>
-                  <TableCell align="left">{post.title}</TableCell>
+                  <TableCell align="left">{user.username}</TableCell>
+                  <TableCell align="left">{user.email}</TableCell>
                   <TableCell align="left">
-                    {post.body.replace(/(<([^>]+)>)/gi, "").slice(0, 20) +
-                      " ..."}
-                  </TableCell>
-                  <TableCell align="left">
-                    <Switch
-                      checked={post.published}
-                      // onChange={handleChange}
-                      color="primary"
-                      name="published"
-                    />
+                    {user.createdAt || "unknown"}
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
             <TableFooter>
               <TableRow>
-                {posts.length > 0 && (
+                {users.length > 0 && (
                   <TablePagination
                     rowsPerPageOptions={[1, 5, 10, 25, 50]}
                     colSpan={3}
-                    count={totalPosts}
+                    count={totalUsers}
                     rowsPerPage={limit}
                     page={page !== 0 ? page - 1 : page}
                     SelectProps={{

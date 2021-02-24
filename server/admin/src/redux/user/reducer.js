@@ -1,74 +1,42 @@
 import * as actionTypes from "./types";
 
 const initState = {
-  user: null,
   loading: false,
-  signUpData: null,
-  signUpError: null,
-  signInError: null,
+  user: null,
+  users: [],
+  totalPages: 1,
+  totalUsers: 1,
+  errors: {
+    getAllUsers: null,
+  },
 };
 
 const userReducer = (state = initState, action) => {
   switch (action.type) {
-    case actionTypes.SIGN_UP_REQUEST:
+    // GET ALL USERS
+    case actionTypes.GET_ALL_USERS_REQUEST:
       return {
         ...state,
         loading: true,
-        signUpError: null,
+        errors: { ...state.errors, getAllUsers: null },
       };
-    case actionTypes.SIGN_UP_SUCCESS:
+    case actionTypes.GET_ALL_USERS_SUCCESS:
       console.log("Payload in reducer", action.payload);
 
       return {
         ...state,
         loading: false,
-        signUpData: action.payload,
+        users: action?.payload.users,
+        totalPages: action.payload.totalPages,
+        totalUsers: action.payload.totalUsers,
       };
-    case actionTypes.SIGN_UP_FAILURE:
+    case actionTypes.GET_ALL_USERS_FAILURE:
       console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,
-        signUpError: action.error,
-      };
-    case actionTypes.SIGN_IN_REQUEST:
-      return {
-        ...state,
-        loading: true,
-        signInError: null,
-      };
-    case actionTypes.SIGN_IN_SUCCESS:
-      console.log("Payload in reducer", action.payload);
-
-      localStorage.setItem("profile", JSON.stringify({ ...action?.payload }));
-      return {
-        ...state,
-        loading: false,
-        user: action?.payload.user,
-      };
-    case actionTypes.SIGN_IN_FAILURE:
-      console.log("error from reducer: ", action.error);
-      return {
-        ...state,
-        loading: false,
-        signInError: action.error,
-        user: null,
-      };
-    case actionTypes.SIGN_OUT:
-      localStorage.removeItem("profile");
-
-      return {
-        ...state,
-        user: null,
-        loading: false,
-        signUpData: null,
-        signUpError: null,
-        signInError: null,
-      };
-    case actionTypes.SET_USER:
-      return {
-        ...state,
-        user: action.payload,
+        errors: { ...state.errors, getAllUsers: action.error },
+        users: null,
       };
 
     default:
