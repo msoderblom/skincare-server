@@ -1,14 +1,6 @@
 import React from "react";
 import * as S from "./styled";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  List,
-  Drawer,
-  ListItem,
-  Divider,
-} from "@material-ui/core";
+import { Toolbar, List, Drawer, ListItem, Divider } from "@material-ui/core";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";

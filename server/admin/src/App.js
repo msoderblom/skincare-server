@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import BlogPage from "./pages/blog/BlogPage";
+import UsersPage from "./pages/users/UsersPage";
 import CreatePostPage from "./pages/blog/CreatePostPage";
 import { makeStyles } from "@material-ui/core/styles";
 import Header from "./components/Header";
@@ -25,6 +26,7 @@ const App = () => {
       <Sidebar />
       <main className={classes.content}>
         <Switch>
+          <Route exact path="/users" component={UsersPage} />
           <Route exact path="/blog" component={BlogPage} />
           <Route exact path="/blog/create-post" component={CreatePostPage} />
         </Switch>
