@@ -5,11 +5,10 @@ import { upload } from "../utils/imageUpload.js";
 
 export const createPost = async (req, res, next) => {
   const { title, body } = req.body;
-  let images;
   console.log(title, body);
-  /*   if (!title || !body) {
+  if (!title || !body) {
     return next(new ErrorResponse("Please provide a title and body", 400));
-  } */
+  }
 
   try {
     const blogPost = await BlogPost.create({
@@ -17,22 +16,6 @@ export const createPost = async (req, res, next) => {
       body,
       author: "Admin",
     });
-
-    console.log("Inside if to upload");
-    upload.array("images")(req, {}, function (err) {
-      if (err) throw err;
-      console.log(req.files);
-      // req.file, req.files...
-
-      if (req.files.length > 0) {
-        images = req.files;
-      }
-    });
-
-    if (images) {
-      blogPost.images = images;
-      await blogPost.save();
-    }
 
     res.status(201).json({
       success: true,
@@ -104,3 +87,19 @@ export const getAllPosts = async (req, res, next) => {
     next(error);
   }
 };
+
+// console.log("Inside if to upload");
+/* upload.array("images")(req, {}, function (err) {
+      if (err) throw err;
+      console.log(req.files);
+      // req.file, req.files...
+
+      if (req.files.length > 0) {
+        images = req.files;
+      }
+    }); */
+
+// if (req.files) {
+//   blogPost.images = req.files;
+//   await blogPost.save();
+// }

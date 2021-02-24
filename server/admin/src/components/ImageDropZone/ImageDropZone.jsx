@@ -33,9 +33,11 @@ const img = {
   height: "100%",
 };
 
-const ImageDropZone = ({ files, setFiles }) => {
+const ImageDropZone = ({ files, setFiles, name, register }) => {
   const { getRootProps, getInputProps } = useDropzone({
     accept: "image/*",
+    maxFiles: 10,
+    multiple: true,
     onDrop: (acceptedFiles) => {
       const newFiles = acceptedFiles.map((file) =>
         Object.assign(file, {
@@ -68,7 +70,7 @@ const ImageDropZone = ({ files, setFiles }) => {
 
       <section className="container">
         <div {...getRootProps({ className: "dropzone" })}>
-          <input {...getInputProps()} />
+          <input {...getInputProps()} name={name} /*  ref={register}  */ />
           <p>Drag 'n' drop some files here, or click to select files</p>
         </div>
         <aside style={thumbsContainer}>{thumbs}</aside>

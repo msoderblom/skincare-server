@@ -54,14 +54,30 @@ const CreatePostPage = () => {
     console.log(data);
     console.log(body);
     console.log(files);
-    const payload = {
+
+    const payload = new FormData();
+    payload.append("title", JSON.stringify(data.title));
+    payload.append("body", JSON.stringify(body));
+
+    if (files.length > 0) {
+      files.forEach((file) => {
+        payload.append("images", file);
+      });
+    }
+
+    // payload.append('body', body);
+
+    // console.log(payload);
+
+    /*   const payload = {
       title: data.title,
       body,
+      images: files,
     };
 
     if (files.length > 0) {
       payload.images = files;
-    }
+    } */
 
     dispatch(postActions.createPost(payload));
   };
@@ -69,9 +85,13 @@ const CreatePostPage = () => {
     <S.Container>
       <p>CreatePostPage</p>
 
-      <ImageDropZone files={files} setFiles={setFiles} />
-
       <form onSubmit={handleSubmit(handleCreatePost)}>
+        <ImageDropZone
+          name="images"
+          /* register={register} */
+          files={files}
+          setFiles={setFiles}
+        />
         <Input
           name="title"
           register={register}
@@ -85,6 +105,8 @@ const CreatePostPage = () => {
           onChange={setBody}
           modules={modules}
           formats={formats}
+          /*         name="body"
+          ref={register} */
         />
         <Button title="Create Post" type="submit" />
         {createPostError && <span>{createPostError}</span>}

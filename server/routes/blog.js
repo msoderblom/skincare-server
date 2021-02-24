@@ -8,6 +8,7 @@ const router = express.Router();
 // Defining routes
 router.get("/posts/", getAllPosts);
 router.get("/posts/:id", getPost);
-router.post("/posts/", createPost); // TODO: add admin auth middleware
+router.post("/posts/", upload.array("images"), createPost); // TODO: add admin auth middleware
+// router.post("/posts/", createPost); // TODO: add admin auth middleware
 
 export default router;
