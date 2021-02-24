@@ -23,6 +23,7 @@ connectDB();
 // Initialize app // Skapar en express server
 const app = express();
 
+// cors allows us to send requests across domains
 app.use(cors());
 
 // allow us to have acces to the json data sent on our request body
@@ -36,8 +37,10 @@ app.use("/api/blog", blogRoutes);
 app.use("/api/skinfluencers", skinfluencerRoutes);
 app.use("/api/k-beauty", kBeautyRoutes);
 
+app.use("/resources", express.static(path.join(__dirname, "/images")));
+
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/admin/build")));
+  app.use("/admin-panel", express.static(path.join(__dirname, "/admin/build")));
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "admin", "build", "index.html"));
   });

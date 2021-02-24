@@ -8,10 +8,36 @@ const initState = {
   viewedPost: null,
   getPostsError: null,
   getOnePostError: null,
+  createPostError: null,
+  createdPost: null,
 };
 
 const postsReducer = (state = initState, action) => {
   switch (action.type) {
+    // CREATE POST
+    case actionTypes.CREATE_POST_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        createPostError: null,
+      };
+    case actionTypes.CREATE_POST_SUCCESS:
+      console.log("Payload in reducer", action.payload);
+
+      return {
+        ...state,
+        loading: false,
+        createdPost: action.payload,
+      };
+
+    case actionTypes.CREATE_POST_FAILURE:
+      console.log("error from reducer: ", action.error);
+      return {
+        ...state,
+        loading: false,
+        createPostError: action.error,
+      };
+
     // GET POSTS
     case actionTypes.GET_POSTS_REQUEST:
       return {

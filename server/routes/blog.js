@@ -1,5 +1,6 @@
 import express from "express";
 import { createPost, getAllPosts, getPost } from "../controllers/blog.js";
+import { upload } from "../utils/imageUpload.js";
 
 // Creating an express router
 const router = express.Router();
