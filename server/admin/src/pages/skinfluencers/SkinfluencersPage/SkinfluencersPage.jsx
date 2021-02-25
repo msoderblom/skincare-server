@@ -12,6 +12,7 @@ import {
   TableCell,
 } from "@material-ui/core";
 import { skinfluencerActions } from "../../../redux/skinfluencers";
+import Button from "../../../components/Button";
 
 const SkinfluencersPage = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const SkinfluencersPage = () => {
   return (
     <S.Container>
       <p>SkinfluencersPage</p>
+      <Button title="New Skinfluencer" link="/skinfluencers/create" />
       {loading && <CircularProgress />}
       <TableContainer component={Paper}>
         {skinfluencers && skinfluencers.length > 0 && !loading && (
