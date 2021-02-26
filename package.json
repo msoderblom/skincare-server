@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "dev-start": "nodemon server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn install --prefix admin && npm run build --prefix admin"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix admin && npm run build --prefix admin"
   },
   "keywords": [],
   "author": "",
