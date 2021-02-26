@@ -40,7 +40,7 @@ app.use("/api/k-beauty", kBeautyRoutes);
 app.use("/resources", express.static(path.join(__dirname, "/images")));
 
 if (process.env.NODE_ENV === "production") {
-  app.use("/admin-panel", express.static(path.join(__dirname, "/admin/build")));
+  app.use(express.static(path.join(__dirname, "/admin/build")));
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "admin", "build", "index.html"));
   });
