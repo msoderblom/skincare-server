@@ -1,5 +1,4 @@
 import express from "express";
-import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import userRoutes from "./routes/users.js";
@@ -10,6 +9,10 @@ import kBeautyRoutes from "./routes/kBeauty.js";
 import connectDB from "./config/db.js";
 import errorHandler from "./middleware/error.js";
 import { Server } from "socket.io";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 // gör så att man kan ha sina evironment variables i .env-filen
 dotenv.config();
@@ -20,6 +23,7 @@ connectDB();
 // Initialize app // Skapar en express server
 const app = express();
 
+// cors allows us to send requests across domains
 app.use(cors());
 
 // allow us to have acces to the json data sent on our request body
@@ -32,6 +36,19 @@ app.use("/api/forum", forumRoutes);
 app.use("/api/blog", blogRoutes);
 app.use("/api/skinfluencers", skinfluencerRoutes);
 app.use("/api/k-beauty", kBeautyRoutes);
+
+app.use("/resources", express.static(path.join(__dirname, "/images")));
+
+if (process.env.NODE_ENV === "production") {
+  app.use("/admin-panel", express.static(path.join(__dirname, "/admin/build")));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "admin", "build", "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.send("API running");
+  });
+}
 
 // Error Handler
 app.use(errorHandler);
