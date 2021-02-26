@@ -37,6 +37,21 @@ const BlogPostSchema = mongoose.Schema(
     featureImage: {
       type: String,
     },
+    images: {
+      type: [
+        {
+          fieldname: String,
+          originalname: String,
+          encoding: String,
+          mimetype: String,
+          destination: String,
+          filename: String,
+          path: String,
+          size: Number,
+        },
+      ],
+      default: [],
+    },
   },
   {
     timestamps: true, // skapar automatiskt fält för när den skapades och uppdaterades

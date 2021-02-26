@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
 import BlogPost from "../models/BlogPost.js";
 import ErrorResponse from "../utils/errorResponse.js";
+import { upload } from "../utils/imageUpload.js";
 
 export const createPost = async (req, res, next) => {
   const { title, body } = req.body;
+  console.log(title, body);
   if (!title || !body) {
     return next(new ErrorResponse("Please provide a title and body", 400));
   }
@@ -14,6 +16,11 @@ export const createPost = async (req, res, next) => {
       body,
       author: "Admin",
     });
+
+    if (req.files) {
+      blogPost.images = req.files;
+      await blogPost.save();
+    }
 
     res.status(201).json({
       success: true,
@@ -76,6 +83,7 @@ export const getAllPosts = async (req, res, next) => {
     res.status(200).json({
       success: true,
       count: result.length,
+      totalPosts: total,
       page,
       pages,
       blogPosts: result,
@@ -84,3 +92,19 @@ export const getAllPosts = async (req, res, next) => {
     next(error);
   }
 };
+
+// console.log("Inside if to upload");
+/* upload.array("images")(req, {}, function (err) {
+      if (err) throw err;
+      console.log(req.files);
+      // req.file, req.files...
+
+      if (req.files.length > 0) {
+        images = req.files;
+      }
+    }); */
+
+// if (req.files) {
+//   blogPost.images = req.files;
+//   await blogPost.save();
+// }
