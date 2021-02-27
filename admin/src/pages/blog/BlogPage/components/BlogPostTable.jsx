@@ -124,6 +124,8 @@ const BlogPostTable = () => {
           </Table>
         )}
       </TableContainer>
+
+      {getPostsError && <span>{getPostsError}</span>}
     </S.Container>
   );
 };
