@@ -14,29 +14,35 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import * as S from "./styled";
-
-const useStyles = makeStyles((theme) => ({
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
+import SocialLinkInput from "../components/SocialLinkInput/SocialLinkInput";
 
 const CreateSkinfluencerPage = () => {
-  const classes = useStyles();
+  // const classes = useStyles();
   const [professionalTitle, setProfessionalTitle] = useState(false);
+  const [socialLinks, setSocialLinks] = useState([]);
+
   const { register, handleSubmit, errors } = useForm();
 
   const handleCreateSkinfluencer = (data) => {
     console.log("In handleCreateSkinfluencer");
-    console.log(data);
-    console.log(professionalTitle);
+    console.log("data: ", data);
+    console.log("prof title: ", professionalTitle);
+    console.log("socialLinks: ", socialLinks);
+
     // console.log(files);
 
     // dispatch(postActions.createPost(payload));
+  };
+  const handleAddSocialLink = () => {
+    // TODO: Maybe add a max value for the amount of social links
+    const newLinks = [...socialLinks];
+    newLinks.push({
+      platform: "",
+      linkName: "",
+      url: "",
+    });
+
+    setSocialLinks(newLinks);
   };
 
   return (
@@ -85,37 +91,18 @@ const CreateSkinfluencerPage = () => {
           error={errors.about}
         />
 
-        <FormGroup>
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel id="demo-simple-select-outlined-label">
-              Platform
-            </InputLabel>
-            <Select
-              labelId="platform-label"
-              id="platform-select"
-              // value={age}
-              // onChange={handleChange}
-              label="Platform"
-            >
-              <MenuItem value="instagram">Instagram</MenuItem>
-              <MenuItem value="twitter">Twitter</MenuItem>
-              <MenuItem value="facebook">Facebook</MenuItem>
-              <MenuItem value="youtube">Youtube</MenuItem>
-              <MenuItem value="tiktok">Tiktok</MenuItem>
-              <MenuItem value="website">Website</MenuItem>
-              <MenuItem value="blog">Blog</MenuItem>
-            </Select>
-          </FormControl>
-          <Input
-            name="linkName"
-            register={register}
-            // error={errors.title?.message}
-            type="text"
-            label="Link Name"
-            // required
-          />
-        </FormGroup>
+        {socialLinks.length > 0 &&
+          socialLinks.map((socialLink, index) => (
+            <SocialLinkInput
+              key={index}
+              socialLink={socialLink}
+              index={index}
+              socialLinks={socialLinks}
+              setSocialLinks={setSocialLinks}
+            />
+          ))}
 
+        <Button title="Add Social Link" onClick={handleAddSocialLink} />
         <Button title="Create Skinfluencer" type="submit" />
       </form>
     </S.Container>
