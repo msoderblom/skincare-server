@@ -22,6 +22,24 @@ export const createSkinfluencer = (formData) => async (dispatch) => {
     console.log(error.response.data.error);
   }
 };
+export const deleteSkinfluencer = (id) => async (dispatch) => {
+  dispatch({ type: actionTypes.DELETE_SKINFLUENCER_REQUEST });
+
+  try {
+    await api.deleteSkinfluencer(id);
+
+    dispatch({
+      type: actionTypes.DELETE_SKINFLUENCER_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.DELETE_SKINFLUENCER_FAILURE,
+      error: error?.response?.data?.error || error.message,
+    });
+    console.error(error);
+    console.log(error?.response?.data?.error);
+  }
+};
 
 export const getSkinfluencers = () => async (dispatch) => {
   dispatch({ type: actionTypes.GET_SKINFLUENCERS_REQUEST });
