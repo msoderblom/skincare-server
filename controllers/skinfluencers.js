@@ -37,3 +37,22 @@ export const createSkinfluencer = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteSkinfluencer = async (req, res, next) => {
+  const { id } = req.params;
+
+  // check if _id is a mongoose object id
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return next(new ErrorResponse("Not a valid mongoose object id", 404));
+  }
+
+  try {
+    await Skinfluencer.findOneAndDelete({ _id: id });
+
+    res.status(200).json({
+      success: true,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
