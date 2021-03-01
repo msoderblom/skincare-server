@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as S from "./styled";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { postActions } from "../../../../redux/blog/posts";
 import {
@@ -22,7 +22,7 @@ const BlogPostTable = () => {
   const location = useLocation();
   const history = useHistory();
 
-  const { posts, getPostsError, totalPages, loading, totalPosts } = useSelector(
+  const { posts, getPostsError, loading, totalPosts } = useSelector(
     (state) => state.blog.posts
   );
 

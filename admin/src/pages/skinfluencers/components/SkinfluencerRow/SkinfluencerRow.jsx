@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../../../../components/Button";
 import ConfirmDialog from "../../../../components/ConfirmDialog";
-import * as S from "./styled";
+// import * as S from "./styled";
 
 const SkinfluencerRow = ({ skinfluencer, index, handleDelete }) => {
   const [anchorEl, setAnchorEl] = useState(null);

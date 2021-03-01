@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import Button from "../Button";
-import * as S from "./styled";
+// import * as S from "./styled";
 
 const ConfirmDialog = ({ confirmDialog, setConfirmDialog }) => {
   return (

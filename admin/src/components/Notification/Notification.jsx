@@ -1,7 +1,7 @@
 import { Snackbar } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import React from "react";
-import * as S from "./styled";
+// import * as S from "./styled";
 
 const Notification = (props) => {
   const { notify, setNotify } = props;

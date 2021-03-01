@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import * as S from "./styled";
 // import { Link, useHistory, useLocation } from "react-router-dom";
 // import { useDispatch, useSelector } from "react-redux";

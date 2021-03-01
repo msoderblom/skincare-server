@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as S from "./styled";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../../../../redux/user";
 import {
@@ -21,9 +21,7 @@ const UsersTable = () => {
   const location = useLocation();
   const history = useHistory();
 
-  const { users, errors, totalPages, loading, totalUsers } = useSelector(
-    (state) => state.user
-  );
+  const { users, loading, totalUsers } = useSelector((state) => state.user);
 
   const urlParams = new URLSearchParams(location.search);
   const pageNumber = Number(urlParams.get("page")) || 1;

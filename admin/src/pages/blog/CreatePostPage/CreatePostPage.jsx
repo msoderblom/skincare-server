@@ -43,11 +43,11 @@ const CreatePostPage = () => {
   // title, body, author
   const [body, setBody] = useState("");
   const [files, setFiles] = useState([]);
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const dispatch = useDispatch();
 
-  const { createPostError, loading } = useSelector((state) => state.blog.posts);
+  const { createPostError } = useSelector((state) => state.blog.posts);
 
   const handleCreatePost = (data) => {
     console.log("In handleCreatePost");

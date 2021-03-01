@@ -1,16 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import {
-  TextField,
-  FormControlLabel,
-  Checkbox,
-  FormGroup,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { TextField, FormControlLabel, Checkbox } from "@material-ui/core";
+
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import * as S from "./styled";
@@ -19,14 +10,13 @@ import { skinfluencerActions } from "../../../redux/skinfluencers";
 import { useDispatch, useSelector } from "react-redux";
 
 const CreateSkinfluencerPage = () => {
-  // const classes = useStyles();
   const [professionalTitle, setProfessionalTitle] = useState(false);
   const [socialLinks, setSocialLinks] = useState([]);
 
   const { register, handleSubmit, errors } = useForm();
 
   const dispatch = useDispatch();
-  const { createdSkinfluencer, createSkinfluencerError, loading } = useSelector(
+  const { createSkinfluencerError } = useSelector(
     (state) => state.skinfluencers
   );
 

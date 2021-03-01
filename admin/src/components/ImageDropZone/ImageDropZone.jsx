@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import * as S from "./styled";
 
