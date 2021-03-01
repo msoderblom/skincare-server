@@ -48,3 +48,5 @@ export const createComment = (formData, threadID) =>
 
 // Skinfluencers
 export const getSkinfluencers = () => API.get(`/skinfluencers`);
+export const createSkinfluencer = (formData) =>
+  API.post(`/skinfluencers`, formData);

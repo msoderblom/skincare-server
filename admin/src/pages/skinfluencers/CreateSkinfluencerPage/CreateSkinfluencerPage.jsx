@@ -15,6 +15,8 @@ import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import * as S from "./styled";
 import SocialLinkInput from "../components/SocialLinkInput/SocialLinkInput";
+import { skinfluencerActions } from "../../../redux/skinfluencers";
+import { useDispatch, useSelector } from "react-redux";
 
 const CreateSkinfluencerPage = () => {
   // const classes = useStyles();
@@ -23,15 +25,24 @@ const CreateSkinfluencerPage = () => {
 
   const { register, handleSubmit, errors } = useForm();
 
+  const dispatch = useDispatch();
+  const { createdSkinfluencer, createSkinfluencerError, loading } = useSelector(
+    (state) => state.skinfluencers
+  );
+
   const handleCreateSkinfluencer = (data) => {
     console.log("In handleCreateSkinfluencer");
     console.log("data: ", data);
     console.log("prof title: ", professionalTitle);
     console.log("socialLinks: ", socialLinks);
 
-    // console.log(files);
+    const payload = {
+      ...data,
+      hasProfessionalTitle: professionalTitle,
+      socialLinks,
+    };
 
-    // dispatch(postActions.createPost(payload));
+    dispatch(skinfluencerActions.createSkinfluencer(payload));
   };
   const handleAddSocialLink = () => {
     // TODO: Maybe add a max value for the amount of social links
@@ -104,6 +115,7 @@ const CreateSkinfluencerPage = () => {
 
         <Button title="Add Social Link" onClick={handleAddSocialLink} />
         <Button title="Create Skinfluencer" type="submit" />
+        {createSkinfluencerError && <span>{createSkinfluencerError}</span>}
       </form>
     </S.Container>
   );
