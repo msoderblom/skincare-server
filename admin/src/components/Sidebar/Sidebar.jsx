@@ -1,10 +1,10 @@
 import React from "react";
 // import * as S from "./styled";
 import { Toolbar, List, Drawer, ListItem, Divider } from "@material-ui/core";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
+// import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+// import InboxIcon from "@material-ui/icons/MoveToInbox";
+// import MailIcon from "@material-ui/icons/Mail";
 import { makeStyles } from "@material-ui/core/styles";
 import { NavLink } from "react-router-dom";
 
@@ -132,7 +132,23 @@ const Sidebar = () => {
             </NavLink>
           </ListItem>
         </List>
+
         <List>
+          <ListItem style={{ fontWeight: "bold" }}>K-Beauty</ListItem>
+          <ListItem>
+            <NavLink
+              to="/k-beauty/resellers"
+              exact
+              activeStyle={{
+                fontWeight: "bold",
+                color: "blue",
+              }}
+            >
+              All Resellers
+            </NavLink>
+          </ListItem>
+        </List>
+        {/* <List>
           {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
@@ -141,18 +157,8 @@ const Sidebar = () => {
               <ListItemText primary={text} />
             </ListItem>
           ))}
-        </List>
+        </List> */}
         <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
       </div>
     </Drawer>
   );
