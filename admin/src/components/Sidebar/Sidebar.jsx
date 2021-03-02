@@ -132,7 +132,7 @@ const Sidebar = () => {
             </NavLink>
           </ListItem>
         </List>
-
+        <Divider />
         <List>
           <ListItem style={{ fontWeight: "bold" }}>K-Beauty</ListItem>
           <ListItem>
