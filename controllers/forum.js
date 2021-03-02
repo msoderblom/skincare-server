@@ -75,6 +75,7 @@ export const getAllThreads = async (req, res, next) => {
     res.status(200).json({
       success: true,
       count: result.length,
+      totalThreads: total,
       page,
       pages,
       threads: result,

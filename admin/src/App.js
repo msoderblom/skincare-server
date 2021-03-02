@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import SkinfluencersPage from "./pages/skinfluencers/SkinfluencersPage/SkinfluencersPage";
 import CreateSkinfluencerPage from "./pages/skinfluencers/CreateSkinfluencerPage";
+import ForumPage from "./pages/forum/ForumPage";
 // import Notification from "./components/Notification";
 
 const useStyles = makeStyles((theme) => ({
@@ -39,6 +40,7 @@ const App = () => {
           />
           <Route exact path="/blog" component={BlogPage} />
           <Route exact path="/blog/create-post" component={CreatePostPage} />
+          <Route exact path="/forum" component={ForumPage} />
         </Switch>
       </main>
     </div>

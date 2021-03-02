@@ -31,12 +31,13 @@ export const getThreads = (queryParams = "", history) => async (dispatch) => {
 
   try {
     const {
-      data: { threads, pages: totalPages },
+      data: { threads, pages: totalPages, totalThreads },
     } = await api.getThreads(queryParams);
 
     const payload = {
       threads,
       totalPages,
+      totalThreads,
     };
 
     dispatch({ type: actionTypes.GET_THREADS_SUCCESS, payload });

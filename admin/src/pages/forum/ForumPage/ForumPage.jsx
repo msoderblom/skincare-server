@@ -1,29 +1,31 @@
 import React, { useEffect, useState } from "react";
 import * as S from "./styled";
-import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { postActions } from "../../../../redux/blog/posts";
+import { threadActions } from "../../../redux/forum/threads";
 import {
   CircularProgress,
-  TableContainer,
+  Switch,
   Table,
   TableBody,
-  Paper,
-  TableHead,
-  TableRow,
   TableCell,
+  TableContainer,
   TableFooter,
+  TableHead,
   TablePagination,
-  Switch,
+  TableRow,
+  Paper,
 } from "@material-ui/core";
+import Moment from "react-moment";
+import "moment-timezone";
+import { useHistory, useLocation } from "react-router-dom";
 
-const BlogPostTable = () => {
+const ForumPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
 
-  const { posts, getPostsError, loading, totalPosts } = useSelector(
-    (state) => state.blog.posts
+  const { threads, getThreadsError, totalThreads, loading } = useSelector(
+    (state) => state.forum.threads
   );
 
   const urlParams = new URLSearchParams(location.search);
@@ -33,13 +35,13 @@ const BlogPostTable = () => {
   const [limit, setLimit] = useState(limitNumber);
 
   useEffect(() => {
-    dispatch(postActions.getPosts(`?page=${page}&limit=${limit}`));
+    dispatch(threadActions.getThreads(`?page=${page}&limit=${limit}`));
   }, [page, limit, dispatch, location]);
 
   const handlePageChange = (event, value) => {
     setPage(value + 1);
     history.replace({
-      pathname: "/blog",
+      pathname: "/forum",
       search: `?page=${value + 1}&limit=${limit}`,
     });
   };
@@ -47,17 +49,19 @@ const BlogPostTable = () => {
     setLimit(Number(event.target.value));
     setPage(1);
     history.replace({
-      pathname: "/blog",
+      pathname: "/forum",
       search: `?page=1&limit=${event.target.value}`,
     });
   };
+
   return (
     <S.Container>
-      <p>BlogPostTable</p>
+      <p>ForumPage</p>
+
       {loading && <CircularProgress />}
 
       <TableContainer component={Paper}>
-        {posts && posts.length > 0 && (
+        {threads && threads.length > 0 && (
           <Table
             stickyHeader
             aria-label="simple table"
@@ -70,44 +74,40 @@ const BlogPostTable = () => {
                 <TableCell align="left">Author</TableCell>
                 <TableCell align="left">Title</TableCell>
                 <TableCell align="left">Body</TableCell>
-                <TableCell align="left">Published</TableCell>
-                <TableCell align="left"></TableCell>
+                <TableCell align="left">Created At</TableCell>
+                <TableCell align="left">Actions</TableCell>
               </TableRow>
             </TableHead>
 
             <TableBody>
-              {posts.map((post, index) => (
-                <TableRow key={post._id}>
+              {threads.map((thread, index) => (
+                <TableRow key={thread._id}>
                   <TableCell component="th" scope="row">
                     {(page - 1) * limit + index + 1}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    {post._id}
+                    {thread._id}
                   </TableCell>
-                  <TableCell align="left">{post.author}</TableCell>
-                  <TableCell align="left">{post.title}</TableCell>
+                  <TableCell align="left">{thread.author.username}</TableCell>
+                  <TableCell align="left">{thread.title}</TableCell>
                   <TableCell align="left">
-                    {post.body.replace(/(<([^>]+)>)/gi, "").slice(0, 20) +
+                    {thread.body.replace(/(<([^>]+)>)/gi, "").slice(0, 20) +
                       " ..."}
                   </TableCell>
                   <TableCell align="left">
-                    <Switch
-                      checked={post.published}
-                      // onChange={handleChange}
-                      color="primary"
-                      name="published"
-                    />
+                    <Moment format="YYYY-MM-DD">{thread?.createdAt}</Moment>
                   </TableCell>
+                  <TableCell align="left"></TableCell>
                 </TableRow>
               ))}
             </TableBody>
             <TableFooter>
               <TableRow>
-                {posts.length > 0 && (
+                {threads.length > 0 && (
                   <TablePagination
                     rowsPerPageOptions={[1, 5, 10, 25, 50]}
                     colSpan={4}
-                    count={totalPosts}
+                    count={totalThreads}
                     rowsPerPage={limit}
                     page={page !== 0 ? page - 1 : page}
                     SelectProps={{
@@ -125,9 +125,9 @@ const BlogPostTable = () => {
         )}
       </TableContainer>
 
-      {getPostsError && <span>{getPostsError}</span>}
+      {getThreadsError && <p>{getThreadsError}</p>}
     </S.Container>
   );
 };
 
-export default BlogPostTable;
+export default ForumPage;

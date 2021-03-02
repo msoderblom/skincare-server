@@ -48,7 +48,7 @@ const Sidebar = () => {
               exact
               activeStyle={{
                 fontWeight: "bold",
-                color: "red",
+                color: "blue",
               }}
             >
               All Posts
@@ -60,7 +60,7 @@ const Sidebar = () => {
               to="/blog/create-post"
               activeStyle={{
                 fontWeight: "bold",
-                color: "red",
+                color: "blue",
               }}
             >
               Create Post
@@ -69,6 +69,27 @@ const Sidebar = () => {
         </List>
         <Divider />
         <List>
+          <ListItem style={{ fontWeight: "bold" }}>Forum</ListItem>
+          <ListItem>
+            <ListItemText
+              primary={
+                <NavLink
+                  to="/forum"
+                  exact
+                  activeStyle={{
+                    fontWeight: "bold",
+                    color: "blue",
+                  }}
+                >
+                  All Threads
+                </NavLink>
+              }
+            />
+          </ListItem>
+        </List>
+        <Divider />
+
+        <List>
           <ListItem style={{ fontWeight: "bold" }}>Skinfluencers</ListItem>
           <ListItem>
             <NavLink
@@ -76,7 +97,7 @@ const Sidebar = () => {
               exact
               activeStyle={{
                 fontWeight: "bold",
-                color: "red",
+                color: "blue",
               }}
             >
               All Skinfluencers
@@ -88,7 +109,7 @@ const Sidebar = () => {
               to="/skinfluencers/create"
               activeStyle={{
                 fontWeight: "bold",
-                color: "red",
+                color: "blue",
               }}
             >
               Create Skinfluencer

@@ -3,6 +3,7 @@ import * as actionTypes from "./types";
 const initState = {
   threads: [],
   totalPages: 1,
+  totalThreads: 1,
   loading: false,
   createdThread: null,
   viewedThread: null,
@@ -50,6 +51,7 @@ const threadsReducer = (state = initState, action) => {
         loading: false,
         threads: action.payload.threads,
         totalPages: action.payload.totalPages,
+        totalThreads: action.payload.totalThreads,
       };
     case actionTypes.GET_THREADS_FAILURE:
       console.log("error from reducer: ", action.error);
