@@ -1,8 +1,14 @@
-import { Menu, MenuItem, TableCell, TableRow } from "@material-ui/core";
+import {
+  IconButton,
+  Menu,
+  MenuItem,
+  TableCell,
+  TableRow,
+} from "@material-ui/core";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Button from "../../../../components/Button";
 import ConfirmDialog from "../../../../components/ConfirmDialog";
+import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 // import * as S from "./styled";
 
 const SkinfluencerRow = ({ skinfluencer, index, handleDelete }) => {
@@ -40,13 +46,13 @@ const SkinfluencerRow = ({ skinfluencer, index, handleDelete }) => {
           {skinfluencer.createdAt || "unknown"}
         </TableCell>
         <TableCell align="left">
-          <Button
-            aria-controls="simple-menu"
+          <IconButton
+            aria-controls="action-menu"
             aria-haspopup="true"
             onClick={(e) => handleActionBtnClick(e, index)}
-            title="Actions"
-          />
-
+          >
+            <MoreHorizIcon fontSize="default" />
+          </IconButton>
           <Menu
             id="simple-menu"
             anchorEl={anchorEl}
