@@ -15,7 +15,7 @@ import * as S from "./styled";
 import Moment from "react-moment";
 import "moment-timezone";
 
-const ResellerPage = () => {
+const ResellersPage = () => {
   const dispatch = useDispatch();
   const { resellers, errors, loading } = useSelector(
     (state) => state.kBeauty.resellers
@@ -85,4 +85,4 @@ const ResellerPage = () => {
   );
 };
 
-export default ResellerPage;
+export default ResellersPage;

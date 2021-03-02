@@ -9,7 +9,8 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import SkinfluencersPage from "./pages/skinfluencers/SkinfluencersPage/SkinfluencersPage";
 import CreateSkinfluencerPage from "./pages/skinfluencers/CreateSkinfluencerPage";
 import ForumPage from "./pages/forum/ForumPage";
-import ResellerPage from "./pages/k-beauty/ResellerPage";
+import ResellersPage from "./pages/k-beauty/ResellersPage";
+import BrandsPage from "./pages/k-beauty/BrandsPage";
 // import Notification from "./components/Notification";
 
 const useStyles = makeStyles((theme) => ({
@@ -39,7 +40,8 @@ const App = () => {
             path="/skinfluencers/create"
             component={CreateSkinfluencerPage}
           />
-          <Route exact path="/k-beauty/resellers" component={ResellerPage} />
+          <Route exact path="/k-beauty/resellers" component={ResellersPage} />
+          <Route exact path="/k-beauty/brands" component={BrandsPage} />
           <Route exact path="/blog" component={BlogPage} />
           <Route exact path="/blog/create-post" component={CreatePostPage} />
           <Route exact path="/forum" component={ForumPage} />
