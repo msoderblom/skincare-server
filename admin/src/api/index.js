@@ -54,3 +54,4 @@ export const deleteSkinfluencer = (id) => API.delete(`/skinfluencers/${id}`);
 
 // K-Beauty
 export const getResellers = () => API.get(`k-beauty/resellers`);
+export const getBrands = () => API.get(`k-beauty/brands`);
