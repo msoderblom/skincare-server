@@ -12,9 +12,7 @@ import Button from "../Button";
 const ConfirmDialog = ({ confirmDialog, setConfirmDialog }) => {
   return (
     <Dialog open={confirmDialog.isOpen}>
-      <DialogTitle>
-        <Typography variant="h6">{confirmDialog.title}</Typography>
-      </DialogTitle>
+      <DialogTitle>{confirmDialog.title}</DialogTitle>
       <DialogContent>
         {confirmDialog.subTitle && (
           <Typography variant="subtitle2">{confirmDialog.subTitle}</Typography>
@@ -27,7 +25,13 @@ const ConfirmDialog = ({ confirmDialog, setConfirmDialog }) => {
             setConfirmDialog((prev) => ({ ...prev, isOpen: false }))
           }
         />
-        <Button title="Yes" onClick={confirmDialog.onConfirm} />
+        <Button
+          title="Yes"
+          onClick={() => {
+            confirmDialog.onConfirm();
+            setConfirmDialog((prev) => ({ ...prev, isOpen: false }));
+          }}
+        />
       </DialogActions>
     </Dialog>
   );

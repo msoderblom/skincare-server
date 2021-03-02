@@ -6,6 +6,7 @@ const initState = {
   loading: false,
   getSkinfluencersError: null,
   createSkinfluencerError: null,
+  deleteSkinfluencerError: null,
 };
 
 const skinfluencersReducer = (state = initState, action) => {
@@ -31,6 +32,29 @@ const skinfluencersReducer = (state = initState, action) => {
         ...state,
         loading: false,
         createSkinfluencerError: action.error,
+      };
+
+    // DELETE
+    case actionTypes.DELETE_SKINFLUENCER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        deleteSkinfluencerError: null,
+      };
+    case actionTypes.DELETE_SKINFLUENCER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        skinfluencers: state.skinfluencers.filter(
+          (skinfluencer) => skinfluencer._id !== action.payload
+        ),
+      };
+    case actionTypes.DELETE_SKINFLUENCER_FAILURE:
+      console.log("error from reducer: ", action.error);
+      return {
+        ...state,
+        loading: false,
+        deleteSkinfluencerError: action.error,
       };
 
     // GET ALL SKINFLUENCERS

@@ -35,7 +35,7 @@ const SkinfluencersPage = () => {
   }, [dispatch]);
 
   const handleDelete = (id) => {
-    console.log("inside handle delete");
+    dispatch(skinfluencerActions.deleteSkinfluencer(id));
 
     setNotify({ isOpen: true, message: "Deletes Successfully", type: "error" });
   };
@@ -69,6 +69,7 @@ const SkinfluencersPage = () => {
               <TableBody>
                 {skinfluencers.map((skinfluencer, index) => (
                   <SkinfluencerRow
+                    key={skinfluencer._id}
                     skinfluencer={skinfluencer}
                     index={index}
                     handleDelete={handleDelete}

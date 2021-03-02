@@ -30,6 +30,7 @@ export const deleteSkinfluencer = (id) => async (dispatch) => {
 
     dispatch({
       type: actionTypes.DELETE_SKINFLUENCER_SUCCESS,
+      payload: id,
     });
   } catch (error) {
     dispatch({
