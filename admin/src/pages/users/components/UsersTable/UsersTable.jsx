@@ -15,6 +15,8 @@ import {
   TableFooter,
   TablePagination,
 } from "@material-ui/core";
+import Moment from "react-moment";
+import "moment-timezone";
 
 const UsersTable = () => {
   const dispatch = useDispatch();
@@ -74,7 +76,7 @@ const UsersTable = () => {
               {users.map((user, index) => (
                 <TableRow key={user._id}>
                   <TableCell component="th" scope="row">
-                    {index + 1}
+                    {(page - 1) * limit + index + 1}
                   </TableCell>
                   <TableCell component="th" scope="row">
                     {user._id}
@@ -82,7 +84,8 @@ const UsersTable = () => {
                   <TableCell align="left">{user.username}</TableCell>
                   <TableCell align="left">{user.email}</TableCell>
                   <TableCell align="left">
-                    {user.createdAt || "unknown"}
+                    {<Moment format="YYYY-MM-DD">{user.createdAt}</Moment> ||
+                      "unknown"}
                   </TableCell>
                 </TableRow>
               ))}
