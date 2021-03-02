@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { threadActions } from "../../../redux/forum/threads";
 import {
   CircularProgress,
-  Switch,
   Table,
   TableBody,
   TableCell,

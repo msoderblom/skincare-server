@@ -9,7 +9,7 @@ import ImageDropZone from "../../../components/ImageDropZone";
 import { useDispatch, useSelector } from "react-redux";
 import { postActions } from "../../../redux/blog/posts";
 
-const modules = {
+/* const modules = {
   toolbar: [
     [{ header: [1, 2, 3, false] }],
     ["bold", "italic", "underline", "strike", "blockquote"],
@@ -37,11 +37,11 @@ const formats = [
   "link",
   "image",
   "video",
-];
+]; */
 
 const CreatePostPage = () => {
   // title, body, author
-  const [body, setBody] = useState("");
+  const [body] = useState("");
   const [files, setFiles] = useState([]);
   const { register, handleSubmit } = useForm();
 
