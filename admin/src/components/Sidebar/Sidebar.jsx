@@ -41,6 +41,22 @@ const Sidebar = () => {
       <Toolbar />
       <div className={classes.drawerContainer}>
         <List>
+          <ListItem style={{ fontWeight: "bold" }}>Users</ListItem>
+          <ListItem>
+            <NavLink
+              to="/users"
+              exact
+              activeStyle={{
+                fontWeight: "bold",
+                color: "blue",
+              }}
+            >
+              All Users
+            </NavLink>
+          </ListItem>
+        </List>
+        <Divider />
+        <List>
           <ListItem style={{ fontWeight: "bold" }}>Blog</ListItem>
           <ListItem>
             <NavLink
