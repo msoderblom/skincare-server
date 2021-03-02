@@ -4,16 +4,24 @@ import Brand from "../models/Brand.js";
 import ErrorResponse from "../utils/errorResponse.js";
 
 export const getAllBrands = async (req, res, next) => {
-  /*   try {
-    const skinfluencers = await Skinfluencer.find();
+  const getResellers = Boolean(req.query.resellers) || false;
+
+  try {
+    let brands;
+
+    if (getResellers) {
+      brands = await Brand.find().populate("resellers");
+    } else {
+      brands = await Brand.find();
+    }
 
     res.status(200).json({
       success: true,
-      skinfluencers,
+      brands,
     });
   } catch (error) {
     next(error);
-  } */
+  }
 };
 export const createBrand = async (req, res, next) => {
   const data = req.body;
