@@ -39,7 +39,18 @@ export const createBrand = async (req, res, next) => {
     next(error);
   }
 };
-export const getAllResellers = async (req, res, next) => {};
+export const getAllResellers = async (req, res, next) => {
+  try {
+    const resellers = await Reseller.find();
+
+    res.status(200).json({
+      success: true,
+      resellers,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 export const createReseller = async (req, res, next) => {
   const data = req.body;

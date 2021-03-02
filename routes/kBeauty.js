@@ -1,5 +1,9 @@
 import express from "express";
-import { createReseller, createBrand } from "../controllers/kBeauty.js";
+import {
+  createReseller,
+  createBrand,
+  getAllResellers,
+} from "../controllers/kBeauty.js";
 
 // Creating an express router
 const router = express.Router();
@@ -8,5 +12,6 @@ const router = express.Router();
 // router.get("/brands/", getAllBrands);
 router.post("/brands/", createBrand);
 router.post("/resellers/", createReseller);
+router.get("/resellers/", getAllResellers);
 
 export default router;
