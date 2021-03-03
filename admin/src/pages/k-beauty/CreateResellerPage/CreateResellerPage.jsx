@@ -1,4 +1,4 @@
-import { FormGroup, FormLabel, InputLabel } from "@material-ui/core";
+import { FormGroup, FormLabel } from "@material-ui/core";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,11 +8,9 @@ import { resellerActions } from "../../../redux/k-beauty/resellers";
 import * as S from "./styled";
 
 const CreateResellerPage = () => {
-  const { register, handleSubmit, errors: formErrors } = useForm();
+  const { register, handleSubmit /* errors: formErrors  */ } = useForm();
   const dispatch = useDispatch();
-  const { createdReseller, errors } = useSelector(
-    (state) => state.kBeauty.resellers
-  );
+  const { errors } = useSelector((state) => state.kBeauty.resellers);
 
   const handleCreateReseller = (data) => {
     console.log("In handleCreateReseller");
