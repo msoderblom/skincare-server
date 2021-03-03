@@ -1,27 +1,22 @@
 import * as actionTypes from "./types";
 import * as api from "../../../api";
 
-export const createComment = (formData, threadID, socket, history) => async (
-  dispatch
-) => {
-  dispatch({ type: actionTypes.CREATE_COMMENT_REQUEST });
+export const createBrand = (formData) => async (dispatch) => {
+  dispatch({ type: actionTypes.CREATE_BRAND_REQUEST });
 
   try {
     const {
-      data: { comment },
-    } = await api.createComment(formData, threadID);
+      data: { brand },
+    } = await api.createBrand(formData);
 
-    dispatch({ type: actionTypes.CREATE_COMMENT_SUCCESS, payload: comment });
-    socket.emit("new-comment", { comment, threadID });
-
-    // history.push("/");
+    dispatch({ type: actionTypes.CREATE_BRAND_SUCCESS, payload: brand });
   } catch (error) {
     dispatch({
-      type: actionTypes.CREATE_COMMENT_FAILURE,
-      error: error.response.data?.error || error.message,
+      type: actionTypes.CREATE_BRAND_FAILURE,
+      error: error?.response?.data?.error || error.message,
     });
     console.error(error);
-    console.log(error.response.data.error);
+    console.log(error?.response?.data?.error);
   }
 };
 

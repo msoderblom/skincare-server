@@ -49,6 +49,7 @@ const resellersReducer = (state = initState, action) => {
         ...state,
         loading: false,
         createdReseller: action.payload,
+        resellers: [...state.resellers, action.payload],
       };
     case actionTypes.CREATE_RESELLER_FAILURE:
       console.log("error from reducer: ", action.error);
