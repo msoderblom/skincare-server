@@ -159,6 +159,30 @@ const Sidebar = () => {
               All Brands
             </NavLink>
           </ListItem>
+          <ListItem>
+            <NavLink
+              to="/k-beauty/resellers/create"
+              exact
+              activeStyle={{
+                fontWeight: "bold",
+                color: "blue",
+              }}
+            >
+              Create Reseller
+            </NavLink>
+          </ListItem>
+          <ListItem>
+            <NavLink
+              to="/k-beauty/brands/create"
+              exact
+              activeStyle={{
+                fontWeight: "bold",
+                color: "blue",
+              }}
+            >
+              Create Brand
+            </NavLink>
+          </ListItem>
         </List>
         {/* <List>
           {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (

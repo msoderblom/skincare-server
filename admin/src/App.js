@@ -12,6 +12,7 @@ import ForumPage from "./pages/forum/ForumPage";
 import ResellersPage from "./pages/k-beauty/ResellersPage";
 import BrandsPage from "./pages/k-beauty/BrandsPage";
 import CreateResellerPage from "./pages/k-beauty/CreateResellerPage";
+import CreateBrandPage from "./pages/k-beauty/CreateBrandPage";
 // import Notification from "./components/Notification";
 
 const useStyles = makeStyles((theme) => ({
@@ -44,8 +45,13 @@ const App = () => {
           <Route exact path="/k-beauty/resellers" component={ResellersPage} />
           <Route
             exact
-            path="/k-beauty/create-reseller"
+            path="/k-beauty/resellers/create"
             component={CreateResellerPage}
+          />
+          <Route
+            exact
+            path="/k-beauty/brands/create"
+            component={CreateBrandPage}
           />
           <Route exact path="/k-beauty/brands" component={BrandsPage} />
           <Route exact path="/blog" component={BlogPage} />

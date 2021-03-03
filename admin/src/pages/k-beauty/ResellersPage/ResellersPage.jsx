@@ -30,7 +30,7 @@ const ResellersPage = () => {
     <S.Container>
       <p>ResellerPage</p>
 
-      <Button title="New Reseller" link="/k-beauty/create-reseller" />
+      <Button title="New Reseller" link="/k-beauty/resellers/create" />
 
       {loading && <CircularProgress />}
 
