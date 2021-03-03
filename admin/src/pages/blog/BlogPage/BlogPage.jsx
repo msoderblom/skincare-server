@@ -15,7 +15,7 @@ const BlogPage = () => {
     <S.Container>
       <p>BlogPage</p>
 
-      <Button title="New Post" link="blog/create-post" />
+      <Button title="New Post" link="/blog/create-post" />
       <BlogPostTable />
     </S.Container>
   );

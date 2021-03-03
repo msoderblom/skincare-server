@@ -2,9 +2,11 @@ import * as actionTypes from "./types";
 
 const initState = {
   resellers: [],
+  createdReseller: null,
   loading: false,
   errors: {
     getResellers: null,
+    createReseller: null,
   },
 };
 
@@ -32,12 +34,29 @@ const resellersReducer = (state = initState, action) => {
         loading: false,
         errors: { ...state.errors, getResellers: action.error },
       };
-    /* case actionTypes.UPDATE_COMMENTS:
-      console.log("Payload inside update comments: ", action.payload);
+
+    // CREATE RESELLER
+    case actionTypes.CREATE_RESELLER_REQUEST:
       return {
         ...state,
-        comments: [...state.comments, action.payload],
-      }; */
+        loading: true,
+        errors: { ...state.errors, createReseller: null },
+      };
+    case actionTypes.CREATE_RESELLER_SUCCESS:
+      console.log("Payload in reducer", action.payload);
+
+      return {
+        ...state,
+        loading: false,
+        createdReseller: action.payload,
+      };
+    case actionTypes.CREATE_RESELLER_FAILURE:
+      console.log("error from reducer: ", action.error);
+      return {
+        ...state,
+        loading: false,
+        errors: { ...state.errors, createReseller: action.error },
+      };
 
     default:
       return state;

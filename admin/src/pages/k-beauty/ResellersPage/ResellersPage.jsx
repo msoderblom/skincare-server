@@ -14,6 +14,7 @@ import { resellerActions } from "../../../redux/k-beauty/resellers";
 import * as S from "./styled";
 import Moment from "react-moment";
 import "moment-timezone";
+import Button from "../../../components/Button";
 
 const ResellersPage = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,9 @@ const ResellersPage = () => {
   return (
     <S.Container>
       <p>ResellerPage</p>
+
+      <Button title="New Reseller" link="/k-beauty/create-reseller" />
+
       {loading && <CircularProgress />}
 
       <TableContainer component={Paper}>
@@ -65,7 +69,11 @@ const ResellersPage = () => {
                       : "-"}
                   </TableCell>
                   <TableCell align="left">
-                    <a href={reseller.link.url}>
+                    <a
+                      href={reseller.link.url}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
                       {reseller.link.linkName || reseller.link.url}
                     </a>
                   </TableCell>
