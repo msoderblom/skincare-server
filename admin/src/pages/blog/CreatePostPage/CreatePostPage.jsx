@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import * as S from "./styled";
 import Input from "../../../components/Input";
-// import ReactQuill from "react-quill";
-// import "react-quill/dist/quill.snow.css";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import { useForm } from "react-hook-form";
 import Button from "../../../components/Button";
 import ImageDropZone from "../../../components/ImageDropZone";
 import { useDispatch, useSelector } from "react-redux";
 import { postActions } from "../../../redux/blog/posts";
 
-/* const modules = {
+const modules = {
   toolbar: [
     [{ header: [1, 2, 3, false] }],
     ["bold", "italic", "underline", "strike", "blockquote"],
@@ -37,11 +37,11 @@ const formats = [
   "link",
   "image",
   "video",
-]; */
+];
 
 const CreatePostPage = () => {
   // title, body, author
-  const [body] = useState("");
+  const [body, setBody] = useState("");
   const [files, setFiles] = useState([]);
   const { register, handleSubmit } = useForm();
 
@@ -65,20 +65,6 @@ const CreatePostPage = () => {
       });
     }
 
-    // payload.append('body', body);
-
-    // console.log(payload);
-
-    /*   const payload = {
-      title: data.title,
-      body,
-      images: files,
-    };
-
-    if (files.length > 0) {
-      payload.images = files;
-    } */
-
     dispatch(postActions.createPost(payload));
   };
   return (
@@ -100,12 +86,11 @@ const CreatePostPage = () => {
           label="Title"
           required
         />
-        {/*     <ReactQuill
+        {/*  <ReactQuill
           value={body}
           onChange={setBody}
           modules={modules}
           formats={formats}
-        
         /> */}
         <Button title="Create Post" type="submit" />
         {createPostError && <span>{createPostError}</span>}
