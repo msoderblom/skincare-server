@@ -15,6 +15,7 @@ import * as S from "./styled";
 import Moment from "react-moment";
 import "moment-timezone";
 import Button from "../../../components/Button";
+import ActionMenu from "../../../components/ActionMenu/ActionMenu";
 
 const ResellersPage = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,13 @@ const ResellersPage = () => {
   useEffect(() => {
     dispatch(resellerActions.getResellers());
   }, [dispatch]);
+
+  const handleDelete = (id) => {
+    console.log("inside handle delete reseller", id);
+
+    dispatch(resellerActions.deleteReseller(id));
+    // setNotify({ isOpen: true, message: "Deletes Successfully", type: "error" });
+  };
 
   return (
     <S.Container>
@@ -81,7 +89,16 @@ const ResellersPage = () => {
                   <TableCell align="left">
                     <Moment format="YYYY-MM-DD">{reseller?.createdAt}</Moment>
                   </TableCell>
-                  <TableCell align="left"> </TableCell>
+                  <TableCell align="left">
+                    <ActionMenu
+                      id={reseller._id}
+                      handleDelete={handleDelete}
+                      confirmMessage={{
+                        title: `Do you want to delete: ${reseller.name}?`,
+                        subTitle: `The references to "${reseller.name}" in Brands will also be deleted.`,
+                      }}
+                    />
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

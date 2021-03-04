@@ -80,6 +80,9 @@ const BrandsPage = () => {
                       id={brand._id}
                       handleDelete={handleDelete}
                       confirmTitle={`Do you want to delete: ${brand.name}?`}
+                      confirmMessage={{
+                        title: `Do you want to delete: ${brand.name}?`,
+                      }}
                     />
                   </TableCell>
                 </TableRow>

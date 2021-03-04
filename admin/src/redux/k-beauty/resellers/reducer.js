@@ -7,6 +7,7 @@ const initState = {
   errors: {
     getResellers: null,
     createReseller: null,
+    deleteReseller: null,
   },
 };
 
@@ -57,6 +58,31 @@ const resellersReducer = (state = initState, action) => {
         ...state,
         loading: false,
         errors: { ...state.errors, createReseller: action.error },
+      };
+
+    // DELETE RESELLER
+    case actionTypes.DELETE_RESELLER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        errors: { ...state.errors, deleteReseller: null },
+      };
+    case actionTypes.DELETE_RESELLER_SUCCESS:
+      console.log("Payload in reducer", action.payload);
+
+      return {
+        ...state,
+        loading: false,
+        resellers: state.resellers.filter(
+          (reseller) => reseller._id !== action.payload
+        ),
+      };
+    case actionTypes.DELETE_RESELLER_FAILURE:
+      console.log("error from reducer: ", action.error);
+      return {
+        ...state,
+        loading: false,
+        errors: { ...state.errors, deleteReseller: action.error },
       };
 
     default:

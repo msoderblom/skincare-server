@@ -19,6 +19,22 @@ export const createReseller = (formData) => async (dispatch) => {
     console.log(error?.response?.data?.error);
   }
 };
+export const deleteReseller = (id) => async (dispatch) => {
+  dispatch({ type: actionTypes.DELETE_RESELLER_REQUEST });
+
+  try {
+    await api.deleteReseller(id);
+
+    dispatch({ type: actionTypes.DELETE_RESELLER_SUCCESS, payload: id });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.DELETE_RESELLER_FAILURE,
+      error: error?.response?.data?.error || error.message,
+    });
+    console.error(error);
+    console.log(error?.response?.data?.error);
+  }
+};
 
 export const getResellers = () => async (dispatch) => {
   dispatch({ type: actionTypes.GET_RESELLERS_REQUEST });

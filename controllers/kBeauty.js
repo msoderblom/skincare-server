@@ -83,6 +83,22 @@ export const deleteReseller = async (req, res, next) => {
       return next(new ErrorResponse("No reseller with that id was found", 404));
     }
 
+    const brandsContainingReseller = await Brand.find({ resellers: id });
+
+    // TODO: Maybe delete/update resellers in brands in a better way?
+    if (brandsContainingReseller.length > 0) {
+      brandsContainingReseller.forEach(async (brand) => {
+        const updatedResellers = brand.resellers.filter(
+          (resellerID) => String(resellerID) !== id
+        );
+
+        await Brand.updateOne(
+          { _id: brand._id },
+          { resellers: updatedResellers }
+        );
+      });
+    }
+
     await Reseller.deleteOne({ _id: id });
 
     res.status(204).json({ success: true });

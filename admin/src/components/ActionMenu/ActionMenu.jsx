@@ -8,13 +8,14 @@ import { Link } from "react-router-dom";
 import ConfirmDialog from "../ConfirmDialog";
 import * as S from "./styled";
 
-const ActionMenu = ({ id, handleDelete, confirmTitle }) => {
+const ActionMenu = ({ id, handleDelete, confirmMessage }) => {
   const anchorEl = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false,
-    title: confirmTitle || "Are you sure you want to delete this record?",
-    subTitle: "You can't undo this action?",
+    title:
+      confirmMessage.title || "Are you sure you want to delete this record?",
+    subTitle: confirmMessage.subTitle || "You can't undo this action?",
     onConfirm: () => handleDelete(id),
   });
 
