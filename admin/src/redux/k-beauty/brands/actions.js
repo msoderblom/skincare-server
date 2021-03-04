@@ -20,6 +20,23 @@ export const createBrand = (formData) => async (dispatch) => {
   }
 };
 
+export const deleteBrand = (id) => async (dispatch) => {
+  dispatch({ type: actionTypes.DELETE_BRAND_REQUEST });
+
+  try {
+    await api.deleteBrand(id);
+
+    dispatch({ type: actionTypes.DELETE_BRAND_SUCCESS, payload: id });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.DELETE_BRAND_FAILURE,
+      error: error?.response?.data?.error || error.message,
+    });
+    console.error(error);
+    console.log(error?.response?.data?.error);
+  }
+};
+
 export const getBrands = () => async (dispatch) => {
   dispatch({ type: actionTypes.GET_BRANDS_REQUEST });
 

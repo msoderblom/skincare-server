@@ -7,6 +7,7 @@ const initState = {
   errors: {
     getBrands: null,
     createBrand: null,
+    deleteBrand: null,
   },
 };
 
@@ -56,6 +57,29 @@ const brandsReducer = (state = initState, action) => {
         ...state,
         loading: false,
         errors: { ...state.errors, createBrand: action.error },
+      };
+
+    // DELETE BRAND
+    case actionTypes.DELETE_BRAND_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        errors: { ...state.errors, deleteBrand: null },
+      };
+    case actionTypes.DELETE_BRAND_SUCCESS:
+      console.log("Payload in reducer", action.payload);
+
+      return {
+        ...state,
+        loading: false,
+        brands: state.brands.filter((brand) => brand._id !== action.payload),
+      };
+    case actionTypes.DELETE_BRAND_FAILURE:
+      console.log("error from reducer: ", action.error);
+      return {
+        ...state,
+        loading: false,
+        errors: { ...state.errors, deleteBrand: action.error },
       };
 
     default:

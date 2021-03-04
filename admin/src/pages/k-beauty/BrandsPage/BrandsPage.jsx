@@ -14,6 +14,7 @@ import { brandActions } from "../../../redux/k-beauty/brands";
 import * as S from "./styled";
 import Moment from "react-moment";
 import "moment-timezone";
+import ActionMenu from "../../../components/ActionMenu/ActionMenu";
 
 const BrandsPage = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,11 @@ const BrandsPage = () => {
   useEffect(() => {
     dispatch(brandActions.getBrands());
   }, [dispatch]);
+
+  const handleDelete = (id) => {
+    dispatch(brandActions.deleteBrand(id));
+    // setNotify({ isOpen: true, message: "Deletes Successfully", type: "error" });
+  };
 
   return (
     <S.Container>
@@ -69,7 +75,13 @@ const BrandsPage = () => {
                   <TableCell align="left">
                     <Moment format="YYYY-MM-DD">{brand?.createdAt}</Moment>
                   </TableCell>
-                  <TableCell align="left"> </TableCell>
+                  <TableCell align="left">
+                    <ActionMenu
+                      id={brand._id}
+                      handleDelete={handleDelete}
+                      confirmTitle={`Do you want to delete: ${brand.name}?`}
+                    />
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -58,3 +58,4 @@ export const createReseller = (formData) =>
   API.post(`/k-beauty/resellers`, formData);
 export const getBrands = () => API.get(`/k-beauty/brands`);
 export const createBrand = (formData) => API.post(`/k-beauty/brands`, formData);
+export const deleteBrand = (id) => API.delete(`/k-beauty/brands/${id}`);
