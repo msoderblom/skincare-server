@@ -47,11 +47,17 @@ export const deleteSkinfluencer = async (req, res, next) => {
   }
 
   try {
-    await Skinfluencer.findOneAndDelete({ _id: id });
+    const skinfluencer = await Skinfluencer.findById(id);
 
-    res.status(200).json({
-      success: true,
-    });
+    if (!skinfluencer) {
+      return next(
+        new ErrorResponse("No skinfluencer with that id was found", 404)
+      );
+    }
+
+    await Skinfluencer.deleteOne({ _id: id });
+
+    res.status(204).json({ success: true });
   } catch (error) {
     next(error);
   }

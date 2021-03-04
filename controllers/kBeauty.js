@@ -47,6 +47,28 @@ export const createBrand = async (req, res, next) => {
     next(error);
   }
 };
+export const deleteBrand = async (req, res, next) => {
+  const { id } = req.params;
+
+  if (!mongoose.isValidObjectId(id)) {
+    return next(new ErrorResponse("Not a valid mongoose object id", 404));
+  }
+
+  try {
+    const brand = await Brand.findById(id);
+
+    if (!brand) {
+      return next(new ErrorResponse("No brand with that id was found", 404));
+    }
+
+    await Brand.deleteOne({ _id: id });
+
+    res.status(204).json({ success: true });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getAllResellers = async (req, res, next) => {
   try {
     const resellers = await Reseller.find();
