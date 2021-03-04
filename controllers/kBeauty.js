@@ -69,6 +69,28 @@ export const deleteBrand = async (req, res, next) => {
   }
 };
 
+export const deleteReseller = async (req, res, next) => {
+  const { id } = req.params;
+
+  if (!mongoose.isValidObjectId(id)) {
+    return next(new ErrorResponse("Not a valid mongoose object id", 404));
+  }
+
+  try {
+    const reseller = await Reseller.findById(id);
+
+    if (!reseller) {
+      return next(new ErrorResponse("No reseller with that id was found", 404));
+    }
+
+    await Reseller.deleteOne({ _id: id });
+
+    res.status(204).json({ success: true });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getAllResellers = async (req, res, next) => {
   try {
     const resellers = await Reseller.find();
