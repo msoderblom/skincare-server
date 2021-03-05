@@ -3,11 +3,13 @@ import * as actionTypes from "./types";
 const initState = {
   resellers: [],
   createdReseller: null,
+  currentReseller: null,
   loading: false,
   errors: {
     getResellers: null,
     createReseller: null,
     deleteReseller: null,
+    getOneReseller: null,
   },
 };
 
@@ -83,6 +85,30 @@ const resellersReducer = (state = initState, action) => {
         ...state,
         loading: false,
         errors: { ...state.errors, deleteReseller: action.error },
+      };
+
+    // GET ONE RESELLER
+    case actionTypes.GET_ONE_RESELLER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        errors: { ...state.errors, getOneReseller: null },
+      };
+    case actionTypes.GET_ONE_RESELLER_SUCCESS:
+      console.log("Payload in reducer", action.payload);
+
+      return {
+        ...state,
+        loading: false,
+        currentReseller: action.payload,
+      };
+    case actionTypes.GET_ONE_RESELLER_FAILURE:
+      console.log("error from reducer: ", action.error);
+      return {
+        ...state,
+        loading: false,
+        errors: { ...state.errors, getOneReseller: action.error },
+        currentReseller: null,
       };
 
     default:

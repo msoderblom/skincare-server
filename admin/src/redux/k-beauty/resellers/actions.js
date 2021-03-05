@@ -36,6 +36,25 @@ export const deleteReseller = (id) => async (dispatch) => {
   }
 };
 
+export const getOneReseller = (id) => async (dispatch) => {
+  dispatch({ type: actionTypes.GET_ONE_RESELLER_REQUEST });
+
+  try {
+    const {
+      data: { reseller },
+    } = await api.getOneReseller(id);
+
+    dispatch({ type: actionTypes.GET_ONE_RESELLER_SUCCESS, payload: reseller });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_ONE_RESELLER_FAILURE,
+      error: error?.response?.data?.error || error.message,
+    });
+    console.error(error);
+    console.log(error?.response?.data?.error);
+  }
+};
+
 export const getResellers = () => async (dispatch) => {
   dispatch({ type: actionTypes.GET_RESELLERS_REQUEST });
 
