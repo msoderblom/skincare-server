@@ -133,6 +133,39 @@ export const getReseller = async (req, res, next) => {
   }
 };
 
+export const updateReseller = async (req, res, next) => {
+  const { id } = req.params;
+  const data = req.body;
+
+  if (!mongoose.isValidObjectId(id)) {
+    return next(new ErrorResponse("Not a valid mongoose object id", 404));
+  }
+
+  try {
+    const reseller = await Reseller.findById(id);
+
+    if (!reseller) {
+      return next(new ErrorResponse("No reseller with that id was found", 404));
+    }
+
+    // You write {new: true} to get back the updated post
+    const updatedReseller = await Reseller.findByIdAndUpdate(
+      { _id: id },
+      { ...data, _id: id },
+      {
+        new: true,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      updatedReseller,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getAllResellers = async (req, res, next) => {
   try {
     const resellers = await Reseller.find();

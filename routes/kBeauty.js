@@ -7,6 +7,7 @@ import {
   deleteBrand,
   deleteReseller,
   getReseller,
+  updateReseller,
 } from "../controllers/kBeauty.js";
 
 // Creating an express router
@@ -19,6 +20,7 @@ router.delete("/brands/:id", deleteBrand);
 router.get("/resellers/", getAllResellers);
 router.post("/resellers/", createReseller);
 router.get("/resellers/:id", getReseller);
+router.patch("/resellers/:id", updateReseller);
 router.delete("/resellers/:id", deleteReseller);
 
 export default router;
