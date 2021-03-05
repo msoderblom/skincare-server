@@ -14,9 +14,11 @@ const Input = ({
   error,
   register,
   required,
+  ...props
 }) => {
   return (
     <S.Input
+      {...props}
       name={name}
       label={label}
       onChange={handleChange}
