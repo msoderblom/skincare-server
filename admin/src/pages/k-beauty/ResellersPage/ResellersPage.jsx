@@ -97,6 +97,8 @@ const ResellersPage = () => {
                         title: `Do you want to delete: ${reseller.name}?`,
                         subTitle: `The references to "${reseller.name}" in Brands will also be deleted.`,
                       }}
+                      editLink={`/k-beauty/resellers/${reseller._id}/edit`}
+                      viewLink={`/k-beauty/resellers/${reseller._id}`}
                     />
                   </TableCell>
                 </TableRow>

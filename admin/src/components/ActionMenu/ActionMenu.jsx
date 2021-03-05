@@ -8,7 +8,13 @@ import { Link } from "react-router-dom";
 import ConfirmDialog from "../ConfirmDialog";
 import * as S from "./styled";
 
-const ActionMenu = ({ id, handleDelete, confirmMessage }) => {
+const ActionMenu = ({
+  id,
+  handleDelete,
+  confirmMessage,
+  editLink,
+  viewLink,
+}) => {
   const anchorEl = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState({
@@ -46,10 +52,18 @@ const ActionMenu = ({ id, handleDelete, confirmMessage }) => {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose}>
-          <VisibilityIcon /> View
+          <Link
+            to={viewLink}
+            style={{ display: "flex", textDecoration: "none", color: "black" }}
+          >
+            <VisibilityIcon /> View
+          </Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <Link to="/" style={{ display: "flex", textDecoration: "none" }}>
+          <Link
+            to={editLink}
+            style={{ display: "flex", textDecoration: "none" }}
+          >
             <EditIcon /> Edit
           </Link>
         </MenuItem>
