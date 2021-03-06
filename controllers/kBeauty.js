@@ -23,6 +23,30 @@ export const getAllBrands = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getBrand = async (req, res, next) => {
+  const { id } = req.params;
+
+  if (!mongoose.isValidObjectId(id)) {
+    return next(new ErrorResponse("Not a valid mongoose object id", 404));
+  }
+
+  try {
+    const brand = await Brand.findById(id);
+
+    if (!brand) {
+      return next(new ErrorResponse("No brand with that id was found", 404));
+    }
+
+    res.status(200).json({
+      success: true,
+      brand,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const createBrand = async (req, res, next) => {
   const data = req.body;
   try {
@@ -47,6 +71,7 @@ export const createBrand = async (req, res, next) => {
     next(error);
   }
 };
+
 export const deleteBrand = async (req, res, next) => {
   const { id } = req.params;
 

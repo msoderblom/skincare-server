@@ -9,6 +9,7 @@ import {
   getReseller,
   updateReseller,
   updateBrand,
+  getBrand,
 } from "../controllers/kBeauty.js";
 
 // Creating an express router
@@ -17,6 +18,7 @@ const router = express.Router();
 // Brands
 router.get("/brands/", getAllBrands);
 router.post("/brands/", createBrand);
+router.get("/brands/:id", getBrand);
 router.patch("/brands/:id", updateBrand);
 router.delete("/brands/:id", deleteBrand);
 
