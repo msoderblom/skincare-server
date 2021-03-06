@@ -148,14 +148,9 @@ export const updateReseller = async (req, res, next) => {
       return next(new ErrorResponse("No reseller with that id was found", 404));
     }
 
-    // You write {new: true} to get back the updated post
-    const updatedReseller = await Reseller.findByIdAndUpdate(
-      { _id: id },
-      { ...data, _id: id },
-      {
-        new: true,
-      }
-    );
+    await Reseller.updateOne({ _id: id }, { ...data });
+
+    const updatedReseller = await Reseller.findById(id);
 
     res.status(200).json({
       success: true,

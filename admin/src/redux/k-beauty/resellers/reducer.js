@@ -10,6 +10,7 @@ const initState = {
     createReseller: null,
     deleteReseller: null,
     getOneReseller: null,
+    updateReseller: null,
   },
 };
 
@@ -85,6 +86,32 @@ const resellersReducer = (state = initState, action) => {
         ...state,
         loading: false,
         errors: { ...state.errors, deleteReseller: action.error },
+      };
+
+    // UPDATE RESELLER
+    case actionTypes.UPDATE_RESELLER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        errors: { ...state.errors, updateReseller: null },
+      };
+    case actionTypes.UPDATE_RESELLER_SUCCESS:
+      console.log("Payload in reducer", action.payload);
+
+      return {
+        ...state,
+        loading: false,
+        resellers: state.resellers.map((reseller) =>
+          reseller._id === action.payload._id ? action.payload : reseller
+        ),
+        currentReseller: action.payload,
+      };
+    case actionTypes.UPDATE_RESELLER_FAILURE:
+      console.log("error from reducer: ", action.error);
+      return {
+        ...state,
+        loading: false,
+        errors: { ...state.errors, updateReseller: action.error },
       };
 
     // GET ONE RESELLER

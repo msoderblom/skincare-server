@@ -35,6 +35,28 @@ export const deleteReseller = (id) => async (dispatch) => {
     console.log(error?.response?.data?.error);
   }
 };
+export const updateReseller = (id, formData, history) => async (dispatch) => {
+  dispatch({ type: actionTypes.UPDATE_RESELLER_REQUEST });
+
+  try {
+    const {
+      data: { updatedReseller },
+    } = await api.updateReseller(id, formData);
+
+    dispatch({
+      type: actionTypes.UPDATE_RESELLER_SUCCESS,
+      payload: updatedReseller,
+    });
+    history.push(`/k-beauty/resellers/${id}`);
+  } catch (error) {
+    dispatch({
+      type: actionTypes.UPDATE_RESELLER_FAILURE,
+      error: error?.response?.data?.error || error.message,
+    });
+    console.error(error);
+    console.log(error?.response?.data?.error);
+  }
+};
 
 export const getOneReseller = (id) => async (dispatch) => {
   dispatch({ type: actionTypes.GET_ONE_RESELLER_REQUEST });

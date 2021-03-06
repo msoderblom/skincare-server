@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
     // paddingLeft: drawerWidth + 30,
-    paddingTop: 70,
+    paddingTop: 80,
   },
 }));
 const App = () => {
