@@ -11,6 +11,8 @@ import {
   resellerTypes,
 } from "../../../redux/k-beauty/resellers";
 import * as S from "./styled";
+import Moment from "react-moment";
+import "moment-timezone";
 
 const ResellerDetailPage = ({ edit = false }) => {
   const { id } = useParams();
@@ -136,11 +138,27 @@ const ResellerDetailPage = ({ edit = false }) => {
 
           {!edit && (
             <Paper style={{ padding: 20 }}>
-              <Button
-                title="Edit"
-                link={`/k-beauty/resellers/${reseller._id}/edit`}
-                startIcon={<EditIcon />}
-              />
+              <div>
+                <p>
+                  <strong>Created: </strong>{" "}
+                  <Moment format="YYYY-MM-DD">{reseller.createdAt}</Moment>
+                </p>
+                <p>
+                  <strong>Last updated: </strong>
+                  <Moment format="YYYY-MM-DD HH:mm">
+                    {reseller.updatedAt}
+                  </Moment>
+                  {" ("}
+                  <Moment fromNow>{reseller.updatedAt}</Moment>
+                  {")"}
+                </p>
+
+                <Button
+                  title="Edit"
+                  link={`/k-beauty/resellers/${reseller._id}/edit`}
+                  startIcon={<EditIcon />}
+                />
+              </div>
               <p>
                 <strong>Name: </strong>
                 {reseller.name}
