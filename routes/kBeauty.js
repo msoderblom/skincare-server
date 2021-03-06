@@ -8,15 +8,19 @@ import {
   deleteReseller,
   getReseller,
   updateReseller,
+  updateBrand,
 } from "../controllers/kBeauty.js";
 
 // Creating an express router
 const router = express.Router();
 
-// Defining routes
+// Brands
 router.get("/brands/", getAllBrands);
 router.post("/brands/", createBrand);
+router.patch("/brands/:id", updateBrand);
 router.delete("/brands/:id", deleteBrand);
+
+// Resellers
 router.get("/resellers/", getAllResellers);
 router.post("/resellers/", createReseller);
 router.get("/resellers/:id", getReseller);

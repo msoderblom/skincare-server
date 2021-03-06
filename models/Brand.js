@@ -39,6 +39,11 @@ BrandSchema.pre("save", async function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
+BrandSchema.pre("updateOne", async function (next) {
+  const data = this.getUpdate();
+  data.slug = slugify(data.name, { lower: true });
+  next();
+});
 
 const Brand = mongoose.model("Brand", BrandSchema);
 

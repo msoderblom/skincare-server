@@ -69,6 +69,36 @@ export const deleteBrand = async (req, res, next) => {
   }
 };
 
+export const updateBrand = async (req, res, next) => {
+  const { id } = req.params;
+  const data = req.body;
+
+  if (!mongoose.isValidObjectId(id)) {
+    return next(new ErrorResponse("Not a valid mongoose object id", 404));
+  }
+
+  try {
+    const brand = await Brand.findById(id);
+
+    if (!brand) {
+      return next(new ErrorResponse("No brand with that id was found", 404));
+    }
+
+    await Brand.updateOne({ _id: id }, { ...data }, { runValidators: true });
+
+    const updatedBrand = await Brand.findById(id);
+
+    res.status(200).json({
+      success: true,
+      updatedBrand,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**************************************** RESELLERS ***********************************************/
+
 export const deleteReseller = async (req, res, next) => {
   const { id } = req.params;
 
@@ -148,7 +178,7 @@ export const updateReseller = async (req, res, next) => {
       return next(new ErrorResponse("No reseller with that id was found", 404));
     }
 
-    await Reseller.updateOne({ _id: id }, { ...data });
+    await Reseller.updateOne({ _id: id }, { ...data }, { runValidators: true });
 
     const updatedReseller = await Reseller.findById(id);
 
