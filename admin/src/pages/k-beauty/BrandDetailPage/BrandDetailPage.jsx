@@ -22,10 +22,6 @@ import Moment from "react-moment";
 import "moment-timezone";
 import { resellerActions } from "../../../redux/k-beauty/resellers";
 
-function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />;
-}
-
 const BrandDetailPage = ({ edit = false }) => {
   const { id } = useParams();
   const [selectedResellers, setSelectedResellers] = useState([]);

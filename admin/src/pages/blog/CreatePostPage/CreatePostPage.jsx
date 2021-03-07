@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import * as S from "./styled";
 import Input from "../../../components/Input";
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useForm } from "react-hook-form";
 import Button from "../../../components/Button";
@@ -9,7 +9,7 @@ import ImageDropZone from "../../../components/ImageDropZone";
 import { useDispatch, useSelector } from "react-redux";
 import { postActions } from "../../../redux/blog/posts";
 
-const modules = {
+/* const modules = {
   toolbar: [
     [{ header: [1, 2, 3, false] }],
     ["bold", "italic", "underline", "strike", "blockquote"],
@@ -22,9 +22,9 @@ const modules = {
     ["link", "image", "video"],
     ["clean"],
   ],
-};
+}; */
 
-const formats = [
+/* const formats = [
   "header",
   "bold",
   "italic",
@@ -37,11 +37,11 @@ const formats = [
   "link",
   "image",
   "video",
-];
+]; */
 
 const CreatePostPage = () => {
   // title, body, author
-  const [body, setBody] = useState("");
+  const [body] = useState("");
   const [files, setFiles] = useState([]);
   const { register, handleSubmit } = useForm();
 
