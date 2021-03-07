@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as S from "./styled";
 import Input from "../../../components/Input";
 // import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+// import "react-quill/dist/quill.snow.css";
 import { useForm } from "react-hook-form";
 import Button from "../../../components/Button";
 import ImageDropZone from "../../../components/ImageDropZone";
