@@ -3,11 +3,14 @@ import * as actionTypes from "./types";
 const initState = {
   brands: [],
   createdBrand: null,
+  currentBrand: null,
   loading: false,
   errors: {
     getBrands: null,
     createBrand: null,
     deleteBrand: null,
+    getOneBrand: null,
+    updateBrand: null,
   },
 };
 
@@ -80,6 +83,56 @@ const brandsReducer = (state = initState, action) => {
         ...state,
         loading: false,
         errors: { ...state.errors, deleteBrand: action.error },
+      };
+
+    // GET ONE BRAND
+    case actionTypes.GET_ONE_BRAND_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        errors: { ...state.errors, getOneBrand: null },
+      };
+    case actionTypes.GET_ONE_BRAND_SUCCESS:
+      console.log("Payload in reducer", action.payload);
+
+      return {
+        ...state,
+        loading: false,
+        currentBrand: action.payload,
+      };
+    case actionTypes.GET_ONE_BRAND_FAILURE:
+      console.log("error from reducer: ", action.error);
+      return {
+        ...state,
+        loading: false,
+        errors: { ...state.errors, getOneBrand: action.error },
+        currentBrand: null,
+      };
+
+    // UPDATE BRAND
+    case actionTypes.UPDATE_BRAND_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        errors: { ...state.errors, updateBrand: null },
+      };
+    case actionTypes.UPDATE_BRAND_SUCCESS:
+      console.log("Payload in reducer", action.payload);
+
+      return {
+        ...state,
+        loading: false,
+        brands: state.brands.map((brand) =>
+          brand._id === action.payload._id ? action.payload : brand
+        ),
+        currentBrand: action.payload,
+      };
+    case actionTypes.UPDATE_BRAND_FAILURE:
+      console.log("error from reducer: ", action.error);
+      return {
+        ...state,
+        loading: false,
+        errors: { ...state.errors, updateBrand: action.error },
       };
 
     default:

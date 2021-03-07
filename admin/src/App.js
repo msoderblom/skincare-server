@@ -11,6 +11,7 @@ import CreateSkinfluencerPage from "./pages/skinfluencers/CreateSkinfluencerPage
 import ForumPage from "./pages/forum/ForumPage";
 import ResellersPage from "./pages/k-beauty/ResellersPage";
 import ResellerDetailPage from "./pages/k-beauty/ResellerDetailPage";
+import BrandDetailPage from "./pages/k-beauty/BrandDetailPage";
 import BrandsPage from "./pages/k-beauty/BrandsPage";
 import CreateResellerPage from "./pages/k-beauty/CreateResellerPage";
 import CreateBrandPage from "./pages/k-beauty/CreateBrandPage";
@@ -58,6 +59,16 @@ const App = () => {
             exact
             path="/k-beauty/resellers/:id"
             component={ResellerDetailPage}
+          />
+          <Route
+            exact
+            path="/k-beauty/brands/:id/edit"
+            render={(props) => <BrandDetailPage {...props} edit />}
+          />
+          <Route
+            exact
+            path="/k-beauty/brands/:id"
+            component={BrandDetailPage}
           />
           <Route
             exact

@@ -79,10 +79,11 @@ const BrandsPage = () => {
                     <ActionMenu
                       id={brand._id}
                       handleDelete={handleDelete}
-                      confirmTitle={`Do you want to delete: ${brand.name}?`}
                       confirmMessage={{
                         title: `Do you want to delete: ${brand.name}?`,
                       }}
+                      editLink={`/k-beauty/brands/${brand._id}/edit`}
+                      viewLink={`/k-beauty/brands/${brand._id}`}
                     />
                   </TableCell>
                 </TableRow>
