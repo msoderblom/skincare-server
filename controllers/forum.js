@@ -70,7 +70,18 @@ export const getAllThreads = async (req, res, next) => {
       return next(new ErrorResponse("No page found", 404));
     }
 
-    const result = await query.populate("author");
+    const result = await query.populate("author").lean();
+
+    const addCommentsCount = async (threadArr) => {
+      for (let index = 0; index < threadArr.length; index++) {
+        threadArr[index].commentsCount = await Comment.countDocuments({
+          thread: threadArr[index]._id,
+        });
+      }
+      return threadArr;
+    };
+
+    const threads = await addCommentsCount(result);
 
     res.status(200).json({
       success: true,
@@ -78,7 +89,7 @@ export const getAllThreads = async (req, res, next) => {
       totalThreads: total,
       page,
       pages,
-      threads: result,
+      threads,
     });
   } catch (error) {
     next(error);
