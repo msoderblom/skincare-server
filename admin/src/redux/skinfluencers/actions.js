@@ -63,3 +63,25 @@ export const getSkinfluencers = () => async (dispatch) => {
     console.log(error?.response?.data?.error);
   }
 };
+
+export const getOneSkinfluencer = (id) => async (dispatch) => {
+  dispatch({ type: actionTypes.GET_ONE_SKINFLUENCER_REQUEST });
+
+  try {
+    const {
+      data: { skinfluencer },
+    } = await api.getOneSkinfluencer(id);
+
+    dispatch({
+      type: actionTypes.GET_ONE_SKINFLUENCER_SUCCESS,
+      payload: skinfluencer,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_ONE_SKINFLUENCER_FAILURE,
+      error: error?.response?.data?.error || error.message,
+    });
+    console.error(error);
+    console.log(error?.response?.data?.error);
+  }
+};

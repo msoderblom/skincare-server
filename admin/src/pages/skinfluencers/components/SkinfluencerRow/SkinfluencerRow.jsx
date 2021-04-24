@@ -8,25 +8,17 @@ import {
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ConfirmDialog from "../../../../components/ConfirmDialog";
+import ActionMenu from "../../../../components/ActionMenu";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 // import * as S from "./styled";
 
 const SkinfluencerRow = ({ skinfluencer, index, handleDelete }) => {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [confirmDialog, setConfirmDialog] = useState({
-    isOpen: false,
-    title: "",
-    subTitle: "",
-    onConfirm: () => {},
-  });
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleActionBtnClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const [confirmDialog, setConfirmDialog] = useState({
+  //   isOpen: false,
+  //   title: "",
+  //   subTitle: "",
+  //   onConfirm: () => {},
+  // });
 
   return (
     <>
@@ -46,45 +38,22 @@ const SkinfluencerRow = ({ skinfluencer, index, handleDelete }) => {
           {skinfluencer.createdAt || "unknown"}
         </TableCell>
         <TableCell align="left">
-          <IconButton
-            aria-controls="action-menu"
-            aria-haspopup="true"
-            onClick={(e) => handleActionBtnClick(e, index)}
-          >
-            <MoreHorizIcon fontSize="default" />
-          </IconButton>
-          <Menu
-            id="simple-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={() => handleClose(index)}>View</MenuItem>
-            <MenuItem onClick={() => handleClose(index)}>
-              <Link>Edit</Link>
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                console.log("delete btn clicked");
-                handleClose(index);
-                setConfirmDialog({
-                  isOpen: true,
-                  title: "Are you sure you want to delete this Skinfluencer?",
-                  subTitle: "You can't regret this action?",
-                  onConfirm: () => handleDelete(skinfluencer._id),
-                });
-              }}
-            >
-              Delete
-            </MenuItem>
-          </Menu>
+          <ActionMenu
+            id={skinfluencer._id}
+            handleDelete={handleDelete}
+            confirmMessage={{
+              title: `Do you want to delete: ${skinfluencer.name}?`,
+              subTitle: `You can't revert this action.`,
+            }}
+            editLink={`/skinfluencers/${skinfluencer._id}/edit`}
+            viewLink={`/skinfluencers/${skinfluencer._id}`}
+          />
         </TableCell>
       </TableRow>
-      <ConfirmDialog
+      {/* <ConfirmDialog
         confirmDialog={confirmDialog}
         setConfirmDialog={setConfirmDialog}
-      />
+      /> */}
     </>
   );
 };

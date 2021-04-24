@@ -15,6 +15,7 @@ import BrandDetailPage from "./pages/k-beauty/BrandDetailPage";
 import BrandsPage from "./pages/k-beauty/BrandsPage";
 import CreateResellerPage from "./pages/k-beauty/CreateResellerPage";
 import CreateBrandPage from "./pages/k-beauty/CreateBrandPage";
+import SkinfluencerDetailPage from "./pages/skinfluencers/SkinfluencerDetailPage/SkinfluencerDetailPage";
 // import Notification from "./components/Notification";
 
 const useStyles = makeStyles((theme) => ({
@@ -43,6 +44,16 @@ const App = () => {
             exact
             path="/skinfluencers/create"
             component={CreateSkinfluencerPage}
+          />
+          <Route
+            exact
+            path="/skinfluencers/:id"
+            component={SkinfluencerDetailPage}
+          />
+          <Route
+            exact
+            path="/skinfluencers/:id/edit"
+            render={(props) => <SkinfluencerDetailPage {...props} edit />}
           />
           <Route exact path="/k-beauty/resellers" component={ResellersPage} />
           <Route

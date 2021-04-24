@@ -93,7 +93,7 @@ const BrandDetailPage = ({ edit = false }) => {
   const renderResellers = () => {
     const resellerList = brand.resellers.map((resellerID) => {
       const index = resellers.findIndex((seller) => seller._id === resellerID);
-      const name = resellers[index].name;
+      const name = resellers[index]?.name;
       const url = `/k-beauty/resellers/${resellerID}`;
 
       return (

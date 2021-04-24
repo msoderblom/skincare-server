@@ -3,10 +3,12 @@ import * as actionTypes from "./types";
 const initState = {
   skinfluencers: null,
   createdSkinfluencer: null,
+  currentSkinfluencer: null,
   loading: false,
   getSkinfluencersError: null,
   createSkinfluencerError: null,
   deleteSkinfluencerError: null,
+  getOneSkinfluencerError: null,
 };
 
 const skinfluencersReducer = (state = initState, action) => {
@@ -62,7 +64,7 @@ const skinfluencersReducer = (state = initState, action) => {
       return {
         ...state,
         loading: true,
-        createSkinfluencerError: null,
+        getSkinfluencersError: null,
       };
     case actionTypes.GET_SKINFLUENCERS_SUCCESS:
       console.log("Payload in reducer", action.payload);
@@ -78,6 +80,30 @@ const skinfluencersReducer = (state = initState, action) => {
         ...state,
         loading: false,
         getSkinfluencersError: action.error,
+      };
+
+    // GET ONE SKINFLUENCER
+    case actionTypes.GET_ONE_SKINFLUENCER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        getOneSkinfluencerError: null,
+      };
+    case actionTypes.GET_ONE_SKINFLUENCER_SUCCESS:
+      console.log("Payload in reducer", action.payload);
+
+      return {
+        ...state,
+        loading: false,
+        currentSkinfluencer: action.payload,
+      };
+    case actionTypes.GET_ONE_SKINFLUENCER_FAILURE:
+      console.log("error from reducer: ", action.error);
+      return {
+        ...state,
+        loading: false,
+        getOneSkinfluencerError: action.error,
+        currentSkinfluencer: null,
       };
 
     default:
