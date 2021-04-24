@@ -4,6 +4,7 @@ import {
   deleteSkinfluencer,
   getAllSkinfluencers,
   updateSkinfluencer,
+  getSkinfluencer,
 } from "../controllers/skinfluencers.js";
 
 // Creating an express router
@@ -14,5 +15,6 @@ router.get("/", getAllSkinfluencers);
 router.post("/", createSkinfluencer);
 router.delete("/:id", deleteSkinfluencer);
 router.patch("/:id", updateSkinfluencer);
+router.get("/:id", getSkinfluencer);
 
 export default router;

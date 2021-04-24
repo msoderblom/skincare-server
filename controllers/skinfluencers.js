@@ -14,6 +14,32 @@ export const getAllSkinfluencers = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getSkinfluencer = async (req, res, next) => {
+  const { id } = req.params;
+
+  if (!mongoose.isValidObjectId(id)) {
+    return next(new ErrorResponse("Not a valid mongoose object id", 404));
+  }
+
+  try {
+    const skinfluencer = await Skinfluencer.findById(id);
+
+    if (!skinfluencer) {
+      return next(
+        new ErrorResponse("No skinfluencer with that id was found", 404)
+      );
+    }
+
+    res.status(200).json({
+      success: true,
+      skinfluencer,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const createSkinfluencer = async (req, res, next) => {
   const data = req.body;
   try {
