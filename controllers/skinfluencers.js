@@ -62,3 +62,37 @@ export const deleteSkinfluencer = async (req, res, next) => {
     next(error);
   }
 };
+
+export const updateSkinfluencer = async (req, res, next) => {
+  const { id } = req.params;
+  const data = req.body;
+
+  if (!mongoose.isValidObjectId(id)) {
+    return next(new ErrorResponse("Not a valid mongoose object id", 404));
+  }
+
+  try {
+    const skinfluencer = await Skinfluencer.findById(id);
+
+    if (!skinfluencer) {
+      return next(
+        new ErrorResponse("No skinfluencer with that id was found", 404)
+      );
+    }
+
+    await Skinfluencer.updateOne(
+      { _id: id },
+      { ...data },
+      { runValidators: true }
+    );
+
+    const updatedSkinfluencer = await Skinfluencer.findById(id);
+
+    res.status(200).json({
+      success: true,
+      updatedSkinfluencer,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

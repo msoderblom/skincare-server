@@ -72,6 +72,11 @@ export const getAllThreads = async (req, res, next) => {
 
     const result = await query.populate("author").lean();
 
+    // TODO: see if you can rewrite the addCommentsCount to this
+    /*   const flavors = await Promise.all(
+         createCoffeeDto.flavors.map((name) => this.preloadFlavorByName(name)),
+    ); */
+
     const addCommentsCount = async (threadArr) => {
       for (let index = 0; index < threadArr.length; index++) {
         threadArr[index].commentsCount = await Comment.countDocuments({
