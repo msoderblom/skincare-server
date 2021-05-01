@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import userRoutes from "./routes/users.js";
+import adminRoutes from "./routes/admin.js";
 import forumRoutes from "./routes/forum.js";
 import blogRoutes from "./routes/blog.js";
 import skinfluencerRoutes from "./routes/skinfluencers.js";
@@ -32,6 +33,7 @@ app.use(express.json()); // gör så att man kan parse:a json
 
 // Routes
 app.use("/api/users", userRoutes);
+app.use("/api/admin", adminRoutes);
 app.use("/api/forum", forumRoutes);
 app.use("/api/blog", blogRoutes);
 app.use("/api/skinfluencers", skinfluencerRoutes);
