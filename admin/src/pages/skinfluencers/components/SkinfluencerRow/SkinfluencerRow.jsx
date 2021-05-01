@@ -1,25 +1,9 @@
-import {
-  IconButton,
-  Menu,
-  MenuItem,
-  TableCell,
-  TableRow,
-} from "@material-ui/core";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import ConfirmDialog from "../../../../components/ConfirmDialog";
+import { TableCell, TableRow } from "@material-ui/core";
+import React from "react";
 import ActionMenu from "../../../../components/ActionMenu";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 // import * as S from "./styled";
 
 const SkinfluencerRow = ({ skinfluencer, index, handleDelete }) => {
-  // const [confirmDialog, setConfirmDialog] = useState({
-  //   isOpen: false,
-  //   title: "",
-  //   subTitle: "",
-  //   onConfirm: () => {},
-  // });
-
   return (
     <>
       <TableRow>
@@ -50,10 +34,6 @@ const SkinfluencerRow = ({ skinfluencer, index, handleDelete }) => {
           />
         </TableCell>
       </TableRow>
-      {/* <ConfirmDialog
-        confirmDialog={confirmDialog}
-        setConfirmDialog={setConfirmDialog}
-      /> */}
     </>
   );
 };

@@ -1,9 +1,6 @@
 import {
   Checkbox,
-  FormControl,
   FormControlLabel,
-  FormGroup,
-  FormLabel,
   Paper,
   Typography,
 } from "@material-ui/core";
@@ -20,7 +17,7 @@ import "moment-timezone";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import EditIcon from "@material-ui/icons/Edit";
-import { Controller, useForm, useWatch } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import SocialLinkInput from "../components/SocialLinkInput/SocialLinkInput";
 
 const SkinfluencerDetailPage = ({ edit = false }) => {
@@ -28,9 +25,10 @@ const SkinfluencerDetailPage = ({ edit = false }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { currentSkinfluencer: skinfluencer, errors } = useSelector(
-    (state) => state.skinfluencers
-  );
+  const {
+    currentSkinfluencer: skinfluencer,
+    updateSkinfluencerError,
+  } = useSelector((state) => state.skinfluencers);
   const [socialLinks, setSocialLinks] = useState([]);
 
   const {
@@ -204,7 +202,6 @@ const SkinfluencerDetailPage = ({ edit = false }) => {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          // defaultChecked={skinfluencer.hasProfessionalTitle}
                           color="primary"
                           onChange={(e) => onChange(e.target.checked)}
                           checked={value}
@@ -240,6 +237,7 @@ const SkinfluencerDetailPage = ({ edit = false }) => {
                     style={{ marginLeft: 10 }}
                   />
                 </div>
+                {updateSkinfluencerError && <p>{updateSkinfluencerError}</p>}
               </form>
             </Paper>
           )}
