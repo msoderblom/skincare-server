@@ -122,9 +122,11 @@ const brandsReducer = (state = initState, action) => {
       return {
         ...state,
         loading: false,
-        brands: state.brands.map((brand) =>
-          brand._id === action.payload._id ? action.payload : brand
-        ),
+        brands: state.brands
+          ? state.brands.map((brand) =>
+              brand._id === action.payload._id ? action.payload : brand
+            )
+          : state.brands,
         currentBrand: action.payload,
       };
     case actionTypes.UPDATE_BRAND_FAILURE:

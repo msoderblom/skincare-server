@@ -7,7 +7,7 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import {
@@ -21,6 +21,7 @@ import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import EditIcon from "@material-ui/icons/Edit";
 import { Controller, useForm, useWatch } from "react-hook-form";
+import SocialLinkInput from "../components/SocialLinkInput/SocialLinkInput";
 
 const SkinfluencerDetailPage = ({ edit = false }) => {
   const { id } = useParams();
@@ -30,12 +31,7 @@ const SkinfluencerDetailPage = ({ edit = false }) => {
   const { currentSkinfluencer: skinfluencer, errors } = useSelector(
     (state) => state.skinfluencers
   );
-
-  // const firstName = useWatch({
-  //   control,
-  //   name: 'firstName', // without supply name will watch the entire form, or ['firstName', 'lastName'] to watch both
-  //   defaultValue: 'default' // default value before the render
-  // });
+  const [socialLinks, setSocialLinks] = useState([]);
 
   const {
     register,
@@ -46,7 +42,7 @@ const SkinfluencerDetailPage = ({ edit = false }) => {
     defaultValues: {
       name: skinfluencer?.name || "",
       about: skinfluencer?.about || "",
-      // hasProfessionalTitle: skinfluencer?.hasProfessionalTitle,
+      hasProfessionalTitle: skinfluencer?.hasProfessionalTitle || false,
     },
   });
 
@@ -56,13 +52,9 @@ const SkinfluencerDetailPage = ({ edit = false }) => {
       setValue("title", skinfluencer.title);
       setValue("about", skinfluencer.about);
       setValue("hasProfessionalTitle", skinfluencer.hasProfessionalTitle);
-      // setValue("url", reseller.link.url);
+      setSocialLinks(skinfluencer.socialLinks);
     }
   }, [skinfluencer, setValue, edit]);
-
-  const handleUpdateSkinfluencer = (data) => {
-    console.log("data: ", data);
-  };
 
   useEffect(() => {
     dispatch(skinfluencerActions.getOneSkinfluencer(id));
@@ -73,6 +65,29 @@ const SkinfluencerDetailPage = ({ edit = false }) => {
         payload: null,
       });
   }, [dispatch, id]);
+
+  const handleUpdateSkinfluencer = (data) => {
+    console.log("data: ", data);
+    console.log("links: ", socialLinks);
+
+    const payload = {
+      ...data,
+      socialLinks,
+    };
+    dispatch(skinfluencerActions.updateSkinfluencer(id, payload, history));
+  };
+
+  const handleAddSocialLink = () => {
+    // TODO: Maybe add a max value for the amount of social links
+    const newLinks = [...socialLinks];
+    newLinks.push({
+      platform: "",
+      linkName: "",
+      url: "",
+    });
+
+    setSocialLinks(newLinks);
+  };
   return (
     <>
       {skinfluencer && (
@@ -131,7 +146,10 @@ const SkinfluencerDetailPage = ({ edit = false }) => {
               <h3>Social Links</h3>
               {skinfluencer.socialLinks.length > 0 &&
                 skinfluencer.socialLinks.map((socialLink) => (
-                  <Paper style={{ padding: 20, marginBottom: 5 }}>
+                  <Paper
+                    key={socialLink._id}
+                    style={{ padding: 20, marginBottom: 5 }}
+                  >
                     <p>
                       <strong>Platform: </strong>
                       {socialLink.platform}
@@ -186,7 +204,7 @@ const SkinfluencerDetailPage = ({ edit = false }) => {
                     <FormControlLabel
                       control={
                         <Checkbox
-                          defaultChecked={skinfluencer.hasProfessionalTitle}
+                          // defaultChecked={skinfluencer.hasProfessionalTitle}
                           color="primary"
                           onChange={(e) => onChange(e.target.checked)}
                           checked={value}
@@ -198,30 +216,22 @@ const SkinfluencerDetailPage = ({ edit = false }) => {
                   )}
                 />
 
-                {/*
+                {socialLinks.length > 0 &&
+                  socialLinks.map((socialLink, index) => (
+                    <SocialLinkInput
+                      key={index}
+                      socialLink={socialLink}
+                      index={index}
+                      socialLinks={socialLinks}
+                      setSocialLinks={setSocialLinks}
+                    />
+                  ))}
+                <Button title="Add Social Link" onClick={handleAddSocialLink} />
 
-                <FormGroup>
-                  <FormLabel>Link to website</FormLabel>
-                  <Input
-                    name="linkName"
-                    register={register}
-                    // error={formErrors.linkName?.message}
-                    type="text"
-                    label="Link Name"
-                  />
-                  <Input
-                    name="url"
-                    register={register}
-                    // error={formErrors.url?.message}
-                    type="text"
-                    label="URL"
-                    required
-                  />
-                </FormGroup>
                 <div style={{ display: "flex", justifyContent: "flex-end" }}>
                   <Button
                     title="Cancel"
-                    link={`/k-beauty/resellers/${reseller._id}`}
+                    link={`/skinfluencers/${skinfluencer._id}`}
                     color="default"
                   />
                   <Button
@@ -229,8 +239,7 @@ const SkinfluencerDetailPage = ({ edit = false }) => {
                     type="submit"
                     style={{ marginLeft: 10 }}
                   />
-                </div> */}
-                <Button title="Save" type="submit" style={{ marginLeft: 10 }} />
+                </div>
               </form>
             </Paper>
           )}

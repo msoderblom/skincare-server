@@ -9,6 +9,7 @@ const initState = {
   createSkinfluencerError: null,
   deleteSkinfluencerError: null,
   getOneSkinfluencerError: null,
+  updateSkinfluencerError: null,
 };
 
 const skinfluencersReducer = (state = initState, action) => {
@@ -104,6 +105,34 @@ const skinfluencersReducer = (state = initState, action) => {
         loading: false,
         getOneSkinfluencerError: action.error,
         currentSkinfluencer: null,
+      };
+
+    // UPDATE SKINFLUENCER
+    case actionTypes.UPDATE_SKINFLUENCER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        updateSkinfluencerError: null,
+      };
+    case actionTypes.UPDATE_SKINFLUENCER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        skinfluencers: state.skinfluencers
+          ? state.skinfluencers.map((skinfluencer) =>
+              skinfluencer._id === action.payload._id
+                ? action.payload
+                : skinfluencer
+            )
+          : state.skinfluencers,
+        currentSkinfluencer: action.payload,
+      };
+    case actionTypes.UPDATE_SKINFLUENCER_FAILURE:
+      console.log("error from reducer: ", action.error);
+      return {
+        ...state,
+        loading: false,
+        updateSkinfluencerError: action.error,
       };
 
     default:

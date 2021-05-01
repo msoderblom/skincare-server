@@ -38,7 +38,7 @@ const SocialLinkInput = ({
   };
 
   const handleRemoveSocialLink = () => {
-    const newLinks = socialLinks.splice(index, 1);
+    const newLinks = socialLinks.filter((link, idx) => idx !== index);
     setSocialLinks(newLinks);
   };
 
