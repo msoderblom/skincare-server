@@ -3,15 +3,7 @@ import AdminRole from "../models/AdminRole.js";
 import ErrorResponse from "../utils/errorResponse.js";
 
 export const createAdminUser = async (req, res, next) => {
-  const {
-    firstName,
-    lastName,
-    title,
-    role,
-    email,
-    password,
-    confirmPassword,
-  } = req.body;
+  const { password, confirmPassword, email, ...data } = req.body;
 
   try {
     const existingUser = await Admin.findOne({ email });
@@ -26,15 +18,8 @@ export const createAdminUser = async (req, res, next) => {
       return next(new ErrorResponse("Passwords don't match", 400));
     }
 
-    // creating a new user
-    const admin = await Admin.create({
-      firstName,
-      lastName,
-      title,
-      role,
-      email,
-      password,
-    });
+    // creating a new admin user
+    const admin = await Admin.create({ ...data, password, email });
 
     res.status(201).json({
       success: true,
