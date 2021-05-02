@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import * as S from "./styled";
 import {
   AppBar,
-  Toolbar,
   Typography,
   IconButton,
   Menu,

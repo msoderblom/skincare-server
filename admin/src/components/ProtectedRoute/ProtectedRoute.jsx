@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Redirect, Route } from "react-router-dom";
-import * as S from "./styled";
+// import * as S from "./styled";
 
 const ProtectedRoute = ({ component: Component, ...restProps }) => {
   const { admin } = useSelector((state) => state.admin);
