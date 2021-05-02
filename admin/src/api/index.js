@@ -18,9 +18,8 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-// User authorization
-export const signUp = (formData) => API.post("/users/signup", formData);
-export const signIn = (formData) => API.post("/users/signin", formData);
+// Admin authorization
+export const signIn = (formData) => API.post("/admin/signin", formData);
 
 // Users
 export const getAllUsers = (queryParams) => API.get(`/users${queryParams}`);
