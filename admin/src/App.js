@@ -16,6 +16,9 @@ import BrandsPage from "./pages/k-beauty/BrandsPage";
 import CreateResellerPage from "./pages/k-beauty/CreateResellerPage";
 import CreateBrandPage from "./pages/k-beauty/CreateBrandPage";
 import SkinfluencerDetailPage from "./pages/skinfluencers/SkinfluencerDetailPage/SkinfluencerDetailPage";
+import SignInPage from "./pages/SignInPage";
+import DashboardPage from "./pages/DashboardPage";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 // import Notification from "./components/Notification";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,8 +41,14 @@ const App = () => {
       <main className={classes.content}>
         {/* <Notification notify={notify} setNotify={setNotify} /> */}
         <Switch>
-          <Route exact path="/users" component={UsersPage} />
-          <Route exact path="/skinfluencers" component={SkinfluencersPage} />
+          <Route exact path="/" component={SignInPage} />
+          <ProtectedRoute exact path="/dashboard" component={DashboardPage} />
+          <ProtectedRoute exact path="/users" component={UsersPage} />
+          <ProtectedRoute
+            exact
+            path="/skinfluencers"
+            component={SkinfluencersPage}
+          />
           <Route
             exact
             path="/skinfluencers/create"
