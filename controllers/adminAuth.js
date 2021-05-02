@@ -95,7 +95,7 @@ export const signIn = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      user: userResponse,
+      admin: userResponse,
       token,
     });
   } catch (error) {
