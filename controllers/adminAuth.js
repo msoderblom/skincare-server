@@ -53,3 +53,52 @@ export const createAdminRole = async (req, res, next) => {
     next(error);
   }
 };
+
+export const signIn = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  // Check if email and password is provided
+  if (!email || !password) {
+    return next(new ErrorResponse("Please provide email and password", 400));
+  }
+  try {
+    const adminUser = await Admin.findOne({ email }).select("+password");
+
+    // Check if the user exists
+    if (!adminUser) {
+      // 404 means the adminUser can't be found in the db
+      return next(
+        new ErrorResponse(
+          "Invalid credentials. This admin user doesn't exist. ",
+          404
+        )
+      );
+    }
+
+    // Check if the correct password is provided
+    const isPasswordMatch = await adminUser.matchPasswords(password);
+
+    // If passwords do not match, throw error
+    if (!isPasswordMatch) {
+      return next(new ErrorResponse("Invalid password.", 404));
+    }
+
+    const userResponse = {
+      firstName: adminUser.firstName,
+      lastName: adminUser.lastName,
+      title: adminUser.title,
+      email: adminUser.email,
+      _id: adminUser._id,
+    };
+
+    const token = adminUser.getSignedToken();
+
+    res.status(200).json({
+      success: true,
+      user: userResponse,
+      token,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
