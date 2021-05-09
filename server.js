@@ -75,6 +75,13 @@ io.on("connection", (socket) => {
     // the server emitting an event to the client
     io.in(threadID).emit("new-comment", comment);
   });
+  socket.on("new-reply", ({ comment, parent, threadID }, callback) => {
+    // console.log("in new reply", comment.content);
+    // console.log("threadID: ", threadID);
+    // console.log("parent: ", parent);
+    // the server emitting an event to the client
+    io.in(threadID).emit("new-reply", { comment, parent });
+  });
 });
 
 process.on("unhandledRejection", (err, promise) => {

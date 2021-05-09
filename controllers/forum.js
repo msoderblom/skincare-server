@@ -177,7 +177,9 @@ export const replyToComment = async (req, res, next) => {
       children: [...parentComment.children, comment._id],
     });
 
-    const updatedParentComment = await Comment.findById(parentCommentID);
+    const updatedParentComment = await Comment.findById(
+      parentCommentID
+    ).populate("author");
 
     comment = await comment.populate("author").execPopulate();
 
