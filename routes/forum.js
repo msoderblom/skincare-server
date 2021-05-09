@@ -5,6 +5,7 @@ import {
   createComment,
   getThread,
   getThreadComments,
+  replyToComment,
 } from "../controllers/forum.js";
 import userAuth from "../middleware/auth.js";
 
@@ -16,6 +17,7 @@ router.get("/threads/", getAllThreads);
 router.get("/threads/:id", getThread);
 router.post("/threads/", userAuth, createThread); // you need to be signed in to create a thread
 router.post("/threads/:id/comments", userAuth, createComment); // you need to be signed in to create a comment
+router.post("/threads/:id/comments/:commentid", userAuth, replyToComment); // you need to be signed in to reply to a comment
 router.get("/threads/:id/comments", getThreadComments);
 
 export default router;

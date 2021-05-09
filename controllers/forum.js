@@ -136,6 +136,61 @@ export const createComment = async (req, res, next) => {
     next(error);
   }
 };
+
+export const replyToComment = async (req, res, next) => {
+  const { id: threadID, commentid: parentCommentID } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(threadID)) {
+    return next(new ErrorResponse("Please provide a valid thread id", 404));
+  }
+  if (!mongoose.Types.ObjectId.isValid(parentCommentID)) {
+    return next(new ErrorResponse("Please provide a valid comment id", 404));
+  }
+
+  const { content } = req.body;
+
+  if (!content) {
+    return next(new ErrorResponse("Please provide content", 400));
+  }
+
+  try {
+    const thread = await Thread.findById(threadID);
+
+    if (!thread) {
+      return next(new ErrorResponse("There's no thread with this id", 404));
+    }
+
+    const parentComment = await Comment.findById(parentCommentID);
+
+    if (!parentComment) {
+      return next(new ErrorResponse("There's no comment with this id", 404));
+    }
+
+    let comment = await Comment.create({
+      thread: threadID,
+      content,
+      author: req.user._id,
+      level: parentComment.level + 1,
+    });
+
+    await parentComment.updateOne({
+      children: [...parentComment.children, comment._id],
+    });
+
+    const updatedParentComment = await Comment.findById(parentCommentID);
+
+    comment = await comment.populate("author").execPopulate();
+
+    res.status(201).json({
+      success: true,
+      comment,
+      updatedParentComment,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getThreadComments = async (req, res, next) => {
   const { id: threadID } = req.params;
 
