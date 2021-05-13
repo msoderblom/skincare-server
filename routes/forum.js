@@ -7,6 +7,7 @@ import {
   getThreadComments,
   replyToComment,
   likeThread,
+  likeComment,
 } from "../controllers/forum.js";
 import userAuth from "../middleware/auth.js";
 
@@ -21,5 +22,6 @@ router.post("/threads/:id/comments", userAuth, createComment); // you need to be
 router.post("/threads/:id/comments/:commentid", userAuth, replyToComment); // you need to be signed in to reply to a comment
 router.get("/threads/:id/comments", getThreadComments);
 router.patch("/threads/:id/like", userAuth, likeThread);
+router.patch("/threads/comments/:id/like", userAuth, likeComment);
 
 export default router;

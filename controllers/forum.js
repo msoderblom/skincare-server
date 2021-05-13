@@ -238,12 +238,12 @@ export const likeThread = async (req, res, next) => {
     // see if the users id is already in the likes array
     const index = thread.likes.findIndex((id) => id === String(req.user._id));
 
-    // if the user haven't already liked the post the index will be -1
+    // if the user haven't already liked the thread the index will be -1
     if (index === -1) {
-      // like the post
+      // like the thread
       thread.likes.push(req.user._id);
     } else {
-      // if we have the index of the users like, we will dislike the post
+      // if we have the index of the users like, we will dislike the thread
       // remove the id from the array
       thread.likes = thread.likes.filter((id) => id !== String(req.user._id));
     }
@@ -251,14 +251,49 @@ export const likeThread = async (req, res, next) => {
     await Thread.updateOne({ _id: id }, thread, { runValidators: true });
     const updatedThread = await Thread.findById(id).populate("author");
 
-    // const updatedThread = await Thread.findByIdAndUpdate(id, thread, {
-    //   new: true,
-    //   runValidators: true,
-    // });
-
     res.status(200).json({
       success: true,
       updatedThread,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const likeComment = async (req, res, next) => {
+  const { id } = req.params;
+
+  // check if id is a mongoose object id
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return next(new ErrorResponse("Please provide a valid thread id", 404));
+  }
+
+  try {
+    const comment = await Comment.findById(id);
+
+    if (!comment) {
+      return next(new ErrorResponse("There's no comment with this id", 404));
+    }
+
+    // see if the users id is already in the likes array
+    const index = comment.likes.findIndex((id) => id === String(req.user._id));
+
+    // if the user haven't already liked the comment the index will be -1
+    if (index === -1) {
+      // like the comment
+      comment.likes.push(req.user._id);
+    } else {
+      // if we have the index of the users like, we will dislike the comment
+      // remove the id from the array
+      comment.likes = comment.likes.filter((id) => id !== String(req.user._id));
+    }
+
+    await Comment.updateOne({ _id: id }, comment, { runValidators: true });
+    const updatedComment = await Comment.findById(id).populate("author");
+
+    res.status(200).json({
+      success: true,
+      updatedComment,
     });
   } catch (error) {
     next(error);
