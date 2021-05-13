@@ -249,7 +249,7 @@ export const likeThread = async (req, res, next) => {
     }
 
     await Thread.updateOne({ _id: id }, thread, { runValidators: true });
-    const updatedThread = await Thread.findById(id);
+    const updatedThread = await Thread.findById(id).populate("author");
 
     // const updatedThread = await Thread.findByIdAndUpdate(id, thread, {
     //   new: true,
