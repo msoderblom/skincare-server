@@ -84,8 +84,11 @@ const UsersTable = () => {
                   <TableCell align="left">{user.username}</TableCell>
                   <TableCell align="left">{user.email}</TableCell>
                   <TableCell align="left">
-                    {<Moment format="YYYY-MM-DD">{user.createdAt}</Moment> ||
-                      "unknown"}
+                    {user.createdAt ? (
+                      <Moment format="YYYY-MM-DD">{user.createdAt}</Moment>
+                    ) : (
+                      "unknown"
+                    )}
                   </TableCell>
                 </TableRow>
               ))}
