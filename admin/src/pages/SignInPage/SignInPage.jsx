@@ -25,9 +25,9 @@ const SignInPage = () => {
   };
   return (
     <S.Container>
-      <p>SignInPage</p>
       <form onSubmit={handleSubmit(handleSignIn)}>
         <Input
+          autoComplete="email"
           name="email"
           register={register}
           error={errors.email?.message}
@@ -36,6 +36,7 @@ const SignInPage = () => {
           required
         />
         <Input
+          autoComplete="current-password"
           name="password"
           register={register}
           error={errors.password?.message}
