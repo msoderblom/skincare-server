@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import BlogPage from "./pages/blog/BlogPage";
 import UsersPage from "./pages/users/UsersPage";
@@ -19,7 +19,9 @@ import SkinfluencerDetailPage from "./pages/skinfluencers/SkinfluencerDetailPage
 import SignInPage from "./pages/SignInPage";
 import DashboardPage from "./pages/DashboardPage";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { decode } from "jsonwebtoken";
+import { adminTypes } from "./redux/admin";
 // import Notification from "./components/Notification";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,6 +38,31 @@ const useStyles = makeStyles((theme) => ({
 const App = () => {
   const classes = useStyles();
   const { admin } = useSelector((state) => state.admin);
+  const dispatch = useDispatch();
+
+  const signOut = () => {
+    dispatch({ type: adminTypes.SIGN_OUT });
+  };
+  useEffect(() => {
+    const profile = JSON.parse(localStorage.getItem("profile"));
+    const token = profile?.token;
+    if (token) {
+      const decodedToken = decode(token);
+      // Check if the users token has expired, if true then logout will
+      if (decodedToken.exp * 1000 < new Date().getTime()) {
+        signOut();
+      }
+
+      if (profile.admin) {
+        dispatch({
+          type: adminTypes.SET_ADMIN,
+          payload: profile.admin,
+        });
+      }
+    }
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <div className={classes.root}>
       {admin && (
