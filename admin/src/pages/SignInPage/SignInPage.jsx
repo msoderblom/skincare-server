@@ -6,7 +6,7 @@ import signinSchema from "../../validation/signinSchema";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { adminActions } from "../../redux/admin";
-import { useHistory } from "react-router";
+import { Redirect, useHistory } from "react-router";
 import Button from "../../components/Button";
 
 const SignInPage = () => {
@@ -15,7 +15,7 @@ const SignInPage = () => {
   });
   const history = useHistory();
   const dispatch = useDispatch();
-  const { errors: adminErrors } = useSelector((state) => state.admin);
+  const { errors: adminErrors, admin } = useSelector((state) => state.admin);
 
   const handleSignIn = (data) => {
     console.log("In handleSignIn");
@@ -23,32 +23,43 @@ const SignInPage = () => {
 
     dispatch(adminActions.signIn(data, history));
   };
-  return (
-    <S.Container>
-      <form onSubmit={handleSubmit(handleSignIn)}>
-        <Input
-          autoComplete="email"
-          name="email"
-          register={register}
-          error={errors.email?.message}
-          type="email"
-          label="Email"
-          required
-        />
-        <Input
-          autoComplete="current-password"
-          name="password"
-          register={register}
-          error={errors.password?.message}
-          type="password"
-          label="Password"
-          required
-        />
 
-        <Button type="submit" title="Sign In" />
-        {adminErrors.signIn && <span>{adminErrors.signIn}</span>}
-      </form>
-    </S.Container>
+  return (
+    <>
+      {admin ? (
+        <S.Container>
+          <form onSubmit={handleSubmit(handleSignIn)}>
+            <Input
+              autoComplete="email"
+              name="email"
+              register={register}
+              error={errors.email?.message}
+              type="email"
+              label="Email"
+              required
+            />
+            <Input
+              autoComplete="current-password"
+              name="password"
+              register={register}
+              error={errors.password?.message}
+              type="password"
+              label="Password"
+              required
+            />
+
+            <Button type="submit" title="Sign In" />
+            {adminErrors.signIn && <span>{adminErrors.signIn}</span>}
+          </form>
+        </S.Container>
+      ) : (
+        <Redirect
+          to={{
+            pathname: "/dashboard",
+          }}
+        />
+      )}
+    </>
   );
 };
 
