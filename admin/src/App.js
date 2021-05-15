@@ -19,6 +19,7 @@ import SkinfluencerDetailPage from "./pages/skinfluencers/SkinfluencerDetailPage
 import SignInPage from "./pages/SignInPage";
 import DashboardPage from "./pages/DashboardPage";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import { useSelector } from "react-redux";
 // import Notification from "./components/Notification";
 
 const useStyles = makeStyles((theme) => ({
@@ -34,10 +35,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 const App = () => {
   const classes = useStyles();
+  const { admin } = useSelector((state) => state.admin);
   return (
     <div className={classes.root}>
-      <Header />
-      <Sidebar />
+      {admin && (
+        <>
+          <Header /> <Sidebar />
+        </>
+      )}
+
       <main className={classes.content}>
         {/* <Notification notify={notify} setNotify={setNotify} /> */}
         <Switch>
@@ -49,56 +55,68 @@ const App = () => {
             path="/skinfluencers"
             component={SkinfluencersPage}
           />
-          <Route
+          <ProtectedRoute
             exact
             path="/skinfluencers/create"
             component={CreateSkinfluencerPage}
           />
-          <Route
+          <ProtectedRoute
             exact
             path="/skinfluencers/:id"
             component={SkinfluencerDetailPage}
           />
-          <Route
+          <ProtectedRoute
             exact
             path="/skinfluencers/:id/edit"
             render={(props) => <SkinfluencerDetailPage {...props} edit />}
           />
-          <Route exact path="/k-beauty/resellers" component={ResellersPage} />
-          <Route
+          <ProtectedRoute
+            exact
+            path="/k-beauty/resellers"
+            component={ResellersPage}
+          />
+          <ProtectedRoute
             exact
             path="/k-beauty/resellers/create"
             component={CreateResellerPage}
           />
-          <Route
+          <ProtectedRoute
             exact
             path="/k-beauty/resellers/:id/edit"
             render={(props) => <ResellerDetailPage {...props} edit />}
           />
-          <Route
+          <ProtectedRoute
             exact
             path="/k-beauty/resellers/:id"
             component={ResellerDetailPage}
           />
-          <Route
+          <ProtectedRoute
             exact
             path="/k-beauty/brands/:id/edit"
             render={(props) => <BrandDetailPage {...props} edit />}
           />
-          <Route
+          <ProtectedRoute
             exact
             path="/k-beauty/brands/:id"
             component={BrandDetailPage}
           />
-          <Route
+          <ProtectedRoute
             exact
             path="/k-beauty/brands/create"
             component={CreateBrandPage}
           />
-          <Route exact path="/k-beauty/brands" component={BrandsPage} />
-          <Route exact path="/blog" component={BlogPage} />
-          <Route exact path="/blog/create-post" component={CreatePostPage} />
-          <Route exact path="/forum" component={ForumPage} />
+          <ProtectedRoute
+            exact
+            path="/k-beauty/brands"
+            component={BrandsPage}
+          />
+          <ProtectedRoute exact path="/blog" component={BlogPage} />
+          <ProtectedRoute
+            exact
+            path="/blog/create-post"
+            component={CreatePostPage}
+          />
+          <ProtectedRoute exact path="/forum" component={ForumPage} />
         </Switch>
       </main>
     </div>

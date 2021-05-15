@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { adminActions } from "../../redux/admin";
 import { useHistory } from "react-router";
+import Button from "../../components/Button";
 
 const SignInPage = () => {
   const { register, handleSubmit, errors } = useForm({
@@ -43,7 +44,7 @@ const SignInPage = () => {
           required
         />
 
-        <button type="submit">Sign In</button>
+        <Button type="submit" title="Sign In" />
         {adminErrors.signIn && <span>{adminErrors.signIn}</span>}
       </form>
     </S.Container>
