@@ -37,7 +37,7 @@ const Header = () => {
       const decodedToken = decode(token);
       // Check if the users token has expired, if true then logout will
       if (decodedToken.exp * 1000 < new Date().getTime()) {
-        // signOut();
+        signOut();
       }
 
       if (profile.admin) {
@@ -51,12 +51,21 @@ const Header = () => {
     // eslint-disable-next-line
   }, [location]);
 
+  const signOut = () => {
+    dispatch({ type: adminTypes.SIGN_OUT });
+  };
+
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleSignOut = () => {
+    handleClose();
+    signOut();
   };
 
   return (
@@ -93,7 +102,7 @@ const Header = () => {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Sign Out</MenuItem>
+                <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
               </Menu>
             </div>
             <Typography variant="subtitle1" noWrap>
