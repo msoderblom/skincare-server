@@ -21,6 +21,9 @@ API.interceptors.request.use((req) => {
 // Admin authorization
 export const signIn = (formData) => API.post("/admin/signin", formData);
 
+// Statistics
+export const getStatistics = () => API.get("/admin/statistics");
+
 // Users
 export const getAllUsers = (queryParams) => API.get(`/users${queryParams}`);
 
