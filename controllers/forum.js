@@ -45,6 +45,26 @@ export const getThread = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getMostPopularThread = async (req, res, next) => {
+  try {
+    const allThreads = await Thread.find();
+
+    allThreads.sort((a, b) => {
+      if (a.likes.length < b.likes.length) return 1;
+      if (a.likes.length > b.likes.length) return -1;
+      return 0;
+    });
+
+    res.status(200).json({
+      success: true,
+      mostPopularThread: allThreads[0],
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getAllThreads = async (req, res, next) => {
   try {
     let query = Thread.find(); // returns a promise
