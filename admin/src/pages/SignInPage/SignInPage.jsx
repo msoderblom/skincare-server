@@ -26,7 +26,7 @@ const SignInPage = () => {
 
   return (
     <>
-      {admin ? (
+      {!admin ? (
         <S.Container>
           <form onSubmit={handleSubmit(handleSignIn)}>
             <Input
