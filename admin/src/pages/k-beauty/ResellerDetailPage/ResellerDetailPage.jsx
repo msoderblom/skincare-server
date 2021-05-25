@@ -21,18 +21,15 @@ const ResellerDetailPage = ({ edit = false }) => {
   const { currentReseller: reseller, errors } = useSelector(
     (state) => state.kBeauty.resellers
   );
-  const {
-    register,
-    handleSubmit,
-    setValue /* errors: formErrors  */,
-  } = useForm({
-    defaultValues: {
-      name: reseller?.name || "",
-      description: reseller?.description || "",
-      linkName: reseller?.link.linkName || "",
-      url: reseller?.link.url || "",
-    },
-  });
+  const { register, handleSubmit, setValue /* errors: formErrors  */ } =
+    useForm({
+      defaultValues: {
+        name: reseller?.name || "",
+        description: reseller?.description || "",
+        linkName: reseller?.link.linkName || "",
+        url: reseller?.link.url || "",
+      },
+    });
 
   useEffect(() => {
     dispatch(resellerActions.getOneReseller(id));
@@ -51,8 +48,6 @@ const ResellerDetailPage = ({ edit = false }) => {
   }, [reseller, setValue, edit]);
 
   const handleUpdateReseller = (data) => {
-    console.log("data: ", data);
-
     const payload = {
       name: data.name,
       description: data.description,

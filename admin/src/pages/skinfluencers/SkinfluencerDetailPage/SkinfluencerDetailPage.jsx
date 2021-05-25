@@ -25,10 +25,8 @@ const SkinfluencerDetailPage = ({ edit = false }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const {
-    currentSkinfluencer: skinfluencer,
-    updateSkinfluencerError,
-  } = useSelector((state) => state.skinfluencers);
+  const { currentSkinfluencer: skinfluencer, updateSkinfluencerError } =
+    useSelector((state) => state.skinfluencers);
   const [socialLinks, setSocialLinks] = useState([]);
 
   const {
@@ -65,9 +63,6 @@ const SkinfluencerDetailPage = ({ edit = false }) => {
   }, [dispatch, id]);
 
   const handleUpdateSkinfluencer = (data) => {
-    console.log("data: ", data);
-    console.log("links: ", socialLinks);
-
     const payload = {
       ...data,
       socialLinks,
@@ -172,7 +167,6 @@ const SkinfluencerDetailPage = ({ edit = false }) => {
                 <Input
                   name="name"
                   register={register}
-                  // error={formErrors.name?.message}
                   type="text"
                   label="Name"
                   required
@@ -180,7 +174,6 @@ const SkinfluencerDetailPage = ({ edit = false }) => {
                 <Input
                   name="title"
                   register={register}
-                  // error={errors.title?.message}
                   type="text"
                   label="Title (e.g. dermatologist or youtuber)"
                   required
@@ -188,7 +181,6 @@ const SkinfluencerDetailPage = ({ edit = false }) => {
                 <Input
                   name="about"
                   register={register}
-                  // error={formErrors.description?.message}
                   type="text"
                   label="about"
                   multiline

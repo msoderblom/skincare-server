@@ -12,8 +12,6 @@ const adminReducer = (state = initState, action) => {
   switch (action.type) {
     // GET ALL USERS
     case actionTypes.SIGN_IN_SUCCESS:
-      console.log("Payload in reducer", action.payload);
-
       localStorage.setItem("profile", JSON.stringify({ ...action?.payload }));
       return {
         ...state,
@@ -21,7 +19,6 @@ const adminReducer = (state = initState, action) => {
         admin: action?.payload.admin,
       };
     case actionTypes.SIGN_IN_FAILURE:
-      console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,

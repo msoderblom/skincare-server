@@ -31,16 +31,13 @@ const BrandDetailPage = ({ edit = false }) => {
     (state) => state.kBeauty.brands
   );
   const { resellers } = useSelector((state) => state.kBeauty.resellers);
-  const {
-    register,
-    handleSubmit,
-    setValue /* errors: formErrors  */,
-  } = useForm({
-    defaultValues: {
-      name: brand?.name || "",
-      description: brand?.description || "",
-    },
-  });
+  const { register, handleSubmit, setValue /* errors: formErrors  */ } =
+    useForm({
+      defaultValues: {
+        name: brand?.name || "",
+        description: brand?.description || "",
+      },
+    });
 
   useEffect(() => {
     dispatch(brandActions.getOneBrand(id));
@@ -65,9 +62,6 @@ const BrandDetailPage = ({ edit = false }) => {
   }, [brand, setValue, edit]);
 
   const handleUpdateBrand = (data) => {
-    console.log("data: ", data);
-    console.log(selectedResellers);
-
     const payload = {
       name: data.name,
       description: data.description,

@@ -21,11 +21,6 @@ const CreateSkinfluencerPage = () => {
   );
 
   const handleCreateSkinfluencer = (data) => {
-    console.log("In handleCreateSkinfluencer");
-    console.log("data: ", data);
-    console.log("prof title: ", professionalTitle);
-    console.log("socialLinks: ", socialLinks);
-
     const payload = {
       ...data,
       hasProfessionalTitle: professionalTitle,
@@ -55,7 +50,6 @@ const CreateSkinfluencerPage = () => {
         <Input
           name="name"
           register={register}
-          // error={errors.title?.message}
           type="text"
           label="Name"
           required
@@ -63,7 +57,6 @@ const CreateSkinfluencerPage = () => {
         <Input
           name="title"
           register={register}
-          // error={errors.title?.message}
           type="text"
           label="Title (e.g. dermatologist or youtuber)"
           required

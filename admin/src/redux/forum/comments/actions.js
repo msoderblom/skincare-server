@@ -1,31 +1,27 @@
 import * as actionTypes from "./types";
 import * as api from "../../../api";
 
-export const createComment = (formData, threadID, socket, history) => async (
-  dispatch
-) => {
-  dispatch({ type: actionTypes.CREATE_COMMENT_REQUEST });
+export const createComment =
+  (formData, threadID, socket) => async (dispatch) => {
+    dispatch({ type: actionTypes.CREATE_COMMENT_REQUEST });
 
-  try {
-    const {
-      data: { comment },
-    } = await api.createComment(formData, threadID);
+    try {
+      const {
+        data: { comment },
+      } = await api.createComment(formData, threadID);
 
-    dispatch({ type: actionTypes.CREATE_COMMENT_SUCCESS, payload: comment });
-    socket.emit("new-comment", { comment, threadID });
+      dispatch({ type: actionTypes.CREATE_COMMENT_SUCCESS, payload: comment });
+      socket.emit("new-comment", { comment, threadID });
+    } catch (error) {
+      dispatch({
+        type: actionTypes.CREATE_COMMENT_FAILURE,
+        error: error.response.data?.error || error.message,
+      });
+      console.error(error);
+    }
+  };
 
-    // history.push("/");
-  } catch (error) {
-    dispatch({
-      type: actionTypes.CREATE_COMMENT_FAILURE,
-      error: error.response.data?.error || error.message,
-    });
-    console.error(error);
-    console.log(error.response.data.error);
-  }
-};
-
-export const getComments = (threadID, history) => async (dispatch) => {
+export const getComments = (threadID) => async (dispatch) => {
   dispatch({ type: actionTypes.GET_COMMENTS_REQUEST });
 
   try {
@@ -40,6 +36,5 @@ export const getComments = (threadID, history) => async (dispatch) => {
       error: error.response.data?.error || error.message,
     });
     console.error(error);
-    console.log(error.response.data.error);
   }
 };

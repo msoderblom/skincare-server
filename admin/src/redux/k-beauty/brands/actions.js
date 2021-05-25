@@ -16,7 +16,6 @@ export const createBrand = (formData) => async (dispatch) => {
       error: error?.response?.data?.error || error.message,
     });
     console.error(error);
-    console.log(error?.response?.data?.error);
   }
 };
 
@@ -35,7 +34,6 @@ export const getOneBrand = (id) => async (dispatch) => {
       error: error?.response?.data?.error || error.message,
     });
     console.error(error);
-    console.log(error?.response?.data?.error);
   }
 };
 
@@ -58,7 +56,6 @@ export const updateBrand = (id, formData, history) => async (dispatch) => {
       error: error?.response?.data?.error || error.message,
     });
     console.error(error);
-    console.log(error?.response?.data?.error);
   }
 };
 
@@ -75,7 +72,6 @@ export const deleteBrand = (id) => async (dispatch) => {
       error: error?.response?.data?.error || error.message,
     });
     console.error(error);
-    console.log(error?.response?.data?.error);
   }
 };
 
@@ -94,6 +90,5 @@ export const getBrands = () => async (dispatch) => {
       error: error?.response?.data?.error || error.message,
     });
     console.error(error);
-    console.log(error?.response?.data?.error);
   }
 };

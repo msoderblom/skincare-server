@@ -22,15 +22,12 @@ const skinfluencersReducer = (state = initState, action) => {
         createSkinfluencerError: null,
       };
     case actionTypes.CREATE_SKINFLUENCER_SUCCESS:
-      console.log("Payload in reducer", action.payload);
-
       return {
         ...state,
         loading: false,
         createdSkinfluencer: action.payload,
       };
     case actionTypes.CREATE_SKINFLUENCER_FAILURE:
-      console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,
@@ -53,7 +50,6 @@ const skinfluencersReducer = (state = initState, action) => {
         ),
       };
     case actionTypes.DELETE_SKINFLUENCER_FAILURE:
-      console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,
@@ -68,15 +64,12 @@ const skinfluencersReducer = (state = initState, action) => {
         getSkinfluencersError: null,
       };
     case actionTypes.GET_SKINFLUENCERS_SUCCESS:
-      console.log("Payload in reducer", action.payload);
-
       return {
         ...state,
         loading: false,
         skinfluencers: action.payload,
       };
     case actionTypes.GET_SKINFLUENCERS_FAILURE:
-      console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,
@@ -91,15 +84,12 @@ const skinfluencersReducer = (state = initState, action) => {
         getOneSkinfluencerError: null,
       };
     case actionTypes.GET_ONE_SKINFLUENCER_SUCCESS:
-      console.log("Payload in reducer", action.payload);
-
       return {
         ...state,
         loading: false,
         currentSkinfluencer: action.payload,
       };
     case actionTypes.GET_ONE_SKINFLUENCER_FAILURE:
-      console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,
@@ -128,7 +118,6 @@ const skinfluencersReducer = (state = initState, action) => {
         currentSkinfluencer: action.payload,
       };
     case actionTypes.UPDATE_SKINFLUENCER_FAILURE:
-      console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,

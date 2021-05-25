@@ -16,7 +16,6 @@ export const createReseller = (formData) => async (dispatch) => {
       error: error?.response?.data?.error || error.message,
     });
     console.error(error);
-    console.log(error?.response?.data?.error);
   }
 };
 export const deleteReseller = (id) => async (dispatch) => {
@@ -32,7 +31,6 @@ export const deleteReseller = (id) => async (dispatch) => {
       error: error?.response?.data?.error || error.message,
     });
     console.error(error);
-    console.log(error?.response?.data?.error);
   }
 };
 export const updateReseller = (id, formData, history) => async (dispatch) => {
@@ -54,7 +52,6 @@ export const updateReseller = (id, formData, history) => async (dispatch) => {
       error: error?.response?.data?.error || error.message,
     });
     console.error(error);
-    console.log(error?.response?.data?.error);
   }
 };
 
@@ -73,7 +70,6 @@ export const getOneReseller = (id) => async (dispatch) => {
       error: error?.response?.data?.error || error.message,
     });
     console.error(error);
-    console.log(error?.response?.data?.error);
   }
 };
 
@@ -92,6 +88,5 @@ export const getResellers = () => async (dispatch) => {
       error: error?.response?.data?.error || error.message,
     });
     console.error(error);
-    console.log(error?.response?.data?.error);
   }
 };

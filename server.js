@@ -65,17 +65,15 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  socket.on("join-comments-section", (threadID, callback) => {
-    console.log("User joined comment section", threadID);
+  socket.on("join-comments-section", (threadID) => {
     socket.join(threadID);
   });
 
-  socket.on("new-comment", ({ comment, threadID }, callback) => {
-    console.log("in new comment");
+  socket.on("new-comment", ({ comment, threadID }) => {
     // the server emitting an event to the client
     io.in(threadID).emit("new-comment", comment);
   });
-  socket.on("new-reply", ({ comment, parent, threadID }, callback) => {
+  socket.on("new-reply", ({ comment, parent, threadID }) => {
     // the server emitting an event to the client
     io.in(threadID).emit("new-reply", { comment, parent });
   });

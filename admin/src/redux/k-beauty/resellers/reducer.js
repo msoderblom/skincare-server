@@ -24,15 +24,12 @@ const resellersReducer = (state = initState, action) => {
         errors: { ...state.errors, getResellers: null },
       };
     case actionTypes.GET_RESELLERS_SUCCESS:
-      console.log("Payload in reducer", action.payload);
-
       return {
         ...state,
         loading: false,
         resellers: action.payload,
       };
     case actionTypes.GET_RESELLERS_FAILURE:
-      console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,
@@ -47,8 +44,6 @@ const resellersReducer = (state = initState, action) => {
         errors: { ...state.errors, createReseller: null },
       };
     case actionTypes.CREATE_RESELLER_SUCCESS:
-      console.log("Payload in reducer", action.payload);
-
       return {
         ...state,
         loading: false,
@@ -56,7 +51,6 @@ const resellersReducer = (state = initState, action) => {
         resellers: [...state.resellers, action.payload],
       };
     case actionTypes.CREATE_RESELLER_FAILURE:
-      console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,
@@ -71,8 +65,6 @@ const resellersReducer = (state = initState, action) => {
         errors: { ...state.errors, deleteReseller: null },
       };
     case actionTypes.DELETE_RESELLER_SUCCESS:
-      console.log("Payload in reducer", action.payload);
-
       return {
         ...state,
         loading: false,
@@ -81,7 +73,6 @@ const resellersReducer = (state = initState, action) => {
         ),
       };
     case actionTypes.DELETE_RESELLER_FAILURE:
-      console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,
@@ -96,8 +87,6 @@ const resellersReducer = (state = initState, action) => {
         errors: { ...state.errors, updateReseller: null },
       };
     case actionTypes.UPDATE_RESELLER_SUCCESS:
-      console.log("Payload in reducer", action.payload);
-
       return {
         ...state,
         loading: false,
@@ -107,7 +96,6 @@ const resellersReducer = (state = initState, action) => {
         currentReseller: action.payload,
       };
     case actionTypes.UPDATE_RESELLER_FAILURE:
-      console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,
@@ -122,15 +110,12 @@ const resellersReducer = (state = initState, action) => {
         errors: { ...state.errors, getOneReseller: null },
       };
     case actionTypes.GET_ONE_RESELLER_SUCCESS:
-      console.log("Payload in reducer", action.payload);
-
       return {
         ...state,
         loading: false,
         currentReseller: action.payload,
       };
     case actionTypes.GET_ONE_RESELLER_FAILURE:
-      console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,

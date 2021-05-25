@@ -28,10 +28,7 @@ const ResellersPage = () => {
   }, [dispatch]);
 
   const handleDelete = (id) => {
-    console.log("inside handle delete reseller", id);
-
     dispatch(resellerActions.deleteReseller(id));
-    // setNotify({ isOpen: true, message: "Deletes Successfully", type: "error" });
   };
 
   return (

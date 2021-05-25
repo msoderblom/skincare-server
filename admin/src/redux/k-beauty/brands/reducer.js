@@ -24,15 +24,12 @@ const brandsReducer = (state = initState, action) => {
         errors: { ...state.errors, getBrands: null },
       };
     case actionTypes.GET_BRANDS_SUCCESS:
-      console.log("Payload in reducer", action.payload);
-
       return {
         ...state,
         loading: false,
         brands: action.payload,
       };
     case actionTypes.GET_BRANDS_FAILURE:
-      console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,
@@ -47,15 +44,12 @@ const brandsReducer = (state = initState, action) => {
         errors: { ...state.errors, createBrand: null },
       };
     case actionTypes.CREATE_BRAND_SUCCESS:
-      console.log("Payload in reducer", action.payload);
-
       return {
         ...state,
         loading: false,
         createdBrand: action.payload,
       };
     case actionTypes.CREATE_BRAND_FAILURE:
-      console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,
@@ -70,15 +64,12 @@ const brandsReducer = (state = initState, action) => {
         errors: { ...state.errors, deleteBrand: null },
       };
     case actionTypes.DELETE_BRAND_SUCCESS:
-      console.log("Payload in reducer", action.payload);
-
       return {
         ...state,
         loading: false,
         brands: state.brands.filter((brand) => brand._id !== action.payload),
       };
     case actionTypes.DELETE_BRAND_FAILURE:
-      console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,
@@ -93,15 +84,12 @@ const brandsReducer = (state = initState, action) => {
         errors: { ...state.errors, getOneBrand: null },
       };
     case actionTypes.GET_ONE_BRAND_SUCCESS:
-      console.log("Payload in reducer", action.payload);
-
       return {
         ...state,
         loading: false,
         currentBrand: action.payload,
       };
     case actionTypes.GET_ONE_BRAND_FAILURE:
-      console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,
@@ -117,8 +105,6 @@ const brandsReducer = (state = initState, action) => {
         errors: { ...state.errors, updateBrand: null },
       };
     case actionTypes.UPDATE_BRAND_SUCCESS:
-      console.log("Payload in reducer", action.payload);
-
       return {
         ...state,
         loading: false,
@@ -130,7 +116,6 @@ const brandsReducer = (state = initState, action) => {
         currentBrand: action.payload,
       };
     case actionTypes.UPDATE_BRAND_FAILURE:
-      console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,

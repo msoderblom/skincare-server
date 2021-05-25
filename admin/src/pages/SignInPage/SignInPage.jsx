@@ -18,9 +18,6 @@ const SignInPage = () => {
   const { errors: adminErrors, admin } = useSelector((state) => state.admin);
 
   const handleSignIn = (data) => {
-    console.log("In handleSignIn");
-    console.log(data);
-
     dispatch(adminActions.signIn(data, history));
   };
 

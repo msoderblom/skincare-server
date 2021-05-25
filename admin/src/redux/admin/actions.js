@@ -24,6 +24,5 @@ export const signIn = (formData, history) => async (dispatch) => {
       error: error?.response?.data?.error || error?.message,
     });
     console.error(error);
-    console.log(error?.response?.data?.error);
   }
 };

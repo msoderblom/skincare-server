@@ -21,8 +21,6 @@ const userReducer = (state = initState, action) => {
         errors: { ...state.errors, getAllUsers: null },
       };
     case actionTypes.GET_ALL_USERS_SUCCESS:
-      console.log("Payload in reducer", action.payload);
-
       return {
         ...state,
         loading: false,
@@ -31,7 +29,6 @@ const userReducer = (state = initState, action) => {
         totalUsers: action.payload.totalUsers,
       };
     case actionTypes.GET_ALL_USERS_FAILURE:
-      console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,

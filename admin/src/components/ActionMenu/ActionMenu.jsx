@@ -28,7 +28,6 @@ const ActionMenu = ({
   const handleClose = () => setIsOpen(false);
 
   const handleDeleteBtnClick = () => {
-    console.log("delete btn clicked");
     handleClose();
     setConfirmDialog((prev) => ({ ...prev, isOpen: true }));
   };

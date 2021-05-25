@@ -22,8 +22,6 @@ const postsReducer = (state = initState, action) => {
         createPostError: null,
       };
     case actionTypes.CREATE_POST_SUCCESS:
-      console.log("Payload in reducer", action.payload);
-
       return {
         ...state,
         loading: false,
@@ -31,7 +29,6 @@ const postsReducer = (state = initState, action) => {
       };
 
     case actionTypes.CREATE_POST_FAILURE:
-      console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,
@@ -46,8 +43,6 @@ const postsReducer = (state = initState, action) => {
         getPostsError: null,
       };
     case actionTypes.GET_POSTS_SUCCESS:
-      console.log("Payload in reducer", action.payload);
-
       return {
         ...state,
         loading: false,
@@ -56,7 +51,6 @@ const postsReducer = (state = initState, action) => {
         totalPosts: action.payload.totalPosts,
       };
     case actionTypes.GET_POSTS_FAILURE:
-      console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,
@@ -71,15 +65,12 @@ const postsReducer = (state = initState, action) => {
         getOnePostError: null,
       };
     case actionTypes.GET_ONE_POST_SUCCESS:
-      console.log("Payload in reducer", action.payload);
-
       return {
         ...state,
         loading: false,
         viewedPost: action.payload,
       };
     case actionTypes.GET_ONE_POST_FAILURE:
-      console.log("error from reducer: ", action.error);
       return {
         ...state,
         loading: false,

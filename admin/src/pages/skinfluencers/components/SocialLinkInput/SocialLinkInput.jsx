@@ -30,7 +30,6 @@ const SocialLinkInput = ({
   const classes = useStyles();
 
   const handleSocialLinkUpdate = (event, name) => {
-    console.log(name);
     const updatedLinks = [...socialLinks];
     updatedLinks[index][name] = event.target.value;
 

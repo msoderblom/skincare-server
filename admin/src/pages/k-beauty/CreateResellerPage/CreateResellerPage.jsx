@@ -8,13 +8,11 @@ import { resellerActions } from "../../../redux/k-beauty/resellers";
 import * as S from "./styled";
 
 const CreateResellerPage = () => {
-  const { register, handleSubmit /* errors: formErrors  */ } = useForm();
+  const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const { errors } = useSelector((state) => state.kBeauty.resellers);
 
   const handleCreateReseller = (data) => {
-    console.log("In handleCreateReseller");
-    console.log("data: ", data);
     const { name, description, linkName, url } = data;
     const payload = {
       name,
@@ -35,7 +33,6 @@ const CreateResellerPage = () => {
         <Input
           name="name"
           register={register}
-          // error={formErrors.name?.message}
           type="text"
           label="Name"
           required
@@ -43,7 +40,6 @@ const CreateResellerPage = () => {
         <Input
           name="description"
           register={register}
-          // error={formErrors.description?.message}
           type="text"
           label="Description"
           multiline
@@ -55,14 +51,12 @@ const CreateResellerPage = () => {
           <Input
             name="linkName"
             register={register}
-            // error={formErrors.linkName?.message}
             type="text"
             label="Link Name"
           />
           <Input
             name="url"
             register={register}
-            // error={formErrors.url?.message}
             type="text"
             label="URL"
             required

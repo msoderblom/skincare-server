@@ -15,7 +15,7 @@ import { brandActions } from "../../../redux/k-beauty/brands";
 import * as S from "./styled";
 
 const CreateBrandPage = () => {
-  const { register, handleSubmit /* errors: formErrors */ } = useForm();
+  const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
   const { errors } = useSelector((state) => state.kBeauty.brands);
   const { resellers } = useSelector((state) => state.kBeauty.resellers);
@@ -30,11 +30,7 @@ const CreateBrandPage = () => {
   }, []);
 
   const handleCreateBrand = (data) => {
-    console.log("In handleCreateReseller");
-    console.log("data: ", data);
     const { name, description } = data;
-
-    console.log("resellers: ", selectedResellers);
     const payload = {
       name,
       description,
@@ -63,7 +59,6 @@ const CreateBrandPage = () => {
         <Input
           name="name"
           register={register}
-          // error={formErrors.name?.message}
           type="text"
           label="Name"
           required
@@ -71,7 +66,6 @@ const CreateBrandPage = () => {
         <Input
           name="description"
           register={register}
-          // error={formErrors.description?.message}
           type="text"
           label="Description"
           multiline

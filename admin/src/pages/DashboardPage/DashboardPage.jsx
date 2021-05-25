@@ -9,10 +9,9 @@ const DashboardPage = () => {
   const getStatistics = async () => {
     try {
       const { data } = await api.getStatistics();
-      console.log(data);
       setStatistics(data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
