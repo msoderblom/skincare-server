@@ -15,6 +15,7 @@ import * as S from "./styled";
 import Moment from "react-moment";
 import "moment-timezone";
 import ActionMenu from "../../../components/ActionMenu/ActionMenu";
+import Button from "../../../components/Button";
 
 const BrandsPage = () => {
   const dispatch = useDispatch();
@@ -33,10 +34,11 @@ const BrandsPage = () => {
 
   return (
     <S.Container>
-      <p>BrandsPage</p>
+      <h1>All Brands</h1>
+      <Button title="New Brand" link="/k-beauty/brands/create" />
       {loading && <CircularProgress />}
 
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} style={{ marginTop: 20 }}>
         {brands && brands.length > 0 && !loading && (
           <Table
             stickyHeader

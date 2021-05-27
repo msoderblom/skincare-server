@@ -27,9 +27,9 @@ const CreateResellerPage = () => {
   };
   return (
     <S.Container>
-      <p>CreateResellerPage</p>
+      <h1>Create Reseller</h1>
 
-      <form onSubmit={handleSubmit(handleCreateReseller)}>
+      <S.Form onSubmit={handleSubmit(handleCreateReseller)}>
         <Input
           name="name"
           register={register}
@@ -60,10 +60,15 @@ const CreateResellerPage = () => {
             type="text"
             label="URL"
             required
+            style={{ marginTop: 20 }}
           />
         </FormGroup>
-        <Button title="Create Reseller" type="submit" />
-      </form>
+        <Button
+          title="Create Reseller"
+          type="submit"
+          style={{ gridColumn: "2 / 3" }}
+        />
+      </S.Form>
       {errors.createReseller && <span>{errors.createReseller}</span>}
     </S.Container>
   );

@@ -3,9 +3,16 @@ import * as S from "./styled";
 import { Button as MaterialButton } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
-const Button = ({ link, title, color = "primary", ...props }) => {
+const Button = ({
+  link,
+  title,
+  color = "primary",
+  style,
+  className,
+  ...props
+}) => {
   return (
-    <S.Container>
+    <S.Container style={style} className={className}>
       {link ? (
         <Link
           onClick={(e) => !link && e.preventDefault()}

@@ -33,13 +33,13 @@ const ResellersPage = () => {
 
   return (
     <S.Container>
-      <p>ResellerPage</p>
+      <h1>All Resellers</h1>
 
       <Button title="New Reseller" link="/k-beauty/resellers/create" />
 
       {loading && <CircularProgress />}
 
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} style={{ marginTop: 20 }}>
         {resellers && resellers.length > 0 && !loading && (
           <Table
             stickyHeader

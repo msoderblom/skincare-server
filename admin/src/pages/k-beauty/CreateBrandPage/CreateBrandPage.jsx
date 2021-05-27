@@ -13,10 +13,12 @@ import Input from "../../../components/Input";
 import { resellerActions } from "../../../redux/k-beauty/resellers";
 import { brandActions } from "../../../redux/k-beauty/brands";
 import * as S from "./styled";
+import { useHistory } from "react-router";
 
 const CreateBrandPage = () => {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
+  const history = useHistory();
   const { errors } = useSelector((state) => state.kBeauty.brands);
   const { resellers } = useSelector((state) => state.kBeauty.resellers);
 
@@ -37,7 +39,7 @@ const CreateBrandPage = () => {
       resellers: selectedResellers,
     };
 
-    dispatch(brandActions.createBrand(payload));
+    dispatch(brandActions.createBrand(payload, history));
   };
 
   const handleCheckboxChange = (id) => {
@@ -54,8 +56,8 @@ const CreateBrandPage = () => {
   };
   return (
     <S.Container>
-      <p>CreateBrandPage</p>
-      <form onSubmit={handleSubmit(handleCreateBrand)}>
+      <h1>Create Brand</h1>
+      <S.Form onSubmit={handleSubmit(handleCreateBrand)}>
         <Input
           name="name"
           register={register}
@@ -91,9 +93,13 @@ const CreateBrandPage = () => {
               ))}
           </FormGroup>
         </FormControl>
-        <Button title="Create Brand" type="submit" />
+        <Button
+          title="Create Brand"
+          type="submit"
+          style={{ gridColumn: "2 / 3" }}
+        />
         {errors.createBrand && <span>{errors.createBrand}</span>}
-      </form>
+      </S.Form>
     </S.Container>
   );
 };

@@ -119,6 +119,11 @@ const App = () => {
           />
           <ProtectedRoute
             exact
+            path="/k-beauty/brands/create"
+            component={CreateBrandPage}
+          />
+          <ProtectedRoute
+            exact
             path="/k-beauty/brands/:id/edit"
             render={(props) => <BrandDetailPage {...props} edit />}
           />
@@ -126,11 +131,6 @@ const App = () => {
             exact
             path="/k-beauty/brands/:id"
             component={BrandDetailPage}
-          />
-          <ProtectedRoute
-            exact
-            path="/k-beauty/brands/create"
-            component={CreateBrandPage}
           />
           <ProtectedRoute
             exact

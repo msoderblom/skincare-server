@@ -43,7 +43,7 @@ const SocialLinkInput = ({
 
   return (
     <S.Container>
-      <p>SocialLinkInput</p>
+      <p style={{ fontWeight: "bold" }}>Social Link</p>
       <FormGroup>
         <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel id="demo-simple-select-outlined-label">

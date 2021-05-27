@@ -55,7 +55,7 @@ const ForumPage = () => {
 
   return (
     <S.Container>
-      <p>ForumPage</p>
+      <h1>All Threads</h1>
 
       {loading && <CircularProgress />}
 

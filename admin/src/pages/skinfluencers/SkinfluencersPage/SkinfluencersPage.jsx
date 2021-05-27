@@ -43,11 +43,11 @@ const SkinfluencersPage = () => {
   return (
     <>
       <S.Container>
-        <p>SkinfluencersPage</p>
+        <h1>All Skinfluencers</h1>
 
         <Button title="New Skinfluencer" link="/skinfluencers/create" />
         {loading && <CircularProgress />}
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} style={{ marginTop: 20 }}>
           {skinfluencers && skinfluencers.length > 0 && !loading && (
             <Table
               stickyHeader

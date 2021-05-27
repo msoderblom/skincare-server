@@ -1,7 +1,7 @@
 import * as actionTypes from "./types";
 import * as api from "../../../api";
 
-export const createBrand = (formData) => async (dispatch) => {
+export const createBrand = (formData, history) => async (dispatch) => {
   dispatch({ type: actionTypes.CREATE_BRAND_REQUEST });
 
   try {
@@ -10,6 +10,7 @@ export const createBrand = (formData) => async (dispatch) => {
     } = await api.createBrand(formData);
 
     dispatch({ type: actionTypes.CREATE_BRAND_SUCCESS, payload: brand });
+    history.push("/k-beauty/brands");
   } catch (error) {
     dispatch({
       type: actionTypes.CREATE_BRAND_FAILURE,

@@ -1,20 +1,12 @@
 import React from "react";
 import * as S from "./styled";
-// import { Link, useHistory, useLocation } from "react-router-dom";
-// import { useDispatch, useSelector } from "react-redux";
-// import { postActions } from "../../redux/blog/posts";
 import BlogPostTable from "./components/BlogPostTable";
 import Button from "../../../components/Button";
 
 const BlogPage = () => {
-  /*   const dispatch = useDispatch();
-  const location = useLocation();
-  const history = useHistory(); */
-
   return (
     <S.Container>
-      <p>BlogPage</p>
-
+      <h1>All Posts</h1>
       <Button title="New Post" link="/blog/create-post" />
       <BlogPostTable />
     </S.Container>

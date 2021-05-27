@@ -69,7 +69,7 @@ const CreatePostPage = () => {
   };
   return (
     <S.Container>
-      <p>CreatePostPage</p>
+      <h1>Create Post</h1>
 
       <form onSubmit={handleSubmit(handleCreatePost)}>
         <ImageDropZone

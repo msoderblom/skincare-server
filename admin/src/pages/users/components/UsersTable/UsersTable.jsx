@@ -52,7 +52,6 @@ const UsersTable = () => {
   };
   return (
     <S.Container>
-      <p>UsersTable</p>
       {loading && <CircularProgress />}
 
       <TableContainer component={Paper}>

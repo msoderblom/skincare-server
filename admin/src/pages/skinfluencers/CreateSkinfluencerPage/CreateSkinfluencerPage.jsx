@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { TextField, FormControlLabel, Checkbox } from "@material-ui/core";
-
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import * as S from "./styled";
@@ -43,16 +42,17 @@ const CreateSkinfluencerPage = () => {
 
   return (
     <S.Container>
-      <p>CreateSkinfluencerPage</p>
+      <h1>Create Skinfluencer</h1>
       {/* TODO: Add field for uploading an image of the person */}
 
-      <form onSubmit={handleSubmit(handleCreateSkinfluencer)}>
+      <S.Form onSubmit={handleSubmit(handleCreateSkinfluencer)}>
         <Input
           name="name"
           register={register}
           type="text"
           label="Name"
           required
+          style={{ gridColumn: "span 2" }}
         />
         <Input
           name="title"
@@ -60,6 +60,7 @@ const CreateSkinfluencerPage = () => {
           type="text"
           label="Title (e.g. dermatologist or youtuber)"
           required
+          style={{ gridColumn: "span 2" }}
         />
         <FormControlLabel
           control={
@@ -72,6 +73,7 @@ const CreateSkinfluencerPage = () => {
             />
           }
           label="The skinfluencer has a professional title"
+          style={{ gridColumn: "span 2" }}
         />
         <TextField
           name="about"
@@ -83,23 +85,29 @@ const CreateSkinfluencerPage = () => {
           inputRef={register}
           helperText={errors.about?.message}
           error={errors.about}
+          style={{ gridColumn: "span 2" }}
         />
+        <div style={{ gridColumn: "span 2" }}>
+          {socialLinks.length > 0 &&
+            socialLinks.map((socialLink, index) => (
+              <SocialLinkInput
+                key={index}
+                socialLink={socialLink}
+                index={index}
+                socialLinks={socialLinks}
+                setSocialLinks={setSocialLinks}
+              />
+            ))}
 
-        {socialLinks.length > 0 &&
-          socialLinks.map((socialLink, index) => (
-            <SocialLinkInput
-              key={index}
-              socialLink={socialLink}
-              index={index}
-              socialLinks={socialLinks}
-              setSocialLinks={setSocialLinks}
-            />
-          ))}
-
-        <Button title="Add Social Link" onClick={handleAddSocialLink} />
-        <Button title="Create Skinfluencer" type="submit" />
+          <Button
+            title="Add Social Link"
+            onClick={handleAddSocialLink}
+            style={{ marginTop: 20 }}
+          />
+        </div>
+        <S.SubmitBtn title="Create Skinfluencer" type="submit" />
         {createSkinfluencerError && <span>{createSkinfluencerError}</span>}
-      </form>
+      </S.Form>
     </S.Container>
   );
 };

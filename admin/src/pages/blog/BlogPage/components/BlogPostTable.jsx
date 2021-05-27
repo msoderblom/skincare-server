@@ -53,7 +53,6 @@ const BlogPostTable = () => {
   };
   return (
     <S.Container>
-      <p>BlogPostTable</p>
       {loading && <CircularProgress />}
 
       <TableContainer component={Paper}>

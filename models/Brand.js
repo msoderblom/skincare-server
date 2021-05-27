@@ -41,7 +41,9 @@ BrandSchema.pre("save", async function (next) {
 });
 BrandSchema.pre("updateOne", async function (next) {
   const data = this.getUpdate();
-  data.slug = slugify(data.name, { lower: true });
+  if (data.name) {
+    data.slug = slugify(data.name, { lower: true });
+  }
   next();
 });
 
